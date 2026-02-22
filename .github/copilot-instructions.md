@@ -1,5 +1,5 @@
 ---
-applyTo: "docs_testcase/**"
+applyTo: "docs/**"
 ---
 
 > **⚠️ Before completing ANY task that creates new files or folders in `docs/`, execute the Self-Maintenance Checklist below.**
@@ -57,7 +57,7 @@ After creating **any** new artifact folder or diagram type inside `docs/`, you *
 5. ☐ **`change_log/changeLog.md`** — Add or update the version entry for every artifact created or changed
 
 ---
-applyTo: "docs_testcase/domain_model/**"
+applyTo: "docs/domain_model/**"
 ---
 
 # Domain Model Conventions
@@ -91,7 +91,7 @@ applyTo: "docs_testcase/domain_model/**"
 - Relationships: `Bank "1" -- "1..*" ATM : operates >`
 
 ---
-applyTo: "docs_testcase/business_process/**"
+applyTo: "docs/business_process/**"
 ---
 
 # Business Process Conventions
@@ -132,7 +132,7 @@ Add a text legend above the diagram: `**Legend:** 🟦 Customer 🟨 ATM System 
 **General:** Include happy + error paths. All terminal paths end at `(("End"))`. Node IDs in camelCase.
 
 ---
-applyTo: "docs_testcase/use_case/**"
+applyTo: "docs/use_case/**"
 ---
 
 # Use-Case Diagram Conventions
@@ -218,7 +218,7 @@ Each use case from the use-case diagram gets its own **subfolder** under `use_ca
 - Keep labels concise — max 2 lines using `\n`
 
 ---
-applyTo: "docs_testcase/state_chart/**"
+applyTo: "docs/state_chart/**"
 ---
 
 # State Chart Conventions
@@ -260,7 +260,7 @@ applyTo: "docs_testcase/state_chart/**"
 - Keep transition labels concise — max 2 lines using `\n`
 
 ---
-applyTo: "docs_testcase/epics/**"
+applyTo: "docs/epics/**"
 ---
 
 # Epic & User Story Conventions
@@ -331,7 +331,7 @@ Every user story file follows this structure:
 - Each acceptance criterion must be independently testable
 
 ---
-applyTo: "docs_testcase/change_log/**"
+applyTo: "docs/change_log/**"
 ---
 
 # Change Log & Version Tracking Conventions
