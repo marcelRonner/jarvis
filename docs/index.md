@@ -1,6 +1,7 @@
 # ATM System Documentation
 
 Welcome to the documentation for the **ATM example system**.
+This is a demo case that is served from https://github.com/marcelRonner/jarvis/ and is only for educational purposes. Reach out to the author in case of questions. 
 
 ## Artifacts
 
