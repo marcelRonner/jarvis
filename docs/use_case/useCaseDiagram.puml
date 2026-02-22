@@ -1,0 +1,55 @@
+@startuml UseCaseDiagram
+left to right direction
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+
+title Use-Case Diagram – ATM System
+
+' --- Actors ---
+' Customer: primary actor from Business Process (🟦 Customer)
+actor "Customer" as customer <<Person>>
+' Bank Backend: supporting actor from Business Process (🟩 Bank Backend)
+actor "Bank Backend" as bank <<System>>
+
+' --- System boundary ---
+rectangle "ATM System" {
+
+  ' Main use cases – each represents a goal the user
+  ' wants to achieve (see Business Process steps)
+  usecase "Withdraw Cash"    as UC_Withdraw
+  usecase "Check Balance"    as UC_Balance
+  usecase "Transfer Funds"   as UC_Transfer
+
+  ' Supporting use cases
+  usecase "Authenticate\n(Card & PIN)" as UC_Auth
+  usecase "Print Receipt"               as UC_Receipt
+}
+
+' --- Customer associations ---
+customer -- UC_Withdraw
+customer -- UC_Balance
+customer -- UC_Transfer
+
+' --- Include relationships ---
+' Authentication is mandatory before any transaction
+' (Business Process steps 1.1–2.2)
+UC_Withdraw ..> UC_Auth   : <<include>>
+UC_Balance  ..> UC_Auth   : <<include>>
+UC_Transfer ..> UC_Auth   : <<include>>
+
+' --- Extend relationships ---
+' Printing a receipt is optional after every transaction
+' (Business Process step 5.2 / 5.3)
+UC_Withdraw ..> UC_Receipt : <<extend>>
+UC_Balance  ..> UC_Receipt : <<extend>>
+UC_Transfer ..> UC_Receipt : <<extend>>
+
+' --- Bank Backend associations ---
+' The Bank Backend validates credentials, processes
+' transactions, and records audit logs
+UC_Withdraw -- bank
+UC_Balance  -- bank
+UC_Transfer -- bank
+UC_Auth     -- bank
+
+@enduml

@@ -1,0 +1,38 @@
+/* ==========================================================================
+   Version-change markers for MkDocs
+   Used to visually highlight new, changed, deprecated, or removed elements.
+   Add to elements via Markdown attr_list: {: .v-new } or {: .v-changed }
+   Cleanup rule: remove markers after 2 subsequent versions.
+   ========================================================================== */
+
+/* 🟢 New element */
+.v-new {
+    border-left: 4px solid #38A169;
+    padding-left: 0.75em;
+    background-color: #F0FFF4;
+}
+
+/* 🟡 Changed element */
+.v-changed {
+    border-left: 4px solid #D69E2E;
+    padding-left: 0.75em;
+    background-color: #FFFFF0;
+}
+
+/* 🔴 Deprecated element */
+.v-deprecated {
+    border-left: 4px solid #E53E3E;
+    padding-left: 0.75em;
+    background-color: #FFF5F5;
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+/* ⚫ Removed element (for change log display only) */
+.v-removed {
+    border-left: 4px solid #718096;
+    padding-left: 0.75em;
+    background-color: #F7FAFC;
+    opacity: 0.5;
+    text-decoration: line-through;
+}

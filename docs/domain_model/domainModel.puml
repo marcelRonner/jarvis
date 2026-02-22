@@ -1,0 +1,98 @@
+@startuml DomainModel
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontStyle bold
+
+title Domain Model – ATM System
+
+class Bank {
+  bankCode : String
+  name : String
+  swiftCode : String
+}
+
+class ATM {
+  atmId : String
+  location : String
+  status : Enum {ONLINE, OFFLINE, OUT_OF_SERVICE}
+}
+
+class Customer {
+  customerId : String
+  firstName : String
+  lastName : String
+  dateOfBirth : Date
+}
+
+class Account {
+  accountNumber : String
+  accountType : Enum {CHECKING, SAVINGS}
+  balance : Decimal
+  currency : String
+  dailyLimit : Decimal
+}
+
+class Card {
+  cardNumber : String
+  cardType : Enum {DEBIT, CREDIT}
+  expirationDate : Date
+  pin : String
+  isBlocked : Boolean
+}
+
+class Session {
+  sessionId : String
+  startTime : DateTime
+  endTime : DateTime
+  status : Enum {ACTIVE, COMPLETED, TIMED_OUT}
+}
+
+class Transaction {
+  transactionId : String
+  transactionType : Enum {WITHDRAWAL, DEPOSIT, TRANSFER, BALANCE_INQUIRY}
+  amount : Decimal
+  currency : String
+  timestamp : DateTime
+  status : Enum {PENDING, COMPLETED, FAILED, REVERSED}
+}
+
+class Receipt {
+  receiptId : String
+  printedAt : DateTime
+  content : String
+}
+
+class CashDispenser {
+  dispenserId : String
+  totalCashAvailable : Decimal
+  lastRefillDate : DateTime
+}
+
+class CashCassette {
+  cassetteId : String
+  denomination : Decimal
+  quantity : Integer
+}
+
+class AuditLog {
+  logId : String
+  eventType : String
+  timestamp : DateTime
+  detail : String
+}
+
+' Relationships
+Bank "1" -- "1..*" ATM : operates >
+Bank "1" -- "1..*" Customer : serves >
+Customer "1" -- "1..*" Account : owns >
+Account "1" -- "1..*" Card : is linked to >
+ATM "1" -- "0..*" Session : hosts >
+Session "1" -- "1" Card : is authenticated by >
+Session "1" -- "1..*" Transaction : contains >
+Transaction "1" -- "0..1" Receipt : generates >
+ATM "1" -- "1" CashDispenser : contains >
+CashDispenser "1" -- "1..*" CashCassette : holds >
+ATM "1" -- "0..*" AuditLog : records >
+Transaction "1" -- "1" Account : affects >
+
+@enduml

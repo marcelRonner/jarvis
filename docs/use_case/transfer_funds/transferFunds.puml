@@ -1,0 +1,26 @@
+@startuml TransferFunds
+!theme plain
+title Activity Diagram – Transfer Funds
+
+start
+
+:Customer selects target Account;
+:Customer enters transfer amount;
+
+:Bank Backend creates Transaction\n(type = TRANSFER, status = PENDING);
+:Bank Backend debits source Account;
+:Bank Backend credits target Account;
+
+if (Transfer processed successfully?) then (yes)
+  :Bank Backend updates Transaction\n(status = COMPLETED);
+  :Bank Backend writes AuditLog entry;
+  stop
+else (no)
+  :Bank Backend reverses Account changes;
+  :Bank Backend updates Transaction\n(status = FAILED);
+  :Bank Backend writes AuditLog entry;
+  :Display "Transfer failed";
+  stop
+endif
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml PrintReceipt
+!theme plain
+title Activity Diagram – Print Receipt
+
+start
+
+if (Customer wants a Receipt?) then (yes)
+  :ATM generates Receipt\nwith Transaction details;
+  :ATM prints Receipt;
+else (no)
+endif
+
+stop
+
+@enduml

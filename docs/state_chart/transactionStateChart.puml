@@ -1,0 +1,18 @@
+@startuml TransactionStateChart
+!theme plain
+skinparam stateFontStyle bold
+
+title State Chart – Transaction
+
+[*] --> PENDING : Bank Backend\ncreates Transaction
+
+PENDING --> COMPLETED : Bank Backend updates\nTransaction (status = COMPLETED)
+PENDING --> FAILED : Bank Backend updates\nTransaction (status = FAILED)
+
+state PENDING : type, amount, currency,\ntimestamp assigned
+
+state COMPLETED : Processing finished successfully
+
+state FAILED : Processing error,\nchanges reversed
+
+@enduml

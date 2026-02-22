@@ -1,0 +1,41 @@
+@startuml WithdrawCash
+!theme plain
+title Activity Diagram – Withdraw Cash
+
+start
+
+:Customer enters withdrawal amount;
+
+if (Amount within daily limit?) then (yes)
+  if (Sufficient balance on Account?) then (yes)
+    if (CashDispenser has sufficient cash?) then (yes)
+      :Bank Backend creates Transaction\n(type = WITHDRAWAL, status = PENDING);
+      :Bank Backend debits Account;
+      :ATM ejects Card;
+      :ATM dispenses cash;
+      if (Cash dispensed successfully?) then (yes)
+        :ATM updates CashCassette quantities;
+        :Bank Backend updates Transaction\n(status = COMPLETED);
+        :Bank Backend writes AuditLog entry;
+        stop
+      else (no)
+        :Bank Backend reverses Account debit;
+        :Bank Backend updates Transaction\n(status = FAILED);
+        :Bank Backend writes AuditLog entry;
+        :Display "Dispensing error";
+        stop
+      endif
+    else (no)
+      :Display "ATM out of cash";
+      stop
+    endif
+  else (no)
+    :Display "Insufficient funds";
+    stop
+  endif
+else (no)
+  :Display "Amount exceeds daily limit";
+  stop
+endif
+
+@enduml

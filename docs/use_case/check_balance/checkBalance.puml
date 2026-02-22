@@ -1,0 +1,15 @@
+@startuml CheckBalance
+!theme plain
+title Activity Diagram – Check Balance
+
+start
+
+:Bank Backend creates Transaction\n(type = BALANCE_INQUIRY, status = PENDING);
+:Bank Backend retrieves Account balance;
+:ATM displays balance on screen;
+:Bank Backend updates Transaction\n(status = COMPLETED);
+:Bank Backend writes AuditLog entry;
+
+stop
+
+@enduml

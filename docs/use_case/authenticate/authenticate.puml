@@ -1,0 +1,35 @@
+@startuml Authenticate
+!theme plain
+title Activity Diagram – Authenticate (Card & PIN)
+
+start
+
+:Customer inserts Card into ATM;
+:ATM reads Card data;
+
+if (Card valid and not blocked?) then (yes)
+  :Customer enters PIN;
+  :Bank Backend validates PIN;
+
+  while (PIN invalid?) is (yes)
+    if (Attempts remaining?) then (yes)
+      :Customer re-enters PIN;
+      :Bank Backend validates PIN;
+    else (no)
+      :ATM blocks Card;
+      :ATM retains Card;
+      :Display "Card blocked" error;
+      stop
+    endif
+  endwhile (no)
+
+  :ATM creates Session\n(status = ACTIVE);
+  stop
+
+else (no)
+  :ATM retains Card;
+  :Display "Card invalid" error;
+  stop
+endif
+
+@enduml

@@ -1,0 +1,74 @@
+site_name: ATM System Documentation
+site_description: Documentation for the ATM example system
+site_url: https://marcelronner.github.io/ai/
+
+theme:
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:
+    - python
+    - javascript
+    - yaml
+    - json
+
+markdown_extensions:
+  - tables
+  - attr_list
+  - def_list
+  - admonition
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - System Context: 
+    - Domain Model: domain_model/domainModel.md
+    - Business Process: business_process/businessProcess.md
+  - Functional View:
+    - Use Case Overview: use_case/useCaseDiagram.md
+    - Actor Descriptions: use_case/actorDescriptions.md
+    - Use Case Descriptions: 
+      - Authenticate: use_case/authenticate/authenticate.md
+      - Withdraw Cash: use_case/withdraw_cash/withdrawCash.md
+      - Check Balance: use_case/check_balance/checkBalance.md
+      - Transfer Funds: use_case/transfer_funds/transferFunds.md
+      - Print Receipt: use_case/print_receipt/printReceipt.md
+    - State Charts:
+      - Transaction: state_chart/transactionStateChart.md
+  - Implementation View:
+    - Epics / Story Map: epics/epics.md
+    - User Stories:
+      - US-1.1 Insert Card and Validate: epics/user_stories/us_1_1.md
+      - US-1.2 Enter PIN and Create Session: epics/user_stories/us_1_2.md
+      - US-1.3 Retry PIN on Invalid Entry: epics/user_stories/us_1_3.md
+      - US-1.4 Block Card After Failed PIN Attempts: epics/user_stories/us_1_4.md
+      - US-2.1 Enter Amount and Receive Cash: epics/user_stories/us_2_1.md
+      - US-2.2 Enforce Account Daily Limit: epics/user_stories/us_2_2.md
+      - US-2.3 Verify Sufficient Account Balance: epics/user_stories/us_2_3.md
+      - US-2.4 Check CashDispenser Availability: epics/user_stories/us_2_4.md
+      - US-2.5 Handle Cash Dispensing Failure: epics/user_stories/us_2_5.md
+      - US-2.6 Eject Card Before Cash: epics/user_stories/us_2_6.md
+      - US-3.1 View Account Balance: epics/user_stories/us_3_1.md
+      - US-4.1 Select Target and Transfer Funds: epics/user_stories/us_4_1.md
+      - US-4.2 Handle Transfer Processing Error: epics/user_stories/us_4_2.md
+      - US-5.1 Print Receipt After Transaction: epics/user_stories/us_5_1.md
+      - US-5.2 Decline Receipt Printing: epics/user_stories/us_5_2.md
+  - Changes: 
+    - Change Log: change_log/changeLog.md
+
+plugins:
+  - search
+
+extra_css:
+  - assets/css/version-markers.css
+
+extra_javascript:
+  - https://unpkg.com/mermaid@10.4.0/dist/mermaid.min.js
+  - assets/js/mermaid-init.js

@@ -1,0 +1,45 @@
+name: Deploy MkDocs to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs_testcase/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs_testcase
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install PlantUML
+        run: sudo apt-get update && sudo apt-get install -y plantuml
+
+      - name: Generate PlantUML diagrams
+        run: |
+          plantuml -tsvg -o "${{ github.workspace }}/docs_testcase/docs/assets/img" docs/domain_model/domainModel.puml
+          plantuml -tsvg -o "${{ github.workspace }}/docs_testcase/docs/assets/img" docs/use_case/useCaseDiagram.puml
+          plantuml -tsvg -o "${{ github.workspace }}/docs_testcase/docs/assets/img" docs/use_case/authenticate/authenticate.puml
+          plantuml -tsvg -o "${{ github.workspace }}/docs_testcase/docs/assets/img" docs/use_case/withdraw_cash/withdrawCash.puml
+          plantuml -tsvg -o "${{ github.workspace }}/docs_testcase/docs/assets/img" docs/use_case/check_balance/checkBalance.puml
+          plantuml -tsvg -o "${{ github.workspace }}/docs_testcase/docs/assets/img" docs/use_case/transfer_funds/transferFunds.puml
+          plantuml -tsvg -o "${{ github.workspace }}/docs_testcase/docs/assets/img" docs/use_case/print_receipt/printReceipt.puml
+          plantuml -tsvg -o "${{ github.workspace }}/docs_testcase/docs/assets/img" docs/state_chart/transactionStateChart.puml
+
+      - name: Build MkDocs
+        run: mkdocs build
