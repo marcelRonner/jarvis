@@ -1,4 +1,4 @@
-name: Deploy MkDocs to GitHub Pages
+name: Build MKdocs Site
 
 on:
   push:
@@ -26,18 +26,22 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Install PlantUML
-        run: sudo apt-get update && sudo apt-get install -y plantuml
+        run: |
+          sudo apt-get update && sudo apt-get install -y default-jre graphviz
+          curl -L -o plantuml.jar https://github.com/plantuml/plantuml/releases/download/v1.2024.8/plantuml-1.2024.8.jar
 
       - name: Generate PlantUML diagrams
         run: |
-          plantuml -tsvg -o "${{ github.workspace }}/docs/assets/img" docs/domain_model/domainModel.puml
-          plantuml -tsvg -o "${{ github.workspace }}/docs/assets/img" docs/use_case/useCaseDiagram.puml
-          plantuml -tsvg -o "${{ github.workspace }}/docs/assets/img" docs/use_case/authenticate/authenticate.puml
-          plantuml -tsvg -o "${{ github.workspace }}/docs/assets/img" docs/use_case/withdraw_cash/withdrawCash.puml
-          plantuml -tsvg -o "${{ github.workspace }}/docs/assets/img" docs/use_case/check_balance/checkBalance.puml
-          plantuml -tsvg -o "${{ github.workspace }}/docs/assets/img" docs/use_case/transfer_funds/transferFunds.puml
-          plantuml -tsvg -o "${{ github.workspace }}/docs/assets/img" docs/use_case/print_receipt/printReceipt.puml
-          plantuml -tsvg -o "${{ github.workspace }}/docs/assets/img" docs/state_chart/transactionStateChart.puml
+          PUML="java -jar ${{ github.workspace }}/plantuml.jar"
+          OUT="${{ github.workspace }}/docs/assets/img"
+          $PUML -tsvg -o "$OUT" docs/domain_model/domainModel.puml
+          $PUML -tsvg -o "$OUT" docs/use_case/useCaseDiagram.puml
+          $PUML -tsvg -o "$OUT" docs/use_case/authenticate/authenticate.puml
+          $PUML -tsvg -o "$OUT" docs/use_case/withdraw_cash/withdrawCash.puml
+          $PUML -tsvg -o "$OUT" docs/use_case/check_balance/checkBalance.puml
+          $PUML -tsvg -o "$OUT" docs/use_case/transfer_funds/transferFunds.puml
+          $PUML -tsvg -o "$OUT" docs/use_case/print_receipt/printReceipt.puml
+          $PUML -tsvg -o "$OUT" docs/state_chart/transactionStateChart.puml
 
       - name: Build MkDocs
         run: mkdocs build
