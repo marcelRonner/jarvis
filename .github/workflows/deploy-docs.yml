@@ -42,3 +42,11 @@ jobs:
 
       - name: Build MkDocs
         run: mkdocs build
+      
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # server-dir: ./public_html/ # Change this to the folder on your server
