@@ -22,6 +22,6 @@ This page lists all epics required to build the ATM system. Each epic realises e
 | | | [US-2.6](user_stories/us_2_6.md) Eject Card Before Cash | | | |
 | | [US-1.2](user_stories/us_1_2.md) Enter PIN and Create Session | | | | |
 | **R2 – Core Transactions** | [US-1.3](user_stories/us_1_3.md) Retry PIN on Invalid Entry | [US-2.2](user_stories/us_2_2.md) Enforce Account Daily Limit | | [US-4.1](user_stories/us_4_1.md) Select Target Account and Transfer Funds | [US-5.1](user_stories/us_5_1.md) Print Receipt After Transaction |
-| | | [US-2.3](user_stories/us_2_3.md) Verify Sufficient Account Balance | | | |
+| | | [US-2.3](user_stories/us_2_3.md) Verify Sufficient Account Balance | | | [US-5.3](user_stories/us_5_3.md) Show Account Balance on Receipt |
 | **R3 – Robustness & Security** | [US-1.4](user_stories/us_1_4.md) Block Card After Failed PIN Attempts | [US-2.4](user_stories/us_2_4.md) Check CashDispenser Availability | | [US-4.2](user_stories/us_4_2.md) Handle Transfer Processing Error | [US-5.2](user_stories/us_5_2.md) Decline Receipt Printing |
 | | | [US-2.5](user_stories/us_2_5.md) Handle Cash Dispensing Failure | | | |

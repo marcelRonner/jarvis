@@ -14,7 +14,8 @@ This use case describes the optional receipt printing flow after any ATM Transac
 ## Postconditions
 
 **Customer chooses to print:**
-- A Receipt is generated containing the Transaction details
+- The ATM retrieves the current Account `balance`
+- A Receipt is generated containing the Transaction details and the current Account `balance`
 - The Receipt is physically printed and handed to the Customer
 
 **Customer declines:**
@@ -24,7 +25,7 @@ This use case describes the optional receipt printing flow after any ATM Transac
 
 ## Description
 
-After completing a Transaction (withdrawal, balance inquiry, or transfer), the ATM asks the Customer whether they want a printed Receipt. If the Customer accepts, the ATM generates a Receipt with the Transaction details and prints it. If the Customer declines, the flow continues without printing.
+After completing a Transaction (withdrawal, balance inquiry, or transfer), the ATM asks the Customer whether they want a printed Receipt. If the Customer accepts, the ATM retrieves the current Account `balance`, generates a Receipt with the Transaction details and the Account `balance`, and prints it. If the Customer declines, the flow continues without printing.
 
 ---
 

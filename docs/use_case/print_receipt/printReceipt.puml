@@ -5,7 +5,8 @@ title Activity Diagram – Print Receipt
 start
 
 if (Customer wants a Receipt?) then (yes)
-  :ATM generates Receipt\nwith Transaction details;
+  :ATM retrieves current Account balance;
+  :ATM generates Receipt\nwith Transaction details\nand Account balance;
   :ATM prints Receipt;
 else (no)
 endif

@@ -60,6 +60,7 @@ nav:
       - US-4.2 Handle Transfer Processing Error: epics/user_stories/us_4_2.md
       - US-5.1 Print Receipt After Transaction: epics/user_stories/us_5_1.md
       - US-5.2 Decline Receipt Printing: epics/user_stories/us_5_2.md
+      - US-5.3 Show Account Balance on Receipt: epics/user_stories/us_5_3.md
   - Changes: 
     - Change Log: change_log/changeLog.md
 

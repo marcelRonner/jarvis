@@ -15,6 +15,20 @@ Each version section lists **every artifact that was created or changed**, with 
 
 ---
 
+## v1.2 – Account Balance on Receipt (2026-03-02)
+
+Every printed Receipt now includes the current Account `balance` so the Customer always knows their remaining funds after a Transaction.
+
+| Artifact | Status | Description |
+|---|---|---|
+| [UC: Print Receipt](../use_case/print_receipt/printReceipt.md) | 🟡 changed | Postconditions and description updated to mandate Account `balance` on every Receipt |
+| [UC: Print Receipt (PlantUML)](../use_case/print_receipt/printReceipt.puml) | 🟡 changed | Activity diagram updated with "ATM retrieves current Account balance" step |
+| [Epics & Story Map](../epics/epics.md) | 🟡 changed | US-5.3 added to R2 – Core Transactions |
+| [US-5.1](../epics/user_stories/us_5_1.md) | 🟡 changed | Conversation and confirmation updated to reference Account `balance` on Receipt |
+| [US-5.3](../epics/user_stories/us_5_3.md) | 🟢 new | "Show Account Balance on Receipt" — MUST/Basic, R2 Core Transactions |
+
+---
+
 ## v1.1 – Eject Card Before Cash Dispensing (2026-02-22)
 
 Card is now ejected before cash is dispensed in the withdrawal path, preventing Customers from forgetting their Card. The Session remains `ACTIVE` after Card ejection. Non-withdrawal paths are unchanged.
