@@ -15,6 +15,20 @@ Each version section lists **every artifact that was created or changed**, with 
 
 ---
 
+## v1.3 – Masked Card Number on Receipt (2026-04-03)
+
+Every printed Receipt now includes the Card `cardNumber` in masked form (e.g. `**** **** **** 1234`) so the Customer can identify which Card was used without exposing the full number.
+
+| Artifact | Status | Description |
+|---|---|---|
+| [UC: Print Receipt](../use_case/print_receipt/printReceipt.md) | 🟡 changed | Postconditions and description updated to include masked Card `cardNumber` on every Receipt |
+| [UC: Print Receipt (PlantUML)](../use_case/print_receipt/printReceipt.puml) | 🟡 changed | Activity diagram updated with "ATM retrieves Card cardNumber from Session and masks it" step |
+| [US-5.1](../epics/user_stories/us_5_1.md) | 🟡 changed | Conversation and confirmation updated to reference masked Card `cardNumber` |
+| [US-5.4](../epics/user_stories/us_5_4.md) | 🟢 new | "Show Masked Card Number on Receipt" — MUST/Basic, R2 Core Transactions |
+| [Epics & Story Map](../epics/epics.md) | 🟡 changed | US-5.4 added to R2 – Core Transactions |
+
+---
+
 ## v1.2 – Account Balance on Receipt (2026-03-02)
 
 Every printed Receipt now includes the current Account `balance` so the Customer always knows their remaining funds after a Transaction.

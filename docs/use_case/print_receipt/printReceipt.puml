@@ -6,7 +6,8 @@ start
 
 if (Customer wants a Receipt?) then (yes)
   :ATM retrieves current Account balance;
-  :ATM generates Receipt\nwith Transaction details\nand Account balance;
+  :ATM retrieves Card cardNumber\nfrom Session and masks it;
+  :ATM generates Receipt\nwith Transaction details,\nAccount balance,\nand masked Card cardNumber;
   :ATM prints Receipt;
 else (no)
 endif

@@ -15,7 +15,8 @@ This use case describes the optional receipt printing flow after any ATM Transac
 
 **Customer chooses to print:**
 - The ATM retrieves the current Account `balance`
-- A Receipt is generated containing the Transaction details and the current Account `balance`
+- The ATM retrieves the Card `cardNumber` from the Session and masks it (e.g. `**** **** **** 1234`)
+- A Receipt is generated containing the Transaction details, the current Account `balance`, and the masked Card `cardNumber`
 - The Receipt is physically printed and handed to the Customer
 
 **Customer declines:**
@@ -25,7 +26,7 @@ This use case describes the optional receipt printing flow after any ATM Transac
 
 ## Description
 
-After completing a Transaction (withdrawal, balance inquiry, or transfer), the ATM asks the Customer whether they want a printed Receipt. If the Customer accepts, the ATM retrieves the current Account `balance`, generates a Receipt with the Transaction details and the Account `balance`, and prints it. If the Customer declines, the flow continues without printing.
+After completing a Transaction (withdrawal, balance inquiry, or transfer), the ATM asks the Customer whether they want a printed Receipt. If the Customer accepts, the ATM retrieves the current Account `balance` and the Card `cardNumber` from the Session, masks the Card `cardNumber` (showing only the last four digits, e.g. `**** **** **** 1234`), generates a Receipt with the Transaction details, the Account `balance`, and the masked Card `cardNumber`, and prints it. If the Customer declines, the flow continues without printing.
 
 ---
 
