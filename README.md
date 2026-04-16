@@ -1,4 +1,4 @@
-This is Jarvis, the BA documentation Agent
+Meet Jarvis, the Business Analysis context and requirements engineering agent. 
 
 This is an educational example. 
 
