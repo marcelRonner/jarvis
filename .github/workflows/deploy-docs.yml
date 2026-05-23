@@ -39,6 +39,8 @@ jobs:
           $PUML -tsvg -o "$OUT" docs/use_case/transfer_funds/transferFunds.puml
           $PUML -tsvg -o "$OUT" docs/use_case/print_receipt/printReceipt.puml
           $PUML -tsvg -o "$OUT" docs/state_chart/transactionStateChart.puml
+          $PUML -tsvg -o "$OUT" docs/use_case/order_coffee/orderCoffee.puml
+          $PUML -tsvg -o "$OUT" docs/state_chart/beverageOrderStateChart.puml
 
       - name: Build MkDocs
         run: mkdocs build

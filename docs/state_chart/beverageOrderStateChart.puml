@@ -1,0 +1,20 @@
+@startuml beverageOrderStateChart
+!theme plain
+skinparam stateFontStyle bold
+
+title State Chart – BeverageOrder
+
+[*] --> PENDING : ATM creates BeverageOrder\n(status = PENDING)
+
+state PENDING : BeverageOrder created;\ndispensing in progress
+
+PENDING --> COMPLETED : ATM updates BeverageOrder\n(status = COMPLETED)
+PENDING --> FAILED    : ATM updates BeverageOrder\n(status = FAILED)
+
+state COMPLETED : Espresso successfully dispensed
+state FAILED    : CoffeeMachine unavailable;\nnothing dispensed
+
+COMPLETED --> [*]
+FAILED    --> [*]
+
+@enduml

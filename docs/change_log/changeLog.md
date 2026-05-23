@@ -15,6 +15,26 @@ Each version section lists **every artifact that was created or changed**, with 
 
 ---
 
+## v2.0 – Order Coffee (2026-05-23)
+
+Adds a free Espresso dispensing capability to the ATM. A new `CoffeeMachine` hardware entity and `BeverageOrder` domain entity are introduced. The Customer can select "Coffee" from the transaction menu; the ATM checks `CoffeeMachine` availability, creates a `BeverageOrder`, and dispenses the coffee at no charge. A new Epic 6 and R4 release slice are added to the story map.
+
+| Artifact | Status | Description |
+|---|---|---|
+| [Domain Model](../domain_model/domainModel.md) | 🟡 changed | Added `CoffeeMachine` and `BeverageOrder` entities; 2 new relationships |
+| [Domain Model (PlantUML)](../domain_model/domainModel.puml) | 🟡 changed | Mirror of domain model changes |
+| [Business Process](../business_process/businessProcess.md) | 🟡 changed | Added branch `4d.x` (Coffee) at "Select transaction type" decision |
+| [Use-Case Diagram](../use_case/useCaseDiagram.md) | 🟡 changed | Added "Order Coffee" use case with `<<include>>` Authenticate |
+| [Use-Case Diagram (PlantUML)](../use_case/useCaseDiagram.puml) | 🟡 changed | Mirror of use-case diagram changes |
+| [UC: Order Coffee](../use_case/order_coffee/orderCoffee.md) | 🟢 new | Detailed use case: preconditions, postconditions, description, activity diagram |
+| [UC: Order Coffee (PlantUML)](../use_case/order_coffee/orderCoffee.puml) | 🟢 new | PlantUML activity diagram for Order Coffee |
+| [BeverageOrder State Chart](../state_chart/beverageOrderStateChart.md) | 🟢 new | PENDING → COMPLETED / FAILED lifecycle for `BeverageOrder` |
+| [BeverageOrder State Chart (PlantUML)](../state_chart/beverageOrderStateChart.puml) | 🟢 new | PlantUML state chart for `BeverageOrder` |
+| [Epics & Story Map](../epics/epics.md) | 🟡 changed | Added Epic 6: Order Coffee column and R4 – Beverages release row |
+| [US-6.1](../epics/user_stories/us_6_1.md) | 🟢 new | "Request and Receive Espresso" — WOULD LIKE/Attractive, R4 Beverages |
+
+---
+
 ## v1.2 – Account Balance on Receipt (2026-03-02)
 
 Every printed Receipt now includes the current Account `balance` so the Customer always knows their remaining funds after a Transaction.
