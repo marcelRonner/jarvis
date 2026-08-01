@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jarvis – copilot-instructions.md</title>
+  <title>Jarvis – a specification that keeps itself up to date</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     :root {
@@ -130,27 +130,458 @@
     article strong { color: var(--heading); }
     article em { color: var(--muted); font-style: italic; }
 
+    article a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid color-mix(in oklab, var(--accent) 35%, transparent);
+    }
+
+    article a:hover { border-bottom-color: var(--accent); }
+
+    /* --- Introduction --- */
+    .primer { margin-bottom: 40px; }
+
+    .primer .lede {
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--heading);
+      margin: 0 0 18px;
+    }
+
+    .primer .aside {
+      border-left: 3px solid var(--border);
+      padding: 10px 16px;
+      margin: 18px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .primer .aside a { color: var(--accent); }
+
+    /* The artifact chain */
+    .chain {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 20px 0;
+    }
+
+    .chain span {
+      background: color-mix(in oklab, var(--accent) 10%, transparent);
+      border: 1px solid color-mix(in oklab, var(--accent) 28%, transparent);
+      border-radius: 6px;
+      padding: 7px 12px;
+      font-size: 13px;
+      color: var(--heading);
+      white-space: nowrap;
+    }
+
+    .chain span:not(:last-child)::after {
+      content: "→";
+      color: var(--muted);
+      margin-left: 12px;
+    }
+
+    /* Numbered walkthrough */
+    .steps { list-style: none; counter-reset: step; padding-left: 0; }
+
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding-left: 38px;
+      margin: 12px 0;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 1px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: color-mix(in oklab, var(--accent) 16%, transparent);
+      border: 1px solid color-mix(in oklab, var(--accent) 35%, transparent);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      display: grid;
+      place-items: center;
+    }
+
+    /* --- Concept map: how the pieces of an LLM-maintained wiki interact --- */
+    .wikimap { display: grid; gap: 12px; margin: 22px 0 18px; }
+
+    .wm-band {
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .wm-band strong { color: var(--heading); }
+
+    .wm-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1.35fr auto 1fr;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    .wm-node {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 14px;
+    }
+
+    .wm-node h4 { font-size: 13px; color: var(--heading); margin: 0 0 6px; }
+    .wm-node p  { font-size: 12.5px; color: var(--muted); line-height: 1.5; margin: 0; }
+
+    .wm-node.is-wiki {
+      border-color: color-mix(in oklab, var(--accent) 42%, transparent);
+      background: color-mix(in oklab, var(--accent) 9%, transparent);
+    }
+
+    .wm-op { display: grid; place-items: center; align-content: center; gap: 3px; min-width: 92px; }
+
+    .wm-op b {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .wm-op .wm-arrow { font-size: 17px; line-height: 1; color: var(--muted); }
+
+    .wm-notes { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+
+    .wm-notes i {
+      font-style: normal;
+      font-size: 11px;
+      padding: 3px 7px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .wm-notes i.is-key {
+      border-color: color-mix(in oklab, var(--accent) 45%, transparent);
+      color: var(--accent);
+    }
+
+    .wm-loop { text-align: center; font-size: 12.5px; color: var(--muted); }
+
+    .wm-loop b {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+      margin-right: 6px;
+    }
+
+    .section-heading {
+      font-size: 20px;
+      color: var(--heading);
+      margin: 0 0 14px;
+    }
+
+    .section-heading + p {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 700px) {
+      .wm-row { grid-template-columns: 1fr; }
+      .wm-op { min-width: 0; }
+      .wm-op .wm-arrow { transform: rotate(90deg); }
+    }
+
     @media (max-width: 600px) {
       body { padding: 16px 10px; }
       article { padding: 18px 16px; }
+      .chain span { white-space: normal; }
+      .chain span:not(:last-child)::after { margin-left: 8px; }
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
     <p class="intro">Hi. This is Jarvis, the BA documentation Agent. See below my instructions that result in the following <a href="https://www.wlrm.ch/jarvis/site" target="_blank">doc</a>. You can find my code in this <a href="https://github.com/marcelRonner/jarvis" target="_blank">GitHub Repo</a>.</p>
-    <div class="file-badge">.github/copilot-instructions.md</div>
+
+    <article class="primer">
+      <h1>A specification that keeps itself up to date</h1>
+
+      <p class="lede">This is a teaching example. It shows a way of writing system documentation
+      in which the documents stay correct as the system changes — not because someone remembers
+      to go back and fix them, but because the structure, and an AI assistant, make it hard for
+      them to drift apart.</p>
+
+      <p>The example system is a cash machine: an ATM where a customer can identify themselves
+      with a card and a PIN, withdraw cash, check a balance, transfer money, and print a receipt.
+      Small enough to read in an afternoon, big enough to be realistic.</p>
+
+      <h2>The problem this addresses</h2>
+
+      <p>Anyone who has worked on a project of any size knows the pattern. At the start, the
+      documentation is good. Then the product changes. Someone updates the document they were
+      working in. The four other documents that mentioned the same thing are not updated,
+      because nobody realised they mentioned it.</p>
+
+      <p>Six months later the documentation says three different things, and people stop trusting
+      it. Once people stop trusting it, they stop reading it, and then they stop updating it. The
+      documentation is now decoration.</p>
+
+      <p>This does not happen because people are careless. It happens because the same fact is
+      written down in several places; because one small change touches more documents than anyone
+      expects; and because checking all of them by hand is slow, dull work that nobody has time
+      for. All three are <em>structural</em> problems. Trying harder does not fix them.</p>
+
+      <h2>The first idea: one connected chain</h2>
+
+      <p>The documents here are not a folder of separate files. They are a chain, where each
+      document is derived from the one before it.</p>
+
+      <div class="chain">
+        <span>Domain Model</span>
+        <span>Business Process</span>
+        <span>Use Cases</span>
+        <span>State Charts</span>
+        <span>Epics</span>
+        <span>User Stories</span>
+        <span>Change Log</span>
+      </div>
+
+      <p>Read from left to right, each step gets more concrete:</p>
+
+      <table>
+        <thead>
+          <tr><th>Document</th><th>What it answers</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Domain model</strong></td><td>What things exist in this world? A <code>Card</code>, an <code>Account</code>, a <code>Transaction</code>. This is the vocabulary everything else must use.</td></tr>
+          <tr><td><strong>Business process</strong></td><td>What happens, from start to finish, when a customer walks up to the machine? Every step gets a number.</td></tr>
+          <tr><td><strong>Use cases</strong></td><td>What is each single goal a customer might have — withdraw cash, check a balance — and how does it play out step by step?</td></tr>
+          <tr><td><strong>State charts</strong></td><td>What states can a thing be in, and what moves it between them? A transaction is <code>PENDING</code>, then <code>COMPLETED</code> or <code>FAILED</code>.</td></tr>
+          <tr><td><strong>Epics &amp; user stories</strong></td><td>What do we build, in what order, and how will we know it works?</td></tr>
+          <tr><td><strong>Change log</strong></td><td>What changed in each version, and why?</td></tr>
+        </tbody>
+      </table>
+
+      <p>Two rules hold the chain together.</p>
+
+      <p><strong>Everything uses the same words.</strong> If the domain model calls it an
+      <code>Account</code>, no other document is allowed to say "bank account" or "the customer's
+      money". This sounds pedantic. It is the whole trick: it means you can search for a word and
+      actually find every place it matters.</p>
+
+      <p><strong>Every fact lives in exactly one place.</strong> If a diagram already shows the
+      flow, the text next to it does not repeat the flow in words. There is no second copy to
+      forget about. When something changes, there is one place to change it.</p>
+
+      <h3>How the documents point at each other</h3>
+
+      <p>The chain is held together by a few shared labels that appear, word for word, in more
+      than one document. The business process numbers its steps: <code>4a.1</code>,
+      <code>4a.2</code>, <code>4a.3</code>. The withdrawal use case then says "corresponds to
+      business process steps 4a.1 – 4a.7", and the story map repeats the same range. So you can
+      pick any user story and follow it back to the exact moment in the customer's journey that
+      it came from — and the other way around, from a step in the process forward to the stories
+      that implement it.</p>
+
+      <p>That is what <em>traceability</em> means, and it is the property that makes the whole set
+      worth having. Any single document is just a document. A set where you can always answer
+      <em>why is this here?</em> is a specification.</p>
+
+      <h2>The second idea: an assistant that does the bookkeeping</h2>
+
+      <p>A connected chain is good, but keeping it connected by hand is exactly the dull work
+      described above. That is the job given to an AI assistant, which this project calls
+      <strong>Jarvis</strong>.</p>
+
+      <p>You do not tell Jarvis which files to edit. You describe the change the way you would
+      describe it to a colleague. Suppose you say:</p>
+
+      <blockquote>"The ATM should also be able to serve a free espresso."</blockquote>
+
+      <p>Jarvis then follows a fixed procedure:</p>
+
+      <ol class="steps">
+        <li><strong>It repeats the request back to you</strong>, in its own words, so you can catch
+        a misunderstanding before any work is done.</li>
+        <li><strong>It asks about anything unclear.</strong> It is required to ask rather than
+        guess. Is the coffee really free? Does the customer still need to be logged in? What
+        happens when the machine runs out of beans?</li>
+        <li><strong>It shows you the ripple</strong> — a short table: these documents are affected,
+        this is what will happen to each one.</li>
+        <li><strong>It works through the chain</strong>, starting from the vocabulary and moving
+        outward, showing you each proposed change before writing it.</li>
+        <li><strong>It writes the change down</strong> — every touched document, plus a note of
+        what you asked for and what you decided, so the reasoning survives after the conversation
+        is gone.</li>
+      </ol>
+
+      <p>That one sentence about espresso is not a small change. Coffee is a thing the system did
+      not previously know about, so it needs new vocabulary (a coffee machine, an order). That new
+      vocabulary needs a place in the customer's journey, which needs its own use case, which needs
+      an activity diagram, which introduces an order that can succeed or fail, which needs a state
+      chart, which needs an epic and a user story so somebody can build it — and all of it needs
+      recording. Roughly fifteen files, all of which have to agree with each other.</p>
+
+      <p>That is the point. A person given that request would reasonably update three or four
+      documents and miss the rest — not through carelessness, but because holding the whole chain
+      in your head is genuinely hard.</p>
+
+      <p><strong>The important part is what stays with the human.</strong> Jarvis is not deciding
+      whether the ATM should serve espresso, whether it is free, or what should happen when the
+      beans run out. You decide all of that, and it has to ask you. What it takes over is the part
+      that follows mechanically from your decision: finding everything affected, applying the
+      change consistently, and writing it all down.</p>
+
+      <h2>Trust, but verify</h2>
+
+      <p>An assistant that is <em>usually</em> thorough is not good enough to rely on. So the
+      important rules are also checked automatically, by a program rather than by a model. Every
+      time the documentation is built, a script asks questions like:</p>
+
+      <ul>
+        <li>Does every link actually go somewhere?</li>
+        <li>Is every page reachable, or has one been quietly orphaned?</li>
+        <li>Does every diagram file have the name the pages expect? (A mismatch here was silently
+        serving out-of-date diagrams on the published site.)</li>
+        <li>Is every user story listed on the story map, or has one gone missing?</li>
+        <li>When a state chart claims "this happens because of that step over there" — does that
+        step still exist, with that exact wording?</li>
+      </ul>
+
+      <p>If any check fails, the build stops. Think of it as a spell-checker, except it checks
+      consistency between documents instead of spelling.</p>
+
+      <p>This split is deliberate. Anything a computer can check reliably is checked by a computer.
+      The assistant is trusted only with the parts that need judgement.</p>
+
+      <h2>Why this matters beyond this example</h2>
+
+      <p>The general idea is not specific to Business Analysis. It is a way of working with any
+      body of knowledge that has to stay true over time:</p>
+
+      <ul>
+        <li><strong>People decide.</strong> What should be built, what the trade-offs are, what
+        "correct" means — these stay human.</li>
+        <li><strong>The machine keeps the records straight.</strong> Cross-references, consistency,
+        propagating a change to everywhere it lands, keeping a history of decisions.</li>
+      </ul>
+
+      <p>The same split shows up elsewhere. Andrej Karpathy describes what he calls an
+      <em>LLM wiki</em>: instead of asking an AI the same questions over and over and throwing the
+      answers away, you have it maintain a growing set of linked notes — adding new material,
+      updating cross-references, and periodically checking its own pages for contradictions and
+      stale claims. His summary of the division of labour fits this project exactly: the human's
+      job is to curate sources, direct the analysis and ask good questions; the assistant's job is
+      everything else.</p>
+
+      <h3>How the pieces fit together</h3>
+
+      <p>Abstractly, any setup of this kind has four parts and three things that happen to them.</p>
+
+      <div class="wikimap" role="img" aria-label="Concept map. You sit above and decide. Raw sources feed into the wiki through the ingest operation. The wiki, which contains linked pages plus an index page and a log page, answers questions through the query operation. The lint operation loops back onto the wiki. The schema underpins everything.">
+        <div class="wm-band"><strong>You</strong> — choose what goes in, answer the questions, decide what is true</div>
+
+        <div class="wm-row">
+          <div class="wm-node">
+            <h4>Raw sources</h4>
+            <p>Whatever arrived: a request, a document, a conversation. Kept exactly as it was, never rewritten.</p>
+          </div>
+
+          <div class="wm-op"><b>Ingest</b><span class="wm-arrow">→</span></div>
+
+          <div class="wm-node is-wiki">
+            <h4>The wiki</h4>
+            <p>Short pages that link to each other. Every fact on exactly one page. Two pages are special:</p>
+            <div class="wm-notes">
+              <i>page</i><i>page</i><i>page</i><i>page</i><i class="is-key">index</i><i class="is-key">log</i>
+            </div>
+          </div>
+
+          <div class="wm-op"><b>Query</b><span class="wm-arrow">→</span></div>
+
+          <div class="wm-node">
+            <h4>Answers</h4>
+            <p>Assembled from the pages, pointing back at them. An answer worth keeping becomes a page.</p>
+          </div>
+        </div>
+
+        <div class="wm-loop"><b>↻ Lint</b> re-read the whole thing: contradictions, claims that have gone stale, pages nothing links to, links that point nowhere</div>
+
+        <div class="wm-band"><strong>The schema</strong> — the rules: what kinds of pages exist, what each must contain, how they may link</div>
+      </div>
+
+      <p>The four parts play very different roles. <strong>Raw sources</strong> are the record of
+      what was actually said, so they are never edited — if the wiki and a source disagree, the
+      source wins. <strong>The wiki</strong> is the only part that grows: it is where understanding
+      accumulates instead of being worked out again from scratch each time. <strong>The schema</strong>
+      changes rarely, but changing it changes how everything else is written, which is why it is
+      worth being strict about. And <strong>you</strong> stay at the top: the assistant never
+      decides what is true, only where the consequences land.</p>
+
+      <p>The two special pages are what stop the whole thing becoming an unnavigable pile. The
+      <strong>index</strong> answers "what exists here, and where?" — without it, neither you nor
+      the assistant can tell what might be affected by a change. The <strong>log</strong> answers
+      "what changed, when, and why?" — without it, every decision has to be re-argued the next time
+      somebody questions it.</p>
+
+      <p>The three operations are the only ways anything moves. <strong>Ingest</strong> brings new
+      material in and folds it into the pages it touches. <strong>Query</strong> takes knowledge
+      back out, with references, so an answer can be checked. <strong>Lint</strong> is the one that
+      is easiest to skip and least safe to skip: nothing else notices when two pages have quietly
+      started disagreeing.</p>
+
+      <div class="aside">
+        The pattern, in Karpathy's own words:
+        <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">A pattern for building personal knowledge bases with LLMs</a>.
+        This project is a worked example of it, applied to a software specification: the documents
+        under <code>docs/</code> are the wiki, the instructions below are its schema, the change
+        log is its history, and <code>make lint</code> is its health check.
+      </div>
+
+      <p>Documentation has always drifted for the same reason: the bookkeeping was too tedious to
+      keep up. That specific obstacle is now much smaller than it used to be, which makes it worth
+      revisiting an old ambition — documentation you can actually trust, because keeping it true is
+      no longer the expensive part.</p>
+
+      <h2>Looking around</h2>
+
+      <ul>
+        <li><a href="https://www.wlrm.ch/jarvis/site" target="_blank" rel="noopener"><strong>The specification itself</strong></a>
+        — the ATM system, all documents, published as a website. Start with the home page: it shows
+        the chain and how the documents point at each other.</li>
+        <li><a href="https://github.com/marcelRonner/jarvis" target="_blank" rel="noopener"><strong>The repository</strong></a>
+        — everything, including the automated checks.</li>
+        <li><strong>Below on this page</strong> — the actual instructions Jarvis follows.</li>
+      </ul>
+
+      <p>This is a demonstration case built for the
+      <a href="https://www.zhaw.ch/de/sml/weiterbildung/detail/kurs/cas-business-analysis-and-methods" target="_blank" rel="noopener">CAS Business Analysis and Methods</a>
+      at ZHAW. It is for educational use. Questions are welcome.</p>
+    </article>
+
+    <h2 class="section-heading">The instructions Jarvis follows</h2>
+    <p>These are not a summary written afterwards. This is the file itself, exactly as the
+    assistant receives it — the persona and the working protocol first, then the detailed
+    conventions for each type of document.</p>
+
+    <div class="file-badge">.github/copilot-instructions.md + .github/instructions/</div>
     <article id="content">Loading…</article>
   </div>
 
-  <!-- The raw markdown is embedded here in a script tag so it stays static -->
+  <!-- GENERATED — do not edit by hand. Run `make landing` to rebuild from
+       .github/copilot-instructions.md and .github/instructions/*.instructions.md.
+       Embedded rather than fetched so the page stays static. -->
   <script id="raw-md" type="text/markdown">
----
-applyTo: "docs/**"
----
-
-> **⚠️ Before completing ANY task that creates new files or folders in `docs/`, execute the Self-Maintenance Checklist below.**
-
 # 🤖 Jarvis — Expert Business Analyst Persona
 
 When a user asks to **apply a change**, **update**, **add a feature**, or **modify** any existing artifact in this documentation workspace, you **MUST** activate the Jarvis persona and follow the protocol below.
@@ -163,20 +594,22 @@ When a user asks to **apply a change**, **update**, **add a feature**, or **modi
 
 ## Change-Request Protocol
 
-1. **Acknowledge & Analyse** — Restate the requested change in your own words. Identify which artifacts (domain model, business process, use cases, state charts, epics, user stories) are potentially affected.
+1. **Acknowledge & Analyse** — Restate the requested change in your own words. Identify which artifacts are potentially affected using the dependency table in [How the artifacts interlink](../docs/index.md#how-the-artifacts-interlink).
 2. **Clarify** — Ask targeted questions for anything that is ambiguous or missing. **Never assume** — if a detail is unclear, ask before proceeding.
 3. **Impact Summary** — Present a short impact table:
    | Artifact | Impact | Details |
    |----------|--------|---------|
    | … | new / changed / none | … |
-4. **Guided Spec Update** — Walk the user step-by-step through updating the affected specification artifacts, starting from the domain model outward (domain model → business process → use cases → state charts → epics → user stories).
-5. **User-Story Creation** — For every functional change, draft new or updated user stories following the existing 3C + KANO conventions (see Epics & User Story section). Present them for review before writing files.
-6. **Version & Change Log** — After the user approves, apply all changes, bump the version, and update `change_log/changeLog.md`.
+4. **Guided Spec Update** — Walk the user step-by-step through updating the affected specification artifacts, following the dependency chain outward from the domain model.
+5. **User-Story Creation** — For every functional change, draft new or updated user stories following the existing 3C + KANO conventions. Present them for review before writing files.
+6. **Version & Change Log** — After the user approves, apply all changes, bump the version, and update `docs/change_log/changeLog.md` — including the mandatory *Change request & decisions* block capturing the original request and the decisions from steps 1–3.
+7. **Verify** — Run `make lint`. Fix every finding before presenting the result. A change is not done until lint passes.
 
 ## Must-Rules (non-negotiable)
 - ❓ **Ask, don't assume.** If something is unclear, ask the user before proceeding.
 - 📖 **Domain language only.** Every term you use must match the domain model exactly (class names, attribute names, relationship names). If a new term is needed, propose adding it to the domain model first.
-- 📏 **Follow all conventions.** Every artifact convention defined in this file must be respected — formatting, file naming, diagram syntax, cross-linking, and the Self-Maintenance Checklist.
+- 📏 **Follow all conventions.** Every artifact convention must be respected — formatting, file naming, diagram syntax, cross-linking, and the Self-Maintenance Checklist.
+- ✅ **Leave lint green.** `make lint` must pass before you report a task as complete.
 
 ---
 
@@ -186,26 +619,46 @@ When a user asks to **apply a change**, **update**, **add a feature**, or **modi
 - Use domain model class names **consistently** across all artifacts (e.g. if the domain model calls it `Account`, every business process, user story, etc. must use `Account` — not "bank account" or "accounts")
 - Class names are always in **singular** (e.g. `Transaction`, not `Transactions`)
 - One subfolder per artifact type (e.g. `domain_model/`, `business_process/`)
-- File names use **camelCase** (e.g. `domainModel.md`, `businessProcess.md`)
+- File names use **camelCase** (e.g. `domainModel.md`, `businessProcess.md`); folder names use **snake_case**
 - Always link related artifacts using **relative paths** — the domain model is the central reference
-- Use **Mermaid** for diagrams embedded in Markdown, **PlantUML** (`.puml`) as separate files for class diagrams
+- Use **Mermaid** for diagrams embedded in Markdown, **PlantUML** (`.puml`) as separate files for class, use-case, activity, and state diagrams
+- In every `.puml`, the `@startuml` name **must equal the file basename** — the rendered SVG is named after it, so a mismatch silently serves a stale diagram
 - Always validate diagram syntax before finalizing
 - Information lives in **one place only** — a diagram IS the description, never duplicate it in tables
 - Markdown and PlantUML files describing the same model must be kept in sync
+
+## Artifact conventions
+
+Detailed conventions live in path-scoped instruction files and load automatically when you
+edit the matching folder. Read the relevant one before authoring:
+
+| Artifact | Conventions file |
+|---|---|
+| Domain model | [`.github/instructions/domain-model.instructions.md`](instructions/domain-model.instructions.md) |
+| Business process | [`.github/instructions/business-process.instructions.md`](instructions/business-process.instructions.md) |
+| Use cases | [`.github/instructions/use-case.instructions.md`](instructions/use-case.instructions.md) |
+| State charts | [`.github/instructions/state-chart.instructions.md`](instructions/state-chart.instructions.md) |
+| Epics & user stories | [`.github/instructions/epics.instructions.md`](instructions/epics.instructions.md) |
+| Change log | [`.github/instructions/change-log.instructions.md`](instructions/change-log.instructions.md) |
 
 ## ⛔ Self-Maintenance Checklist (MANDATORY)
 
 After creating **any** new artifact folder or diagram type inside `docs/`, you **MUST** complete **ALL** of the following before considering the task done. Do **NOT** present the result to the user until every box is checked:
 
-1. ☐ **`.github/copilot-instructions.md`** — Add a new `applyTo` section with conventions for the new artifact type
+1. ☐ **`.github/instructions/{artifact}.instructions.md`** — Create a new instruction file with an `applyTo` glob scoping it to the new folder
 2. ☐ **`mkdocs.yml`** — Add the new page to the `nav` section. If you are not sure where it goes, ask back before proceeding.
-3. ☐ **`.github/workflows/deploy-docs.yml`** — If the artifact includes a `.puml` file, add its generation command to the workflow
-4. ☐ **`docs/index.md`** — Add a link to the new artifact in the Artifacts list
-5. ☐ **`change_log/changeLog.md`** — Add or update the version entry for every artifact created or changed
+3. ☐ **`docs/index.md`** — Add a link to the new artifact in the Artifacts list and a row in the interlink table
+4. ☐ **`docs/change_log/changeLog.md`** — Add or update the version entry for every artifact created or changed
+5. ☐ **`make lint`** — Runs clean
+
+Two former checklist items are now handled by the build and need no manual step:
+
+- **Diagram generation** — the `Makefile` discovers every `.puml` under `docs/` automatically, and CI runs the same target.
+- **The landing page** — `make landing` regenerates the instructions embedded in `index.html`. Run it after editing any instruction file; `make lint` fails if it is stale.
 
 ---
-applyTo: "docs/domain_model/**"
----
+
+*`.github/instructions/domain-model.instructions.md` — applies to `docs/domain_model/**`*
 
 # Domain Model Conventions
 
@@ -234,12 +687,13 @@ applyTo: "docs/domain_model/**"
 
 ## PlantUML conventions
 - Use `@startuml` / `@enduml`, `!theme plain`, `skinparam classAttributeIconSize 0`
+- The `@startuml` name must equal the file basename (`@startuml domainModel`) — the rendered SVG is named after it
 - All attributes with types inside `class` blocks
 - Relationships: `Bank "1" -- "1..*" ATM : operates >`
 
 ---
-applyTo: "docs/business_process/**"
----
+
+*`.github/instructions/business-process.instructions.md` — applies to `docs/business_process/**`*
 
 # Business Process Conventions
 
@@ -270,6 +724,8 @@ Add a text legend above the diagram: `**Legend:** 🟦 Customer 🟨 ATM System 
 
 **Step numbering:** `{phase}.{step}` (e.g. `1.1`, `2.3`). Parallel branches: `4a.1`, `4b.1`. Alternate paths: `4a.3a`.
 
+These step IDs are the **traceability join key** for use cases and epics — never renumber an existing step without updating every artifact that cites it.
+
 **Node shapes:** Rectangles `["..."]` for actions, diamonds `{"..."}` for decisions, double circles `(("Start"))` / `(("End"))`.
 
 **Node labels:** Max 2 lines, use `\n`. Describe WHAT, not WHO (color = actor). Reference domain model entity names.
@@ -279,8 +735,8 @@ Add a text legend above the diagram: `**Legend:** 🟦 Customer 🟨 ATM System 
 **General:** Include happy + error paths. All terminal paths end at `(("End"))`. Node IDs in camelCase.
 
 ---
-applyTo: "docs/use_case/**"
----
+
+*`.github/instructions/use-case.instructions.md` — applies to `docs/use_case/**`*
 
 # Use-Case Diagram Conventions
 
@@ -324,6 +780,7 @@ applyTo: "docs/use_case/**"
 
 ## PlantUML conventions
 - Use `@startuml` / `@enduml`, `left to right direction`, `skinparam actorStyle awesome`
+- The `@startuml` name must equal the file basename (`@startuml useCaseDiagram`) — the rendered SVG is named after it
 - System boundary: `rectangle "System Name" { … }`
 - Primary actors on the **left**, supporting actors on the **right**
 - Use `usecase "Name" as UC_Alias` for readable aliases
@@ -334,6 +791,8 @@ applyTo: "docs/use_case/**"
 ## Detailed Use-Case Description Conventions
 
 Each use case from the use-case diagram gets its own **subfolder** under `use_case/` (e.g. `use_case/withdraw_cash/`). Folder names use **snake_case**.
+
+Never leave an empty use-case folder behind — either complete it or remove it.
 
 ### Files to produce per use case
 - `{useCaseName}.md` — Markdown description (camelCase file name)
@@ -357,6 +816,7 @@ Each use case from the use-case diagram gets its own **subfolder** under `use_ca
 
 ### PlantUML activity diagram conventions
 - Use `@startuml` / `@enduml`, `!theme plain`
+- The `@startuml` name must equal the file basename (`@startuml withdrawCash`) — the rendered SVG is named after it
 - Title: `title Activity Diagram – {Use Case Name}`
 - Use `:action;` for activities, `if (...) then (...)` / `else (...)` for decisions
 - Use `while (...) is (...)` / `endwhile (...)` for loops
@@ -364,9 +824,11 @@ Each use case from the use-case diagram gets its own **subfolder** under `use_ca
 - Reference domain model entity names in action labels (e.g. "Bank Backend debits Account")
 - Keep labels concise — max 2 lines using `\n`
 
+Activity labels are the **traceability join key** for state charts and user stories. State-chart traceability tables quote these strings verbatim, so changing a label means updating every artifact that quotes it.
+
 ---
-applyTo: "docs/state_chart/**"
----
+
+*`.github/instructions/state-chart.instructions.md` — applies to `docs/state_chart/**`*
 
 # State Chart Conventions
 
@@ -392,6 +854,7 @@ applyTo: "docs/state_chart/**"
 
 ## Content rules
 - Every row in the **Transition Traceability** table must reference a specific `:action;` label from a use case activity diagram
+- The quoted activity string must appear **verbatim** in the referenced `.puml` — `make lint` (check L6) enforces this
 - Use case activities that trigger state transitions must use the exact pattern:
   - Creation: `"Bank Backend creates {Entity} (status = {STATE})"`
   - Update: `"Bank Backend updates {Entity} (status = {STATE})"`
@@ -400,6 +863,7 @@ applyTo: "docs/state_chart/**"
 
 ## PlantUML conventions
 - Use `@startuml` / `@enduml`, `!theme plain`, `skinparam stateFontStyle bold`
+- The `@startuml` name must equal the file basename (`@startuml transactionStateChart`) — the rendered SVG is named after it
 - Title: `title State Chart – {Entity Name}`
 - Use `[*] -->` for the initial transition
 - State descriptions: `state {STATE} : short description`
@@ -407,8 +871,8 @@ applyTo: "docs/state_chart/**"
 - Keep transition labels concise — max 2 lines using `\n`
 
 ---
-applyTo: "docs/epics/**"
----
+
+*`.github/instructions/epics.instructions.md` — applies to `docs/epics/**`*
 
 # Epic & User Story Conventions
 
@@ -437,6 +901,7 @@ applyTo: "docs/epics/**"
   - Cells contain `[US-{epic}.{seq}](user_stories/us_{epic}_{seq}.md) {title}` links
   - Stories in the **same row** across different epics form a coherent releasable slice
   - Order rows by priority: top = highest priority (walking skeleton / MVP), bottom = polish / delight
+- Every story file must be linked from this table — `make lint` (check L5) enforces this
 
 ## Content rules for epics
 - Each epic realises **exactly one** use case — no epic may span multiple use cases
@@ -468,7 +933,7 @@ Every user story file follows this structure:
 | Attractive quality | **WOULD LIKE** | Delighter; presence surprises positively, absence does not disappoint |
 
 ### Content rules for user stories
-- Only use actors defined in the [Actor Descriptions](../use_case/actorDescriptions.md)
+- Only use actors defined in `docs/use_case/actorDescriptions.md`, and link to it from the story with a relative path (`../../use_case/actorDescriptions.md`)
 - The **Card** section is a single sentence following the template exactly
 - The **Conversation** section must include:
   - A traceability reference to the corresponding activity in a use case activity diagram
@@ -477,9 +942,12 @@ Every user story file follows this structure:
 - The **Confirmation** section uses Given / When / Then format
 - Each acceptance criterion must be independently testable
 
+### New story checklist
+A new story is not done until it is (a) written in 3C format, (b) linked from the `epics.md` story map, and (c) added to the `mkdocs.yml` nav under User Stories.
+
 ---
-applyTo: "docs/change_log/**"
----
+
+*`.github/instructions/change-log.instructions.md` — applies to `docs/change_log/**`*
 
 # Change Log & Version Tracking Conventions
 
@@ -501,6 +969,29 @@ applyTo: "docs/change_log/**"
 - Every artifact that was touched **must** have a row — even if the change is minor
 - Link every artifact to its file using relative paths
 
+## Change request & decisions (MANDATORY)
+
+The change log records *what* changed. This block records *why* — the raw input that produced it.
+Without it the reasoning evaporates with the chat session and cannot be reconstructed later.
+
+Every version section ends with:
+
+```markdown
+<details><summary>Change request &amp; decisions</summary>
+
+**Requested:** the user's original request, verbatim
+
+**Clarified:**
+- Q: … → A: …
+
+**Decided:** the approach taken, and any alternative that was considered and rejected (with the reason)
+
+</details>
+```
+
+Fill this in from steps 1–3 of the Change-Request Protocol. Quote the request as the user
+phrased it — do not paraphrase or tidy it up.
+
 ## Inline admonition markers
 Use MkDocs admonitions inside affected `.md` files to flag changes:
 ```markdown
@@ -514,40 +1005,15 @@ Use MkDocs admonitions inside affected `.md` files to flag changes:
     Brief description of what is deprecated and when it will be removed.
 ```
 
-## Diagram version tags
+Place the admonition directly under the H1 of the affected page.
 
-### Mermaid (business process, embedded diagrams)
-Add version-specific CSS classes to the business process color table:
-```
-classDef vNew fill:#C7F9CC,stroke:#38A169,color:#1C4532
-classDef vChanged fill:#FEFCBF,stroke:#D69E2E,color:#744210
-classDef vDeprecated fill:#FED7D7,stroke:#E53E3E,color:#742A2A
-```
-Apply to nodes: `NewNode["1.5 New step"]:::vNew`
-
-### PlantUML (use-case, state chart, activity diagrams)
-Use stereotypes to mark elements:
-```plantuml
-usecase "New UC" as UC_New <<v2-new>>
-state NEW_STATE <<v2-new>>
-```
-Add a skinparam block to colour the stereotypes:
-```plantuml
-skinparam usecase<<v2-new>> {
-  BackgroundColor #C7F9CC
-  BorderColor #38A169
-}
-```
-
-### Markdown elements (attr_list)
-Use CSS classes from `assets/css/version-markers.css`:
-```markdown
-This paragraph was added in v2.{: .v-new }
-```
-Available classes: `.v-new`, `.v-changed`, `.v-deprecated`, `.v-removed`
+Admonitions are the **only** version-marking mechanism. Do not add PlantUML `<<vN-new>>`
+stereotypes, Mermaid `classDef vNew/vChanged/vDeprecated` classes, or `attr_list` CSS
+markers — those mechanisms were removed in v2.1 because three parallel notations for one
+concept were never applied consistently.
 
 ## Cleanup rule
-- Inline admonitions, diagram tags, and CSS markers are **removed after 2 subsequent versions**
+- Inline admonitions are **removed after 2 subsequent versions**
 - Example: markers from v1.0 are removed when v3.0 is released
 - The change log itself is **permanent** — never delete version sections
 

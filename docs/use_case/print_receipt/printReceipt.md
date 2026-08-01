@@ -1,5 +1,8 @@
 # Use Case – Print Receipt
 
+!!! warning "v1.2 – Changed 2026-03-02"
+    Every Receipt now shows the current `Account` balance.
+
 ## Overview
 
 This use case describes the optional receipt printing flow after any ATM Transaction. It corresponds to **Business Process steps 5.2 – 5.3**. See also the [Use-Case Diagram](../useCaseDiagram.md) and the [Business Process](../../business_process/businessProcess.md).
@@ -31,4 +34,4 @@ After completing a Transaction (withdrawal, balance inquiry, or transfer), the A
 
 ## Activity Diagram
 
-![Activity Diagram – Print Receipt](../../assets/img/PrintReceipt.svg)
+![Activity Diagram – Print Receipt](../../assets/img/printReceipt.svg)

@@ -47,4 +47,4 @@ The Customer enters the desired withdrawal amount. The system checks whether the
 
 ## Activity Diagram
 
-![Activity Diagram – Withdraw Cash](../../assets/img/WithdrawCash.svg)
+![Activity Diagram – Withdraw Cash](../../assets/img/withdrawCash.svg)

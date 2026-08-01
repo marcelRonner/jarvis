@@ -1,4 +1,4 @@
-@startuml DomainModel
+@startuml domainModel
 !theme plain
 skinparam classAttributeIconSize 0
 skinparam classFontStyle bold
@@ -81,21 +81,6 @@ class AuditLog {
   detail : String
 }
 
-class CoffeeMachine {
-  coffeeMachineId : String
-  status : Enum {ONLINE, OFFLINE, OUT_OF_STOCK}
-  beansRemaining : Integer
-  lastMaintenanceDate : DateTime
-}
-
-class BeverageOrder {
-  beverageOrderId : String
-  beverageType : Enum {ESPRESSO}
-  requestedAt : DateTime
-  dispensedAt : DateTime
-  status : Enum {PENDING, COMPLETED, FAILED}
-}
-
 ' Relationships
 Bank "1" -- "1..*" ATM : operates >
 Bank "1" -- "1..*" Customer : serves >
@@ -109,7 +94,5 @@ ATM "1" -- "1" CashDispenser : contains >
 CashDispenser "1" -- "1..*" CashCassette : holds >
 ATM "1" -- "0..*" AuditLog : records >
 Transaction "1" -- "1" Account : affects >
-ATM "1" -- "0..1" CoffeeMachine : contains >
-Session "1" -- "0..*" BeverageOrder : includes >
 
 @enduml

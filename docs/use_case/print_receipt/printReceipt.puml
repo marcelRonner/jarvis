@@ -1,4 +1,4 @@
-@startuml PrintReceipt
+@startuml printReceipt
 !theme plain
 title Activity Diagram – Print Receipt
 

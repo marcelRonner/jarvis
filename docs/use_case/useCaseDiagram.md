@@ -8,7 +8,7 @@ This use-case diagram shows how the actors identified in the [Business Process](
 
 ## Diagram
 
-![Use-Case Diagram – ATM System](../assets/img/UseCaseDiagram.svg)
+![Use-Case Diagram – ATM System](../assets/img/useCaseDiagram.svg)
 
 ---
 
@@ -43,10 +43,6 @@ Corresponds to **Business Process steps 1.1 – 3.1** (insert card → validate 
 After any transaction the customer may choose to print a receipt. This **extends** every main use case as an optional step.
 Corresponds to **Business Process steps 5.2 – 5.3** (receipt choice → generate and print receipt).
 
-### Order Coffee
-The customer requests an Espresso from the ATM's CoffeeMachine; the ATM creates a BeverageOrder and dispenses the Espresso free of charge.
-Corresponds to **Business Process steps 4d.1 – 4d.3** (check CoffeeMachine → create BeverageOrder → dispense Espresso).
-
 ---
 
 ## Relationships
@@ -59,4 +55,3 @@ Corresponds to **Business Process steps 4d.1 – 4d.3** (check CoffeeMachine →
 | Withdraw Cash → Print Receipt | `<<extend>>` | The customer may optionally print a receipt after a withdrawal. |
 | Check Balance → Print Receipt | `<<extend>>` | The customer may optionally print a receipt after a balance inquiry. |
 | Transfer Funds → Print Receipt | `<<extend>>` | The customer may optionally print a receipt after a transfer. |
-| Order Coffee → Authenticate | `<<include>>` | Authentication is mandatory before ordering coffee. |

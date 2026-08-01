@@ -1,4 +1,4 @@
-@startuml WithdrawCash
+@startuml withdrawCash
 !theme plain
 title Activity Diagram – Withdraw Cash
 

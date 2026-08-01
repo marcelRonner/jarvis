@@ -1,4 +1,4 @@
-@startuml CheckBalance
+@startuml checkBalance
 !theme plain
 title Activity Diagram – Check Balance
 

@@ -29,4 +29,4 @@ The Customer selects a balance inquiry. The Bank Backend creates a Transaction w
 
 ## Activity Diagram
 
-![Activity Diagram – Check Balance](../../assets/img/CheckBalance.svg)
+![Activity Diagram – Check Balance](../../assets/img/checkBalance.svg)

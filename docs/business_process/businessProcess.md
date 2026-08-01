@@ -38,7 +38,6 @@ flowchart TD
     SelectAction -->|Withdrawal| EnterAmount["4a.1 Enter\nwithdrawal amount"]:::customer
     SelectAction -->|Balance Inquiry| ShowBalance["4b.1 Retrieve balance\nDisplay on screen"]:::atm
     SelectAction -->|Transfer| SelectTarget["4c.1 Select\ntarget Account"]:::customer
-    SelectAction -->|Coffee| CheckCoffeeMachine["4d.1 Check CoffeeMachine\navailability"]:::atm
 
     EnterAmount --> CheckLimit{"4a.2 Amount within\ndaily limit?"}:::decision
     CheckLimit -->|No| EnterAmount
@@ -60,12 +59,6 @@ flowchart TD
     SelectTarget --> EnterTransferAmt["4c.2 Enter\ntransfer amount"]:::customer
     EnterTransferAmt --> ExecuteTransfer["4c.3 Create Transaction\nDebit source, credit target"]:::bank
     ExecuteTransfer --> LogTx
-
-    CheckCoffeeMachine --> CoffeeMachineOK{"4d.2 CoffeeMachine\navailable?"}:::decision
-    CoffeeMachineOK -->|No| NoCoffe["4d.2a Display out\nof service"]:::atm
-    NoCoffe --> SelectAction
-    CoffeeMachineOK -->|Yes| CreateOrder["4d.3 Create BeverageOrder\nDispense Espresso"]:::atm
-    CreateOrder --> LogTx
 
     LogTx --> ReceiptChoice{"5.2 Print Receipt?"}:::customer
     ReceiptChoice -->|Yes| PrintReceipt["5.3 Generate and\nprint Receipt"]:::atm

@@ -37,4 +37,4 @@ The Customer selects the target Account for the transfer. The Customer enters th
 
 ## Activity Diagram
 
-![Activity Diagram – Transfer Funds](../../assets/img/TransferFunds.svg)
+![Activity Diagram – Transfer Funds](../../assets/img/transferFunds.svg)

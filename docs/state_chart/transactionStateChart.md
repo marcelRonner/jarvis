@@ -8,7 +8,7 @@ This state chart shows how the `status` attribute of the [Transaction](../domain
 
 ## Diagram
 
-![State Chart – Transaction](../assets/img/TransactionStateChart.svg)
+![State Chart – Transaction](../assets/img/transactionStateChart.svg)
 
 ---
 

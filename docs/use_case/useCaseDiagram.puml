@@ -1,4 +1,4 @@
-@startuml UseCaseDiagram
+@startuml useCaseDiagram
 left to right direction
 skinparam actorStyle awesome
 skinparam packageStyle rectangle
@@ -23,16 +23,12 @@ rectangle "ATM System" {
   ' Supporting use cases
   usecase "Authenticate\n(Card & PIN)" as UC_Auth
   usecase "Print Receipt"               as UC_Receipt
-
-  ' Beverage use case
-  usecase "Order Coffee" as UC_Coffee
 }
 
 ' --- Customer associations ---
 customer -- UC_Withdraw
 customer -- UC_Balance
 customer -- UC_Transfer
-customer -- UC_Coffee
 
 ' --- Include relationships ---
 ' Authentication is mandatory before any transaction
@@ -40,7 +36,6 @@ customer -- UC_Coffee
 UC_Withdraw ..> UC_Auth   : <<include>>
 UC_Balance  ..> UC_Auth   : <<include>>
 UC_Transfer ..> UC_Auth   : <<include>>
-UC_Coffee   ..> UC_Auth   : <<include>>
 
 ' --- Extend relationships ---
 ' Printing a receipt is optional after every transaction

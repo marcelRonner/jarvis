@@ -38,4 +38,4 @@ The Customer inserts their Card into the ATM. The ATM reads the Card data and va
 
 ## Activity Diagram
 
-![Activity Diagram – Authenticate](../../assets/img/Authenticate.svg)
+![Activity Diagram – Authenticate](../../assets/img/authenticate.svg)

@@ -145,28 +145,3 @@ Represents a record of system events for security and compliance purposes.
 
 ---
 
-### CoffeeMachine
-Represents the coffee-dispensing hardware unit inside an ATM.
-
-| Attribute           | Type     | Description                               |
-|---------------------|----------|-------------------------------------------|
-| coffeeMachineId     | String   | Unique machine identifier                 |
-| status              | Enum     | ONLINE, OFFLINE, OUT_OF_STOCK             |
-| beansRemaining      | Integer  | Number of coffee bean portions remaining  |
-| lastMaintenanceDate | DateTime | Date of last maintenance                  |
-
----
-
-### BeverageOrder
-Represents a request by a Customer to dispense a beverage during a Session.
-
-| Attribute       | Type     | Description                              |
-|-----------------|----------|------------------------------------------|
-| beverageOrderId | String   | Unique order identifier                  |
-| beverageType    | Enum     | ESPRESSO                                 |
-| requestedAt     | DateTime | When the order was placed                |
-| dispensedAt     | DateTime | When the beverage was dispensed          |
-| status          | Enum     | PENDING, COMPLETED, FAILED               |
-
----
-

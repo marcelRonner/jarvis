@@ -40,10 +40,8 @@ nav:
       - Check Balance: use_case/check_balance/checkBalance.md
       - Transfer Funds: use_case/transfer_funds/transferFunds.md
       - Print Receipt: use_case/print_receipt/printReceipt.md
-      - Order Coffee: use_case/order_coffee/orderCoffee.md
     - State Charts:
       - Transaction: state_chart/transactionStateChart.md
-      - BeverageOrder: state_chart/beverageOrderStateChart.md
   - Implementation View:
     - Epics / Story Map: epics/epics.md
     - User Stories:
@@ -63,15 +61,11 @@ nav:
       - US-5.1 Print Receipt After Transaction: epics/user_stories/us_5_1.md
       - US-5.2 Decline Receipt Printing: epics/user_stories/us_5_2.md
       - US-5.3 Show Account Balance on Receipt: epics/user_stories/us_5_3.md
-      - US-6.1 Request and Receive Espresso: epics/user_stories/us_6_1.md
   - Changes: 
     - Change Log: change_log/changeLog.md
 
 plugins:
   - search
-
-extra_css:
-  - assets/css/version-markers.css
 
 extra_javascript:
   - https://unpkg.com/mermaid@10.4.0/dist/mermaid.min.js

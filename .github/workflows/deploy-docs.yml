@@ -27,23 +27,16 @@ jobs:
           sudo apt-get update && sudo apt-get install -y default-jre graphviz
           curl -L -o plantuml.jar https://github.com/plantuml/plantuml/releases/download/v1.2024.8/plantuml-1.2024.8.jar
 
+      # Renders every .puml discovered under docs/ — the Makefile is the single
+      # source of truth, so local and CI output can never diverge.
       - name: Generate PlantUML diagrams
-        run: |
-          PUML="java -jar ${{ github.workspace }}/plantuml.jar"
-          OUT="${{ github.workspace }}/docs/assets/img"
-          $PUML -tsvg -o "$OUT" docs/domain_model/domainModel.puml
-          $PUML -tsvg -o "$OUT" docs/use_case/useCaseDiagram.puml
-          $PUML -tsvg -o "$OUT" docs/use_case/authenticate/authenticate.puml
-          $PUML -tsvg -o "$OUT" docs/use_case/withdraw_cash/withdrawCash.puml
-          $PUML -tsvg -o "$OUT" docs/use_case/check_balance/checkBalance.puml
-          $PUML -tsvg -o "$OUT" docs/use_case/transfer_funds/transferFunds.puml
-          $PUML -tsvg -o "$OUT" docs/use_case/print_receipt/printReceipt.puml
-          $PUML -tsvg -o "$OUT" docs/state_chart/transactionStateChart.puml
-          $PUML -tsvg -o "$OUT" docs/use_case/order_coffee/orderCoffee.puml
-          $PUML -tsvg -o "$OUT" docs/state_chart/beverageOrderStateChart.puml
+        run: make diagrams PLANTUML="java -jar ${{ github.workspace }}/plantuml.jar"
+
+      - name: Lint documentation
+        run: make lint
 
       - name: Build MkDocs
-        run: mkdocs build
+        run: mkdocs build --strict
       
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

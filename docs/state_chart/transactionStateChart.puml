@@ -1,4 +1,4 @@
-@startuml TransactionStateChart
+@startuml transactionStateChart
 !theme plain
 skinparam stateFontStyle bold
 

@@ -1,4 +1,4 @@
-@startuml TransferFunds
+@startuml transferFunds
 !theme plain
 title Activity Diagram – Transfer Funds
 

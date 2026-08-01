@@ -1,4 +1,4 @@
-@startuml Authenticate
+@startuml authenticate
 !theme plain
 title Activity Diagram – Authenticate (Card & PIN)
 
