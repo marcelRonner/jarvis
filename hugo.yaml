@@ -1,0 +1,102 @@
+# Hugo configuration. The site is built from `content/` with the Docsy theme.
+#
+# There is no `menu:` or nav list on purpose. Docsy builds the sidebar from the folder tree, and the
+# order comes from `weight:` in each page's frontmatter, so adding an artifact never requires
+# editing this file.
+
+title: ATM System Documentation
+locale: en-gb
+
+# The docs are served from https://www.wlrm.ch/jarvis/site/ — the address the landing page in
+# index.html links to. Hugo writes root-relative URLs, so the path has to be right here, not just
+# on the server. `make serve` overrides the host, and keeps the path.
+baseURL: https://www.wlrm.ch/jarvis/site/
+
+# `site/` rather than Hugo's default `public/`: the deploy uploads it under that name.
+publishDir: site
+
+disableKinds: [taxonomy, term]
+
+module:
+  hugoVersion:
+    extended: true
+    min: 0.160.1
+  imports:
+    - path: github.com/google/docsy/theme
+      # Docsy's sidebar-and-TOC chrome lives in `layouts/docs/`, which Hugo only reaches for pages
+      # whose `type` is `docs`. Every page here has a `type` of its own — the Open Knowledge Format
+      # requires one, and it names the artifact (`use-case`, `user-story`, …) — and an explicit
+      # `type` makes Hugo skip section-based layout lookup, so those pages would fall through to
+      # Docsy's bare `all.html` with no sidebar.
+      #
+      # Mounting `layouts/docs` at the layout root makes its single/list/baseof the site-wide
+      # fallback, so every page gets the docs chrome whatever its artifact type. The remaining
+      # mounts are Docsy's own, copied from its hugo.yaml: declaring `mounts` here replaces the
+      # module's defaults, so they have to be restated. Re-check them against the theme's hugo.yaml
+      # after `hugo mod get -u`.
+      mounts:
+        - source: layouts/docs
+          target: layouts
+        - source: layouts
+          target: layouts
+        - source: assets
+          target: assets
+        - source: node_modules/bootstrap
+          target: assets/vendor/bootstrap
+        - source: node_modules/@fortawesome/fontawesome-free
+          target: assets/vendor/Font-Awesome
+        - source: i18n
+          target: i18n
+        - source: static
+          target: static
+        - source: node_modules/@fortawesome/fontawesome-free/webfonts
+          target: static/webfonts
+
+markup:
+  goldmark:
+    parser:
+      attribute:
+        # Lets a version marker sit on the line after a block: `{.v-new}`. See change-log rules.
+        block: true
+    renderer:
+      unsafe: true
+    extensions:
+      table: true
+      footnote: true
+      definitionList: true
+      taskList: true
+      strikethrough: true
+  highlight:
+    # Required for dark mode — Docsy swaps the Chroma stylesheet rather than inlining colours.
+    noClasses: false
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
+
+security:
+  http:
+    # The diagram hook posts PlantUML source to Kroki during the build; nothing else is fetched.
+    methods: ['(?i)GET|POST']
+
+params:
+  description: Documentation for the ATM example system
+
+  # Where `layouts/_markup/render-image.html` renders `.puml` diagrams, at build time. Override
+  # without editing this file with HUGO_PARAMS_KROKI_URL, e.g. for a self-hosted Kroki container.
+  kroki_url: https://kroki.io
+
+  offlineSearch: true
+  offlineSearchSummaryLength: 70
+  offlineSearchMaxResults: 10
+
+  ui:
+    showLightDarkModeMenu: true
+    sidebar_menu_compact: false
+    sidebar_menu_foldable: true
+    sidebar_search_disable: false
+    sidebar_root_enabled: true
+    breadcrumb_disable: false
+    feedback:
+      enable: false
+    readingtime:
+      enable: false

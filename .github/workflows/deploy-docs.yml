@@ -1,4 +1,4 @@
-name: Build MKdocs Site
+name: Build and deploy docs
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   deploy:
@@ -15,38 +15,46 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Hugo fetches the Docsy theme as a Hugo module, which needs Go.
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+
+      # Docsy's stylesheets compile with Dart Sass, a project-local npm dependency.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      # The documentation checks and the instruction generator.
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-      - name: Install PlantUML
-        run: |
-          sudo apt-get update && sudo apt-get install -y default-jre graphviz
-          curl -L -o plantuml.jar https://github.com/plantuml/plantuml/releases/download/v1.2024.8/plantuml-1.2024.8.jar
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.166.0'
+          extended: true
 
-      - name: Generate PlantUML diagrams
-        run: |
-          PUML="java -jar ${{ github.workspace }}/plantuml.jar"
-          OUT="${{ github.workspace }}/docs/assets/img"
-          $PUML -tsvg -o "$OUT" docs/domain_model/domainModel.puml
-          $PUML -tsvg -o "$OUT" docs/use_case/useCaseDiagram.puml
-          $PUML -tsvg -o "$OUT" docs/use_case/authenticate/authenticate.puml
-          $PUML -tsvg -o "$OUT" docs/use_case/withdraw_cash/withdrawCash.puml
-          $PUML -tsvg -o "$OUT" docs/use_case/check_balance/checkBalance.puml
-          $PUML -tsvg -o "$OUT" docs/use_case/transfer_funds/transferFunds.puml
-          $PUML -tsvg -o "$OUT" docs/use_case/print_receipt/printReceipt.puml
-          $PUML -tsvg -o "$OUT" docs/state_chart/transactionStateChart.puml
+      # Checks, renders every PlantUML diagram through Kroki, builds site/, and assembles deploy/.
+      # No Java, PlantUML or Graphviz: see layouts/_markup/render-image.html.
+      - name: Build
+        run: make stage
 
-      - name: Build MkDocs
-        run: mkdocs build
-      
+      # deploy/ holds exactly what the server should: index.html at the top, the docs under site/,
+      # served at https://www.wlrm.ch/jarvis/site/.
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./deploy/
           # server-dir: ./public_html/ # Change this to the folder on your server

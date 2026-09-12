@@ -1,2 +1,2 @@
-mkdocs
-mkdocs-mermaid2-plugin
+# The documentation checks and the instruction generator in scripts/. The site itself needs no Python.
+PyYAML>=6

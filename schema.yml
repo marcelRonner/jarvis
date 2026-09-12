@@ -1,0 +1,53 @@
+# The artifact types of this documentation, declared once.
+#
+# Every Markdown file under content/ carries one of these as its `type:` — the Open Knowledge Format
+# requires a non-empty type on every file, and `make lint` rejects any value not declared here.
+# The type table in AGENTS.md is generated from this file by `make instructions`.
+#
+#   where   the files that hold this type, relative to content/
+#   rules   the path-scoped writing rules for it, under .claude/rules/ (none for structural types)
+#   holds   one line on what an artifact of this type is
+
+types:
+  overview:
+    where: _index.md
+    holds: The home page — what the documentation covers, and a link to every artifact.
+  domain-model:
+    where: domain_model/domainModel.md
+    rules: domain-model.md
+    holds: The core business entities, their attributes, and their relationships. The central reference.
+  business-process:
+    where: business_process/businessProcess.md
+    rules: business-process.md
+    holds: The end-to-end process as an embedded Mermaid flowchart, with numbered steps.
+  use-case-diagram:
+    where: use_case/useCaseDiagram.md
+    rules: use-cases.md
+    holds: Actors, the use cases they pursue, and the include/extend relationships between them.
+  actor-descriptions:
+    where: use_case/actorDescriptions.md
+    rules: use-cases.md
+    holds: A profile and system access description for every actor.
+  use-case:
+    where: use_case/<use_case>/<useCase>.md
+    rules: use-cases.md
+    holds: One use case — preconditions, postconditions, narrative, and an activity diagram.
+  state-chart:
+    where: state_chart/<entity>StateChart.md
+    rules: state-charts.md
+    holds: The lifecycle of one entity's status, every transition traced to a use case activity.
+  story-map:
+    where: epics/epics.md
+    rules: epics.md
+    holds: The epics, one per use case, with user stories arranged into release rows.
+  user-story:
+    where: epics/user_stories/us_<epic>_<seq>.md
+    rules: epics.md
+    holds: One user story in Card – Conversation – Confirmation form, with a KANO classification.
+  change-log:
+    where: change_log/changeLog.md
+    rules: change-log.md
+    holds: Every version, and every artifact created or changed in it. Permanent.
+  section:
+    where: <folder>/_index.md
+    holds: A sidebar folder — its title, its one-line description, and its position.
