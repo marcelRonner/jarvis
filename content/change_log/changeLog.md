@@ -4,6 +4,12 @@ linkTitle: "Change Log"
 type: change-log
 description: "Version history of the ATM system documentation, listing every artifact created or changed in each version."
 weight: 1
+sources:
+  - id: cr-1-3
+    resource: /sources/cr_1_3.md
+generated:
+  by: jarvis/1.0
+  at: 2026-09-12T21:29:07Z
 ---
 
 # Change Log – ATM System
@@ -20,6 +26,60 @@ Each version section lists **every artifact that was created or changed**, with 
 | 🟡 `changed` | Existing artifact or element modified |
 | 🔴 `deprecated` | Artifact or element scheduled for removal |
 | ⚫ `removed` | Artifact or element deleted |
+
+---
+
+## v1.3 – Open Knowledge Format Metadata and Concepts (2026-09-12)
+
+Every artifact now records where it derives from, who produced it and which domain entities it concerns, as Open Knowledge Format frontmatter, and each domain entity and actor has its own page. No functional change to the ATM system. See [CR-1.3](../sources/cr_1_3.md).
+
+| Artifact | Status | Description |
+|---|---|---|
+| [Domain Model – ATM System](../domain_model/domainModel.md) | 🟡 changed | Classes moved to one entity page each; frontmatter adds `sources`, `generated` and `tags` |
+| [ATM](../domain_model/entities/atm.md) | 🟢 new | Entity page, split out of the Domain Model |
+| [Bank](../domain_model/entities/bank.md) | 🟢 new | Entity page, split out of the Domain Model |
+| [Customer](../domain_model/entities/customer.md) | 🟢 new | Entity page, split out of the Domain Model |
+| [Account](../domain_model/entities/account.md) | 🟢 new | Entity page, split out of the Domain Model |
+| [Card](../domain_model/entities/card.md) | 🟢 new | Entity page, split out of the Domain Model |
+| [Session](../domain_model/entities/session.md) | 🟢 new | Entity page, split out of the Domain Model |
+| [Transaction](../domain_model/entities/transaction.md) | 🟢 new | Entity page, split out of the Domain Model |
+| [Receipt](../domain_model/entities/receipt.md) | 🟢 new | Entity page, split out of the Domain Model |
+| [CashDispenser](../domain_model/entities/cashDispenser.md) | 🟢 new | Entity page, split out of the Domain Model |
+| [CashCassette](../domain_model/entities/cashCassette.md) | 🟢 new | Entity page, split out of the Domain Model |
+| [AuditLog](../domain_model/entities/auditLog.md) | 🟢 new | Entity page, split out of the Domain Model |
+| [Business Process – ATM Cash Withdrawal & Services](../business_process/businessProcess.md) | 🟡 changed | Frontmatter adds `sources`, `generated` and `tags` |
+| [Use-Case Diagram – ATM System](../use_case/useCaseDiagram.md) | 🟡 changed | Business Process traceability references cited with a footnote; frontmatter adds `sources`, `generated` and `tags` |
+| [Actor Descriptions – ATM System](../use_case/actorDescriptions.md) | 🟡 changed | Actors moved to one page each; frontmatter adds `sources`, `generated` and `tags` |
+| [Customer](../use_case/actors/customer.md) | 🟢 new | Actor page, split out of the Actor Descriptions |
+| [ATM System](../use_case/actors/atmSystem.md) | 🟢 new | Actor page, split out of the Actor Descriptions |
+| [Bank Backend](../use_case/actors/bankBackend.md) | 🟢 new | Actor page, split out of the Actor Descriptions |
+| [Use Case – Authenticate (Card & PIN)](../use_case/authenticate/authenticate.md) | 🟡 changed | Business Process traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags` |
+| [Use Case – Withdraw Cash](../use_case/withdraw_cash/withdrawCash.md) | 🟡 changed | Business Process traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags` |
+| [Use Case – Check Balance](../use_case/check_balance/checkBalance.md) | 🟡 changed | Business Process traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags` |
+| [Use Case – Transfer Funds](../use_case/transfer_funds/transferFunds.md) | 🟡 changed | Business Process traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags` |
+| [Use Case – Print Receipt](../use_case/print_receipt/printReceipt.md) | 🟡 changed | Business Process traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags` |
+| [State Chart – Transaction](../state_chart/transactionStateChart.md) | 🟡 changed | Transaction link points at the Transaction entity page; frontmatter adds `sources`, `generated` and `tags` |
+| [Epics & Story Map – ATM System](../epics/epics.md) | 🟡 changed | Frontmatter adds `sources`, `generated` and `tags` |
+| [US-1.1 – Insert Card and Validate](../epics/user_stories/us_1_1.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-1.2 – Enter PIN and Create Session](../epics/user_stories/us_1_2.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-1.3 – Retry PIN on Invalid Entry](../epics/user_stories/us_1_3.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-1.4 – Block Card After Failed PIN Attempts](../epics/user_stories/us_1_4.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-2.1 – Enter Amount and Receive Cash](../epics/user_stories/us_2_1.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-2.2 – Enforce Account Daily Limit](../epics/user_stories/us_2_2.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-2.3 – Verify Sufficient Account Balance](../epics/user_stories/us_2_3.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-2.4 – Check CashDispenser Availability](../epics/user_stories/us_2_4.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-2.5 – Handle Cash Dispensing Failure](../epics/user_stories/us_2_5.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-2.6 – Eject Card Before Cash Dispensing](../epics/user_stories/us_2_6.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-3.1 – View Account Balance](../epics/user_stories/us_3_1.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-4.1 – Select Target Account and Transfer Funds](../epics/user_stories/us_4_1.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-4.2 – Handle Transfer Processing Error](../epics/user_stories/us_4_2.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-5.1 – Print Receipt After Transaction](../epics/user_stories/us_5_1.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-5.2 – Decline Receipt Printing](../epics/user_stories/us_5_2.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [US-5.3 – Show Account Balance on Receipt](../epics/user_stories/us_5_3.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
+| [Change Log – ATM System](../change_log/changeLog.md) | 🟡 changed | This entry; frontmatter adds `sources` and `generated` |
+| [Log](../log.md) | 🟢 new | Every version, newest first, in Open Knowledge Format — generated from this change log |
+| [Home](../_index.md) | 🟡 changed | Artifacts list links the entity pages, the actor pages, the sources and the log |
+| [CR-1.3](../sources/cr_1_3.md) | 🟢 new | The change request for this version |
 
 ---
 

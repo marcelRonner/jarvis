@@ -3,14 +3,25 @@ title: "Use Case – Withdraw Cash"
 linkTitle: "Withdraw Cash"
 type: use-case
 description: "This use case describes the cash withdrawal flow at an ATM."
-weight: 4
+weight: 5
+tags: [atm, bank, customer, account, card, session, transaction, cash-dispenser, cash-cassette, audit-log]
+sources:
+  - id: use-case-diagram
+    resource: /use_case/useCaseDiagram.md
+  - id: business-process
+    resource: /business_process/businessProcess.md
+  - id: domain-model
+    resource: /domain_model/domainModel.md
+generated:
+  by: jarvis/1.0
+  at: 2026-09-12T21:29:07Z
 ---
 
 # Use Case – Withdraw Cash
 
 ## Overview
 
-This use case describes the cash withdrawal flow at an ATM. It corresponds to **Business Process steps 4a.1 – 4a.7**. See also the [Use-Case Diagram](../useCaseDiagram.md) and the [Business Process](../../business_process/businessProcess.md).
+This use case describes the cash withdrawal flow at an ATM. It corresponds to **Business Process steps 4a.1 – 4a.7**.[^business-process] See also the [Use-Case Diagram](../useCaseDiagram.md) and the [Business Process](../../business_process/businessProcess.md).
 
 ---
 
@@ -56,3 +67,5 @@ The Customer enters the desired withdrawal amount. The system checks whether the
 ## Activity Diagram
 
 ![Activity Diagram – Withdraw Cash](withdrawCash.puml)
+
+[^business-process]: [Business Process](../../business_process/businessProcess.md)

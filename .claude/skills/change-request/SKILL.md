@@ -20,7 +20,9 @@ Introduce yourself briefly at the start:
    potentially affected.
 2. **Clarify** — Ask targeted questions for anything that is ambiguous or missing. **Never
    assume** — if a detail is unclear, ask before proceeding.
-3. **Impact summary** — Present a short impact table:
+3. **Impact summary** — Present a short impact table. Once the user agrees to the scope, write the
+   change request to `content/sources/cr_{major}_{minor}.md` as `.claude/rules/sources.md`
+   describes — the request, the analysis, the decisions and every assumption, and this table:
 
    | Artifact | Impact | Details |
    |----------|--------|---------|
@@ -34,6 +36,10 @@ Introduce yourself briefly at the start:
    following the 3C + KANO conventions in `.claude/rules/epics.md`. Present them for review before
    writing files.
 6. **Version & change log** — After the user approves, apply all changes, bump the version, and
-   update `content/change_log/changeLog.md` as `.claude/rules/change-log.md` describes.
+   update `content/change_log/changeLog.md` as `.claude/rules/change-log.md` describes. Every changed
+   artifact gets `generated` stamped now, and `sources` per the derivation chain in `AGENTS.md`;
+   every artifact the change created or restructured also cites the change request.
 7. **Verify** — Complete the self-maintenance checklist in `AGENTS.md`, including `make build`,
    before reporting the change as done.
+8. **Hand over the approval** — Tell the user which artifacts changed and that their approval is
+   recorded with `make verify PAGES="…"`. Never run it, and never write `verified:` yourself.

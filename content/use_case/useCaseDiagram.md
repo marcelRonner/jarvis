@@ -4,6 +4,13 @@ linkTitle: "Use Case Overview"
 type: use-case-diagram
 description: "This use-case diagram shows how the actors identified in the Business Process interact with the ATM system."
 weight: 1
+tags: [atm, bank, customer, card, receipt]
+sources:
+  - id: business-process
+    resource: /business_process/businessProcess.md
+generated:
+  by: jarvis/1.0
+  at: 2026-09-12T21:29:07Z
 ---
 
 # Use-Case Diagram – ATM System
@@ -33,23 +40,23 @@ This use-case diagram shows how the actors identified in the [Business Process](
 
 ### Withdraw Cash
 The customer withdraws a specified amount of cash from their account. The ATM ejects the Card before dispensing cash to prevent the Customer from forgetting it.
-Corresponds to **Business Process steps 4a.1 – 4a.7** (enter amount → check limits & funds → eject Card → dispense cash).
+Corresponds to **Business Process steps 4a.1 – 4a.7** (enter amount → check limits & funds → eject Card → dispense cash).[^business-process]
 
 ### Check Balance
 The customer views the current balance of their account on screen.
-Corresponds to **Business Process step 4b.1** (retrieve and display balance).
+Corresponds to **Business Process step 4b.1** (retrieve and display balance).[^business-process]
 
 ### Transfer Funds
 The customer transfers money from their account to another account.
-Corresponds to **Business Process steps 4c.1 – 4c.3** (select target account → enter amount → execute transfer).
+Corresponds to **Business Process steps 4c.1 – 4c.3** (select target account → enter amount → execute transfer).[^business-process]
 
 ### Authenticate (Card & PIN)
 The customer inserts their card and enters their PIN; the Bank Backend validates the credentials and the ATM creates a session. This is **included** by every main use case — no transaction can proceed without successful authentication.
-Corresponds to **Business Process steps 1.1 – 3.1** (insert card → validate card → enter PIN → validate PIN → create session).
+Corresponds to **Business Process steps 1.1 – 3.1** (insert card → validate card → enter PIN → validate PIN → create session).[^business-process]
 
 ### Print Receipt
 After any transaction the customer may choose to print a receipt. This **extends** every main use case as an optional step.
-Corresponds to **Business Process steps 5.2 – 5.3** (receipt choice → generate and print receipt).
+Corresponds to **Business Process steps 5.2 – 5.3** (receipt choice → generate and print receipt).[^business-process]
 
 ---
 
@@ -63,3 +70,5 @@ Corresponds to **Business Process steps 5.2 – 5.3** (receipt choice → genera
 | Withdraw Cash → Print Receipt | `<<extend>>` | The customer may optionally print a receipt after a withdrawal. |
 | Check Balance → Print Receipt | `<<extend>>` | The customer may optionally print a receipt after a balance inquiry. |
 | Transfer Funds → Print Receipt | `<<extend>>` | The customer may optionally print a receipt after a transfer. |
+
+[^business-process]: [Business Process](../business_process/businessProcess.md)

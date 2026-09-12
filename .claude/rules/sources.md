@@ -1,0 +1,37 @@
+---
+paths:
+  - content/sources/**
+---
+
+# Source Conventions
+
+`content/sources/` holds the material the documentation's changes derive from. Today that is change
+requests: every change applied through the change-request protocol is written down here first, and
+every artifact it creates or restructures cites it in `sources:`.
+
+## Files to produce
+- `cr_{major}_{minor}.md` — one change request per version (e.g. `cr_1_3.md` for v1.3)
+- Auto-numbered: `CR-{major}.{minor}`, the version the change is released as
+
+## Markdown structure
+```
+# CR-{X.Y} – {Title}
+## Request           → Who asked, when, and what — in the requester's terms
+## Analysis          → The change restated, and which artifacts it touches (protocol step 1)
+## Decisions         → What was clarified (step 2), and every assumption, marked **Assumption:**
+## Impact Summary    → Table: Artifact | Impact (new / changed / none) | Details (step 3)
+## User Stories      → Links to the stories drafted in step 5, or "None" with the reason
+## Acceptance        → How to tell the change is done
+## Status            → Proposed · Implemented in v{X.Y} on {date} · Approved (recorded with `make verify`)
+```
+
+## Content rules
+- A change request records a decision; it is **not rewritten** once implemented. If the change turns
+  out wrong, the next change request says so.
+- Use domain model entity names exactly, as everywhere else.
+- Every assumption is written down and marked **Assumption:** — an unstated assumption is exactly
+  what the Must-rule "Ask, don't assume" exists to prevent.
+- The change log's version entry links its change request, and the change request links the change
+  log.
+- `generated:` is stamped when Jarvis writes the request. `verified:` is recorded by the approver
+  with `make verify`, never by Jarvis.

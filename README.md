@@ -42,9 +42,11 @@ pip install -r requirements.txt
 | Command | What it does |
 |---|---|
 | `make serve` | Live-reload site at <http://localhost:1313/jarvis/site/> |
-| `make lint` | Regenerate the instructions, then check frontmatter, Open Knowledge Format conformance and links |
-| `make instructions` | Regenerate `.github/`, the type table in `AGENTS.md`, and the instructions in `index.html` |
-| `make build` | Everything CI checks, then build `site/` — fails on a stale generated file, a broken link, or a diagram that did not render |
+| `make lint` | Regenerate, then check frontmatter, Open Knowledge Format conformance, links and footnotes |
+| `make test` | The Open Knowledge Format consumer acceptance tests — the Python reader and a real Hugo build — and the script tests |
+| `make generate` | Regenerate `.github/`, the type table in `AGENTS.md`, the instructions in `index.html`, and `content/log.md` |
+| `make verify PAGES="content/…"` | Record **your** approval of artifacts as an OKF `verified` event, after approving a change request. Jarvis never runs it |
+| `make build` | Everything CI checks, then build `site/` — fails on a stale generated file, a lint error, a failing test, a broken link, or a diagram that did not render |
 | `make stage` | `make build`, then assemble `deploy/` exactly as the server receives it |
 
 Every push to `main` runs `make stage` in GitHub Actions and uploads `deploy/` over FTP: the landing
@@ -66,12 +68,26 @@ Jarvis runs on the same files in Claude Code and GitHub Copilot:
 
 Edit the source files, never the generated ones — `make build` fails if they have drifted.
 
+Every change to the documentation starts as a change request in `content/sources/`, and the
+artifacts it touches cite it.
+
 ## The documentation is an Open Knowledge Format bundle
 
 `content/` conforms to the [Open Knowledge Format](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)
-v0.2: every Markdown file carries parseable frontmatter with a non-empty `type`, and no file uses
-the reserved names `index.md` or `log.md`. `make lint` enforces both, so any agent that reads OKF
-can consume the documentation as it is, straight from the repository.
+v0.2, so any agent that reads OKF can consume the documentation as it is, straight from the
+repository. Beyond the conformance criteria, every artifact records:
+
+- **`sources`** — the artifacts it derives from, and the change request that shaped it, so the
+  traceability chain from domain model to user story can be walked from frontmatter; traceability
+  references in the text cite their source with a footnote;
+- **`generated`** — that Jarvis wrote it, and when;
+- **`verified`** — that a person approved it, recorded with `make verify`;
+- **`tags`** — the domain entities it concerns, and for a user story its release and KANO class.
+
+Each domain entity and each actor is a concept of its own. `content/log.md` is the OKF log of every
+version, generated from the change log. `make lint` checks all of it, and `make test` proves the
+site build and the Python reader tolerate what OKF requires consumers to tolerate. `/okf-check`
+assesses the whole bundle against the 41-check register.
 
 ## Diagrams
 

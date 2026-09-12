@@ -20,12 +20,24 @@ paths:
 ## Relationships     → Table: Relationship | Type (include / extend) | Description
 ```
 
+## Actor pages
+
+`actorDescriptions.md` lists every actor as a link; each actor has its own page in `actors/`.
+
+- `actors/{actorName}.md` — camelCase (`bankBackend.md` for "Bank Backend"), `type: actor`
+- Structure:
+  ```
+  # {Actor Name}
+  **Type:** Primary / Supporting / System
+  ## Description    → Who or what the actor is, and its business process role
+  ## System Access  → What the actor can and cannot reach
+  ```
+
 ## Actor conventions
 - Every actor must originate from the business process — do not invent actors
 - Classify actors as **Primary** (initiates the interaction) or **Supporting** (provides a service)
 - Use the same actor names as in the business process legend (e.g. "Customer", "Bank Backend")
-- Actors table columns: `Actor | Type | Description`
-- Description must reference the business process role (e.g. "see 🟦 Customer in the Business Process")
+- The Description section must reference the business process role (e.g. "Corresponds to 🟦 Customer in the Business Process")
 
 ## Use-case conventions
 - Each use case represents a **user goal** — not an individual process step or system action
@@ -33,7 +45,7 @@ paths:
 - Naming: **verb-first**, 2–3 words, present tense (e.g. "Withdraw Cash", not "Cash Withdrawal" or "The customer withdraws cash")
 - Each use case gets an H3 heading (`### Use Case Name`) with:
   - One sentence describing the goal
-  - A **traceability reference** to the corresponding business process steps using the step numbering (e.g. "Corresponds to **Business Process steps 4a.1 – 4a.6**")
+  - A **traceability reference** to the corresponding business process steps using the step numbering, cited with a footnote keyed to the business process source (e.g. "Corresponds to **Business Process steps 4a.1 – 4a.6**.[^business-process]")
 - Use cases separated by blank lines (no `---` rules — those are for domain model classes)
 
 ## Relationship conventions
@@ -73,7 +85,7 @@ Each use case from the use-case diagram gets its own **subfolder** under `use_ca
 ### Content rules
 - **Preconditions** and **Postconditions** must reference domain model entities and their attributes/states (e.g. "Session with status `ACTIVE`")
 - **Description** is a plain-English walkthrough — do not duplicate the activity diagram step-by-step; summarise the intent
-- Every use case must include a **traceability reference** to the corresponding business process step numbers
+- Every use case must include a **traceability reference** to the corresponding business process step numbers, cited with the `[^business-process]` footnote
 - Use `---` horizontal rules to separate major sections
 
 ### PlantUML activity diagram conventions

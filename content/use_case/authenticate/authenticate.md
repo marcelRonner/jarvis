@@ -3,14 +3,25 @@ title: "Use Case – Authenticate (Card & PIN)"
 linkTitle: "Authenticate"
 type: use-case
 description: "This use case describes the authentication flow that every ATM interaction must pass through before a Transaction can be performed."
-weight: 3
+weight: 4
+tags: [atm, bank, customer, account, card, session, transaction]
+sources:
+  - id: use-case-diagram
+    resource: /use_case/useCaseDiagram.md
+  - id: business-process
+    resource: /business_process/businessProcess.md
+  - id: domain-model
+    resource: /domain_model/domainModel.md
+generated:
+  by: jarvis/1.0
+  at: 2026-09-12T21:29:07Z
 ---
 
 # Use Case – Authenticate (Card & PIN)
 
 ## Overview
 
-This use case describes the authentication flow that every ATM interaction must pass through before a Transaction can be performed. It corresponds to **Business Process steps 1.1 – 3.1**. See also the [Use-Case Diagram](../useCaseDiagram.md) and the [Business Process](../../business_process/businessProcess.md).
+This use case describes the authentication flow that every ATM interaction must pass through before a Transaction can be performed. It corresponds to **Business Process steps 1.1 – 3.1**.[^business-process] See also the [Use-Case Diagram](../useCaseDiagram.md) and the [Business Process](../../business_process/businessProcess.md).
 
 ---
 
@@ -47,3 +58,5 @@ The Customer inserts their Card into the ATM. The ATM reads the Card data and va
 ## Activity Diagram
 
 ![Activity Diagram – Authenticate](authenticate.puml)
+
+[^business-process]: [Business Process](../../business_process/businessProcess.md)

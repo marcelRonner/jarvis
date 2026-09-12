@@ -2,11 +2,13 @@
 #
 # Every Markdown file under content/ carries one of these as its `type:` — the Open Knowledge Format
 # requires a non-empty type on every file, and `make lint` rejects any value not declared here.
-# The type table in AGENTS.md is generated from this file by `make instructions`.
+# The type table in AGENTS.md is generated from this file by `make generate`.
 #
-#   where   the files that hold this type, relative to content/
-#   rules   the path-scoped writing rules for it, under .claude/rules/ (none for structural types)
-#   holds   one line on what an artifact of this type is
+#   where     the files that hold this type, relative to content/
+#   rules     the path-scoped writing rules for it, under .claude/rules/ (none for structural types)
+#   requires  frontmatter keys an artifact of this type must carry beyond the always-required ones;
+#             `make lint` warns (W3) when one is missing
+#   holds     one line on what an artifact of this type is
 
 types:
   overview:
@@ -15,39 +17,66 @@ types:
   domain-model:
     where: domain_model/domainModel.md
     rules: domain-model.md
-    holds: The core business entities, their attributes, and their relationships. The central reference.
+    requires: [generated, tags]
+    holds: The domain model at a glance — the class diagram, and a link to every entity.
+  entity:
+    where: domain_model/entities/<className>.md
+    rules: domain-model.md
+    requires: [sources, generated, tags]
+    holds: One business entity — what it represents and its attributes. The central reference.
   business-process:
     where: business_process/businessProcess.md
     rules: business-process.md
+    requires: [sources, generated, tags]
     holds: The end-to-end process as an embedded Mermaid flowchart, with numbered steps.
   use-case-diagram:
     where: use_case/useCaseDiagram.md
     rules: use-cases.md
+    requires: [sources, generated, tags]
     holds: Actors, the use cases they pursue, and the include/extend relationships between them.
   actor-descriptions:
     where: use_case/actorDescriptions.md
     rules: use-cases.md
-    holds: A profile and system access description for every actor.
+    requires: [sources, generated, tags]
+    holds: The actors at a glance, with a link to each.
+  actor:
+    where: use_case/actors/<actorName>.md
+    rules: use-cases.md
+    requires: [sources, generated, tags]
+    holds: One actor — its type, what it does, and what it can access.
   use-case:
     where: use_case/<use_case>/<useCase>.md
     rules: use-cases.md
+    requires: [sources, generated, tags]
     holds: One use case — preconditions, postconditions, narrative, and an activity diagram.
   state-chart:
     where: state_chart/<entity>StateChart.md
     rules: state-charts.md
+    requires: [sources, generated, tags]
     holds: The lifecycle of one entity's status, every transition traced to a use case activity.
   story-map:
     where: epics/epics.md
     rules: epics.md
+    requires: [sources, generated, tags]
     holds: The epics, one per use case, with user stories arranged into release rows.
   user-story:
     where: epics/user_stories/us_<epic>_<seq>.md
     rules: epics.md
+    requires: [sources, generated, tags]
     holds: One user story in Card – Conversation – Confirmation form, with a KANO classification.
   change-log:
     where: change_log/changeLog.md
     rules: change-log.md
+    requires: [sources, generated]
     holds: Every version, and every artifact created or changed in it. Permanent.
+  change-request:
+    where: sources/cr_<major>_<minor>.md
+    rules: sources.md
+    requires: [generated]
+    holds: One change request — what was asked, what it affects, and what was decided. Artifacts it changed cite it.
+  log:
+    where: log.md
+    holds: The Open Knowledge Format log — one entry per version, newest first. Generated from the change log.
   section:
     where: <folder>/_index.md
     holds: A sidebar folder — its title, its one-line description, and its position.

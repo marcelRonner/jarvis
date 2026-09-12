@@ -3,14 +3,25 @@ title: "Use Case – Check Balance"
 linkTitle: "Check Balance"
 type: use-case
 description: "This use case describes the balance inquiry flow at an ATM."
-weight: 5
+weight: 6
+tags: [atm, bank, customer, account, session, transaction, audit-log]
+sources:
+  - id: use-case-diagram
+    resource: /use_case/useCaseDiagram.md
+  - id: business-process
+    resource: /business_process/businessProcess.md
+  - id: domain-model
+    resource: /domain_model/domainModel.md
+generated:
+  by: jarvis/1.0
+  at: 2026-09-12T21:29:07Z
 ---
 
 # Use Case – Check Balance
 
 ## Overview
 
-This use case describes the balance inquiry flow at an ATM. It corresponds to **Business Process step 4b.1**. See also the [Use-Case Diagram](../useCaseDiagram.md) and the [Business Process](../../business_process/businessProcess.md).
+This use case describes the balance inquiry flow at an ATM. It corresponds to **Business Process step 4b.1**.[^business-process] See also the [Use-Case Diagram](../useCaseDiagram.md) and the [Business Process](../../business_process/businessProcess.md).
 
 ---
 
@@ -38,3 +49,5 @@ The Customer selects a balance inquiry. The Bank Backend creates a Transaction w
 ## Activity Diagram
 
 ![Activity Diagram – Check Balance](checkBalance.puml)
+
+[^business-process]: [Business Process](../../business_process/businessProcess.md)

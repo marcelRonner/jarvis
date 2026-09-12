@@ -64,7 +64,7 @@ Every user story file follows this structure:
 - Only use actors defined in the Actor Descriptions (`content/use_case/actorDescriptions.md`)
 - The **Card** section is a single sentence following the template exactly
 - The **Conversation** section must include:
-  - A traceability reference to the corresponding activity in a use case activity diagram
+  - A traceability reference to the corresponding activity in a use case activity diagram, cited with a footnote keyed to that use case's source id (e.g. `[^withdraw-cash]`)
   - The KANO classification with rationale
   - References to domain model entity names and attributes where relevant
 - The **Confirmation** section uses Given / When / Then format

@@ -4,6 +4,13 @@ linkTitle: "Business Process"
 type: business-process
 description: "The end-to-end flow of a customer interacting with an ATM, from card insertion and authentication through transaction execution to session completion."
 weight: 1
+tags: [atm, bank, customer, account, card, session, transaction, receipt, cash-dispenser, audit-log]
+sources:
+  - id: domain-model
+    resource: /domain_model/domainModel.md
+generated:
+  by: jarvis/1.0
+  at: 2026-05-22T18:15:23Z
 ---
 
 # Business Process – ATM Cash Withdrawal & Services

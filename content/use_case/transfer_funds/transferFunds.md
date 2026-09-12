@@ -3,14 +3,25 @@ title: "Use Case – Transfer Funds"
 linkTitle: "Transfer Funds"
 type: use-case
 description: "This use case describes the fund transfer flow at an ATM."
-weight: 6
+weight: 7
+tags: [atm, bank, customer, account, session, transaction, audit-log]
+sources:
+  - id: use-case-diagram
+    resource: /use_case/useCaseDiagram.md
+  - id: business-process
+    resource: /business_process/businessProcess.md
+  - id: domain-model
+    resource: /domain_model/domainModel.md
+generated:
+  by: jarvis/1.0
+  at: 2026-09-12T21:29:07Z
 ---
 
 # Use Case – Transfer Funds
 
 ## Overview
 
-This use case describes the fund transfer flow at an ATM. It corresponds to **Business Process steps 4c.1 – 4c.3**. See also the [Use-Case Diagram](../useCaseDiagram.md) and the [Business Process](../../business_process/businessProcess.md).
+This use case describes the fund transfer flow at an ATM. It corresponds to **Business Process steps 4c.1 – 4c.3**.[^business-process] See also the [Use-Case Diagram](../useCaseDiagram.md) and the [Business Process](../../business_process/businessProcess.md).
 
 ---
 
@@ -46,3 +57,5 @@ The Customer selects the target Account for the transfer. The Customer enters th
 ## Activity Diagram
 
 ![Activity Diagram – Transfer Funds](transferFunds.puml)
+
+[^business-process]: [Business Process](../../business_process/businessProcess.md)

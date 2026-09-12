@@ -4,6 +4,27 @@ linkTitle: "Epics / Story Map"
 type: story-map
 description: "All epics required to build the ATM system, each realising exactly one use case, with user stories grouped into releases."
 weight: 1
+tags: [atm, bank, customer, account, card, session, transaction, receipt, cash-dispenser, cash-cassette]
+sources:
+  - id: use-case-diagram
+    resource: /use_case/useCaseDiagram.md
+  - id: domain-model
+    resource: /domain_model/domainModel.md
+  - id: business-process
+    resource: /business_process/businessProcess.md
+  - id: authenticate
+    resource: /use_case/authenticate/authenticate.md
+  - id: withdraw-cash
+    resource: /use_case/withdraw_cash/withdrawCash.md
+  - id: check-balance
+    resource: /use_case/check_balance/checkBalance.md
+  - id: transfer-funds
+    resource: /use_case/transfer_funds/transferFunds.md
+  - id: print-receipt
+    resource: /use_case/print_receipt/printReceipt.md
+generated:
+  by: jarvis/1.0
+  at: 2026-05-22T18:15:23Z
 ---
 
 # Epics & Story Map – ATM System

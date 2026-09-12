@@ -4,13 +4,28 @@ linkTitle: "Transaction"
 type: state-chart
 description: "How the status attribute of the Transaction entity changes through activities defined in the use-case descriptions."
 weight: 1
+tags: [bank, customer, account, transaction, audit-log]
+sources:
+  - id: transaction
+    resource: /domain_model/entities/transaction.md
+  - id: use-case-diagram
+    resource: /use_case/useCaseDiagram.md
+  - id: withdraw-cash
+    resource: /use_case/withdraw_cash/withdrawCash.md
+  - id: transfer-funds
+    resource: /use_case/transfer_funds/transferFunds.md
+  - id: check-balance
+    resource: /use_case/check_balance/checkBalance.md
+generated:
+  by: jarvis/1.0
+  at: 2026-09-12T21:29:07Z
 ---
 
 # State Chart – Transaction
 
 ## Overview
 
-This state chart shows how the `status` attribute of the [Transaction](../domain_model/domainModel.md#transaction) entity changes through activities defined in the [Use-Case Descriptions](../use_case/useCaseDiagram.md). Every transition is backed by a specific activity in a use case — no state can be reached without it.
+This state chart shows how the `status` attribute of the [Transaction](../domain_model/entities/transaction.md) entity changes through activities defined in the [Use-Case Descriptions](../use_case/useCaseDiagram.md). Every transition is backed by a specific activity in a use case — no state can be reached without it.
 
 ---
 
