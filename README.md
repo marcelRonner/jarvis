@@ -21,7 +21,7 @@ content/            the documentation — Markdown and PlantUML, one folder per 
 AGENTS.md           Jarvis: the always-on contract — identity, must-rules, frontmatter, checklist
 CLAUDE.md           one line, importing AGENTS.md for Claude Code
 .claude/rules/      the conventions for each artifact type, loaded only for its folder
-.claude/skills/     the change-request protocol, typable as /change-request
+.claude/skills/     the operations: /change-request, and /okf-check with its check register
 .github/            GENERATED Copilot copies of the rules and the prompt door, plus the deploy workflow
 schema.yml          the artifact types
 index.html          the landing page; its embedded instructions are GENERATED
@@ -59,9 +59,10 @@ Jarvis runs on the same files in Claude Code and GitHub Copilot:
 - **`.claude/rules/<type>.md`** holds the conventions for one artifact type, with a `paths:` glob so
   it loads only when that folder is touched. Copilot reads project rules only from
   `.github/instructions/`, so `make instructions` restates each one there, as `applyTo:`.
-- **`.claude/skills/change-request/`** is the change-request protocol. Both tools discover the skill
-  from `.claude/skills/`; the generated `.github/prompts/change-request.prompt.md` is only there so
-  `/change-request` can be typed in Copilot.
+- **`.claude/skills/`** holds the two operations: `change-request`, the protocol for changing the
+  documentation, and `okf-check`, which assesses it against the Open Knowledge Format check register.
+  Both tools discover skills there; the generated `.github/prompts/*.prompt.md` files are only there
+  so `/change-request` and `/okf-check` can be typed in Copilot.
 
 Edit the source files, never the generated ones — `make build` fails if they have drifted.
 

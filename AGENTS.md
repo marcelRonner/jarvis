@@ -19,6 +19,12 @@ Any request to **apply a change**, **update**, **add a feature** or **modify** a
 the change-request protocol in `.claude/skills/change-request/SKILL.md` — whether or not the user
 typed `/change-request`. Read it and follow it; do not improvise a shorter path.
 
+## Checking Open Knowledge Format conformance
+
+A request to assess or re-assess the documentation against the Open Knowledge Format follows
+`.claude/skills/okf-check/SKILL.md` (`/okf-check`). It is read-only: fixing what it finds is a change
+request.
+
 ## Cross-cutting documentation rules
 
 - All documentation is written in **English**.
