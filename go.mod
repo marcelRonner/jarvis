@@ -1,4 +1,4 @@
-module github.com/marcelRonner/jarvis
+module github.com/marcelRonner/okf-productdocumentation
 
 go 1.27.1
 

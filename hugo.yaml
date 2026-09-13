@@ -7,10 +7,10 @@
 title: ATM System Documentation
 locale: en-gb
 
-# The docs are served from https://www.wlrm.ch/jarvis/site/ — the address the landing page in
+# The docs are served from https://www.wlrm.ch/okf-productdocumentation/site/ — the address the landing page in
 # index.html links to. Hugo writes root-relative URLs, so the path has to be right here, not just
 # on the server. `make serve` overrides the host, and keeps the path.
-baseURL: https://www.wlrm.ch/jarvis/site/
+baseURL: https://www.wlrm.ch/okf-productdocumentation/site/
 
 # `site/` rather than Hugo's default `public/`: the deploy uploads it under that name.
 publishDir: site

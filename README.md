@@ -1,3 +1,5 @@
+# OKF Product Documentation
+
 Meet Jarvis, the Business Analysis context and requirements engineering agent. 
 
 This is an educational example. 
@@ -11,12 +13,21 @@ See you there! 🙋‍♂️
 
 ---
 
+## Part of a two-step series
+
+Two educational repositories, each a working example you can copy:
+
+| Step | Repository | What it shows |
+|---|---|---|
+| 1 | [okf-llm-wiki](https://github.com/marcelRonner/okf-llm-wiki) | The basics: an agent keeps a wiki from sources, a person approves it, and the pages form an [Open Knowledge Format](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) bundle |
+| 2 | **okf-productdocumentation** — this repository | The same ideas applied to software product documentation: a requirements chain from domain model to user stories, change requests and releases, on the example of an ATM system |
+
 ## Where to start
 
 | You want to… | Read |
 |---|---|
-| see the result | the documentation site — <https://www.wlrm.ch/jarvis/site/> |
-| understand how the parts work together, in plain language | the landing page — <https://www.wlrm.ch/jarvis/> (`index.html`) |
+| see the result | the documentation site — <https://www.wlrm.ch/okf-productdocumentation/site/> |
+| understand how the parts work together, in plain language | the landing page — <https://www.wlrm.ch/okf-productdocumentation/> (`index.html`) |
 | get oriented in the documentation, and see how its artifacts interlink | the documentation home — [`content/_index.md`](content/_index.md) |
 | set the repository up, build it, deploy it, or change how it works | this README |
 | know exactly what the agent is told | [`AGENTS.md`](AGENTS.md), [`.claude/rules/`](.claude/rules/), [`.claude/skills/`](.claude/skills/) |
@@ -71,18 +82,18 @@ requirements.txt          PyYAML, for the scripts
 | network access to [kroki.io](https://kroki.io) | — | PlantUML diagrams render at build time |
 
 ```sh
-git clone https://github.com/marcelRonner/jarvis.git && cd jarvis
+git clone https://github.com/marcelRonner/okf-productdocumentation.git && cd okf-productdocumentation
 npm install                       # Dart Sass, PostCSS, Bootstrap, Font Awesome
 pip install -r requirements.txt   # PyYAML — a virtualenv is fine
 make build                        # the same checks and build CI runs
-make serve                        # http://localhost:1313/jarvis/site/
+make serve                        # http://localhost:1313/okf-productdocumentation/site/
 ```
 
 ## Commands
 
 | Command | What it does |
 |---|---|
-| `make serve` | Live-reload site at <http://localhost:1313/jarvis/site/>. Offline, a diagram shows as a link to its `.puml` source |
+| `make serve` | Live-reload site at <http://localhost:1313/okf-productdocumentation/site/>. Offline, a diagram shows as a link to its `.puml` source |
 | `make generate` | Regenerate everything that restates something written elsewhere: `.github/instructions/`, `.github/prompts/`, the type table in `AGENTS.md`, the instructions embedded in `index.html`, and `content/log.md` |
 | `make lint` | `make generate`, then check the documentation (codes below). `STRICT=1` makes warnings fail |
 | `make test` | The OKF consumer acceptance tests — against the Python reader and a real Hugo build — and the script tests |
@@ -180,7 +191,7 @@ type, and a bundle without `index.md`.
 ## How the site is built
 
 Hugo renders `content/` with [Docsy](https://www.docsy.dev/) 0.17, pulled in as a Hugo module, into
-`site/`. `baseURL` is `https://www.wlrm.ch/jarvis/site/`, because Hugo writes root-relative URLs.
+`site/`. `baseURL` is `https://www.wlrm.ch/okf-productdocumentation/site/`, because Hugo writes root-relative URLs.
 There is no navigation list: the sidebar is the folder tree, ordered by `weight`, labelled by
 `linkTitle`, with each folder's title and description in its `_index.md`.
 
@@ -224,8 +235,8 @@ On GitHub, a page shows a broken image where its diagram would be; the site rend
 3. upload `deploy/` with [FTP-Deploy-Action](https://github.com/SamKirkland/FTP-Deploy-Action).
 
 It needs three repository secrets: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`. `deploy/` holds
-exactly what the server serves — `index.html` at <https://www.wlrm.ch/jarvis/>, the documentation
-under `site/` at <https://www.wlrm.ch/jarvis/site/>. The action keeps a sync-state file on the
+exactly what the server serves — `index.html` at <https://www.wlrm.ch/okf-productdocumentation/>, the documentation
+under `site/` at <https://www.wlrm.ch/okf-productdocumentation/site/>. The action keeps a sync-state file on the
 server and deletes files it uploaded before that are no longer in `deploy/`. Uncomment `server-dir`
 in the workflow if the target folder changes.
 

@@ -12,6 +12,7 @@ weight: 80
 ## 2026-09-13
 
 - **Assessment:** [OKF v0.2 Conformance Assessment – 2026-09-13](sources/okf_assessment_2026_09_13.md) — Conformant with OKF v0.2 on all three mandatory checks; of the 41 checks, 26 meets, 1 partial, 5 not adopted, 1 deviates, 8 n/a.
+- **Release:** [v1.6 – Rename the Repository to okf-productdocumentation](change_log/changeLog.md) — The repository is now okf-productdocumentation, step 2 of a two-step educational series after okf-llm-wiki, and the site moves to its matching address. No functional change to the ATM system. See CR-1.6.
 - **Release:** [v1.5 – File Open Knowledge Format Assessments](change_log/changeLog.md) — Every Open Knowledge Format assessment is now filed in Sources as a permanent page, with each check's name next to its ID and the mandatory checks first, and every run is listed in the log. No functional change to the ATM system. See CR-1.5.
 - **Release:** [v1.4 – Explain the Repository to Each Audience](change_log/changeLog.md) — The documentation home page explains what this is and how the artifacts interlink, and links every other explanation of the repository. No functional change to the ATM system. See CR-1.4.
 

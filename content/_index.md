@@ -9,9 +9,11 @@ sources:
     resource: /sources/cr_1_4.md
   - id: cr-1-5
     resource: /sources/cr_1_5.md
+  - id: cr-1-6
+    resource: /sources/cr_1_6.md
 generated:
   by: jarvis/1.0
-  at: 2026-09-13T09:54:02Z
+  at: 2026-09-13T17:31:58Z
 verified:
   - by: human:owner
     at: 2026-09-13T09:23:45Z
@@ -21,18 +23,22 @@ verified:
 
 # ATM System Documentation
 
-> [!NOTE] v1.4 – Changed 2026-09-13
-> New sections: *What this is*, *How the artifacts interlink*, and *Learn more*.
-
 > [!NOTE] v1.5 – Changed 2026-09-13
 > *Sources* and *Log* include the Open Knowledge Format assessments; the interlinkage shows where they fit.
+
+> [!NOTE] v1.6 – Changed 2026-09-13
+> The repository is now *okf-productdocumentation*, step 2 of a two-step series; *What this is* and *Learn more* link step 1.
 
 ## What this is
 
 The requirements documentation of an imaginary **ATM system**, written and kept consistent by
 **Jarvis**, an AI business analysis agent, together with a person who decides what changes. It is an
 educational case for the [CAS Business Analysis and Methods](https://www.zhaw.ch/de/sml/weiterbildung/detail/kurs/cas-business-analysis-and-methods)
-at the ZHAW, served from [github.com/marcelRonner/jarvis](https://github.com/marcelRonner/jarvis).
+at the ZHAW, served from [github.com/marcelRonner/okf-productdocumentation](https://github.com/marcelRonner/okf-productdocumentation).
+
+It is **step 2** of a two-step series. Step 1, [okf-llm-wiki](https://github.com/marcelRonner/okf-llm-wiki), shows the basics on a
+simple knowledge wiki; this repository applies the same ideas to the documentation of a software
+product.
 
 Every change starts as a **change request** in [Sources](sources/_index.md). Jarvis updates the
 affected artifacts from the domain model outward, records the change in the
@@ -114,8 +120,9 @@ renders. The rest is review.
 
 ## Learn more
 
-- [How this repository works](https://www.wlrm.ch/jarvis/) — the pieces and how a change flows through them, in plain language
-- [README](https://github.com/marcelRonner/jarvis#readme) — setting the repository up, building and deploying it
-- [Jarvis's instructions](https://github.com/marcelRonner/jarvis/blob/main/AGENTS.md) — the contract the agent works under
+- [How this repository works](https://www.wlrm.ch/okf-productdocumentation/) — the pieces and how a change flows through them, in plain language
+- [README](https://github.com/marcelRonner/okf-productdocumentation#readme) — setting the repository up, building and deploying it
+- [Jarvis's instructions](https://github.com/marcelRonner/okf-productdocumentation/blob/main/AGENTS.md) — the contract the agent works under
+- [okf-llm-wiki](https://github.com/marcelRonner/okf-llm-wiki) — step 1 of the series: the same ideas on a simple knowledge wiki
 - [Open Knowledge Format](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) — the specification the frontmatter on every page follows
 - [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — the pattern behind it: an agent compiling sources into linked, maintained pages

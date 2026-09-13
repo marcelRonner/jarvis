@@ -49,7 +49,7 @@ jobs:
         run: make stage
 
       # deploy/ holds exactly what the server should: index.html at the top, the docs under site/,
-      # served at https://www.wlrm.ch/jarvis/site/.
+      # served at https://www.wlrm.ch/okf-productdocumentation/site/.
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:

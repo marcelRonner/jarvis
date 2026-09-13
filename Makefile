@@ -13,7 +13,7 @@ help:
 	@echo "make lint          check frontmatter, Open Knowledge Format conformance and links (errors fail)"
 	@echo "make test          run the Open Knowledge Format consumer acceptance tests and the script tests"
 	@echo "make verify PAGES=\"content/a.md …\" [WHO=owner]   record YOUR approval of artifacts — never run by Jarvis"
-	@echo "make serve         live-reload site at http://localhost:1313/jarvis/site/"
+	@echo "make serve         live-reload site at http://localhost:1313/okf-productdocumentation/site/"
 	@echo "make build         check nothing is stale or broken, render every diagram, build site/"
 	@echo "make stage         build, then assemble deploy/ exactly as the server receives it"
 	@echo "make clean         remove site/ and deploy/"

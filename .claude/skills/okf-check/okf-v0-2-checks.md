@@ -8,8 +8,9 @@ and refers to a check by its ID. Used by the `okf-check` skill in [SKILL.md](SKI
 Every `§` link below points into it. There is no copy of the specification in this repository, so an
 assessment reads the URL.
 
-The same register is used by the knowledge wiki this repository's instruction layout comes from, so
-an assessment here and one there can be compared check by check.
+The same register is used by [okf-llm-wiki](https://github.com/marcelRonner/okf-llm-wiki), step 1 of
+this series, where this repository's instruction layout comes from, so an assessment here and one
+there can be compared check by check.
 
 ## The IDs
 
