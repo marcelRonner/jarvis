@@ -15,6 +15,9 @@ sources:
 generated:
   by: jarvis/1.0
   at: 2026-09-12T21:29:07Z
+verified:
+  - by: human:owner
+    at: 2026-09-13T09:23:45Z
 ---
 
 # Use Case – Print Receipt

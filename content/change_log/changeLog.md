@@ -7,9 +7,14 @@ weight: 1
 sources:
   - id: cr-1-3
     resource: /sources/cr_1_3.md
+  - id: cr-1-4
+    resource: /sources/cr_1_4.md
 generated:
   by: jarvis/1.0
-  at: 2026-09-12T21:29:07Z
+  at: 2026-09-13T07:22:06Z
+verified:
+  - by: human:owner
+    at: 2026-09-13T09:23:45Z
 ---
 
 # Change Log – ATM System
@@ -26,6 +31,19 @@ Each version section lists **every artifact that was created or changed**, with 
 | 🟡 `changed` | Existing artifact or element modified |
 | 🔴 `deprecated` | Artifact or element scheduled for removal |
 | ⚫ `removed` | Artifact or element deleted |
+
+---
+
+## v1.4 – Explain the Repository to Each Audience (2026-09-13)
+
+The documentation home page explains what this is and how the artifacts interlink, and links every other explanation of the repository. No functional change to the ATM system. See [CR-1.4](../sources/cr_1_4.md).
+
+| Artifact | Status | Description |
+|---|---|---|
+| [Home](../_index.md) | 🟡 changed | New sections *What this is*, *How the artifacts interlink* and *Learn more*; user story count corrected to 16 |
+| [Change Log](changeLog.md) | 🟡 changed | This entry |
+| [Log](../log.md) | 🟡 changed | Regenerated with v1.4 |
+| [CR-1.4](../sources/cr_1_4.md) | 🟢 new | The change request for this version |
 
 ---
 
