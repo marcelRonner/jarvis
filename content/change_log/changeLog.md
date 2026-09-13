@@ -9,9 +9,11 @@ sources:
     resource: /sources/cr_1_3.md
   - id: cr-1-4
     resource: /sources/cr_1_4.md
+  - id: cr-1-5
+    resource: /sources/cr_1_5.md
 generated:
   by: jarvis/1.0
-  at: 2026-09-13T07:22:06Z
+  at: 2026-09-13T09:54:02Z
 verified:
   - by: human:owner
     at: 2026-09-13T09:23:45Z
@@ -31,6 +33,37 @@ Each version section lists **every artifact that was created or changed**, with 
 | 🟡 `changed` | Existing artifact or element modified |
 | 🔴 `deprecated` | Artifact or element scheduled for removal |
 | ⚫ `removed` | Artifact or element deleted |
+
+---
+
+## v1.5 – File Open Knowledge Format Assessments (2026-09-13)
+
+Every Open Knowledge Format assessment is now filed in Sources as a permanent page, with each check's name next to its ID and the mandatory checks first, and every run is listed in the log. No functional change to the ATM system. See [CR-1.5](../sources/cr_1_5.md).
+
+| Artifact | Status | Description |
+|---|---|---|
+| [Home](../_index.md) | 🟡 changed | Sources and Log entries, the interlinkage chart and the join keys include assessments |
+| [Sources](../sources/_index.md) | 🟡 changed | Description includes assessments |
+| [Domain Model – ATM System](../domain_model/domainModel.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [Account](../domain_model/entities/account.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [ATM](../domain_model/entities/atm.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [AuditLog](../domain_model/entities/auditLog.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [Bank](../domain_model/entities/bank.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [Card](../domain_model/entities/card.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [CashCassette](../domain_model/entities/cashCassette.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [CashDispenser](../domain_model/entities/cashDispenser.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [Customer](../domain_model/entities/customer.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [Receipt](../domain_model/entities/receipt.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [Session](../domain_model/entities/session.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [Transaction](../domain_model/entities/transaction.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [Actor Descriptions – ATM System](../use_case/actorDescriptions.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [ATM System](../use_case/actors/atmSystem.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [Bank Backend](../use_case/actors/bankBackend.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [Customer](../use_case/actors/customer.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
+| [OKF v0.2 Conformance Assessment – 2026-09-13](../sources/okf_assessment_2026_09_13.md) | 🟢 new | The first filed assessment |
+| [Change Log](changeLog.md) | 🟡 changed | This entry |
+| [Log](../log.md) | 🟡 changed | Regenerated with v1.5 and the assessment |
+| [CR-1.5](../sources/cr_1_5.md) | 🟢 new | The change request for this version |
 
 ---
 

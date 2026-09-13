@@ -229,6 +229,10 @@
         about (<code>tags</code>). The labels follow an open standard, the
         <a href="https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md" target="_blank">Open Knowledge Format</a>,
         so any other agent can read this documentation without special tools.</p>
+      <p>How well does the documentation follow that standard? When you type <code>/okf-check</code>, I go through the
+        standard’s 41 rules one by one and file a report next to the change requests in <code>content/sources/</code>. Old
+        reports are never overwritten, so two of them show what got better in between — and a change request that fixes
+        a finding points back at the report that found it.</p>
       <p>The diagrams are written as text too, and drawn automatically when the site is built — so a picture can never
         disagree with the text it was drawn from.</p>
     </section>
@@ -286,8 +290,9 @@ typed `/change-request`. Read it and follow it; do not improvise a shorter path.
 ## Checking Open Knowledge Format conformance
 
 A request to assess or re-assess the documentation against the Open Knowledge Format follows
-`.claude/skills/okf-check/SKILL.md` (`/okf-check`). It is read-only: fixing what it finds is a change
-request.
+`.claude/skills/okf-check/SKILL.md` (`/okf-check`). It changes no artifact: it files its result as an
+assessment in `content/sources/`, and fixing what it finds is a change request that cites that
+assessment.
 
 ## Cross-cutting documentation rules
 
@@ -326,7 +331,8 @@ that file and run `make generate`.
 | `user-story` | `content/epics/user_stories/us_<epic>_<seq>.md` | `.claude/rules/epics.md` | One user story in Card – Conversation – Confirmation form, with a KANO classification. |
 | `change-log` | `content/change_log/changeLog.md` | `.claude/rules/change-log.md` | Every version, and every artifact created or changed in it. Permanent. |
 | `change-request` | `content/sources/cr_<major>_<minor>.md` | `.claude/rules/sources.md` | One change request — what was asked, what it affects, and what was decided. Artifacts it changed cite it. |
-| `log` | `content/log.md` | — | The Open Knowledge Format log — one entry per version, newest first. Generated from the change log. |
+| `assessment` | `content/sources/okf_assessment_<yyyy>_<mm>_<dd>.md` | `.claude/rules/sources.md` | One run of /okf-check — every check in the OKF v0.2 register, its status and evidence, and the conformance result. Never rewritten. |
+| `log` | `content/log.md` | — | The Open Knowledge Format log — one entry per version and per assessment, newest first. Generated from the change log and the assessments. |
 | `section` | `content/<folder>/_index.md` | — | A sidebar folder — its title, its one-line description, and its position. |
 
 ## Frontmatter (required on every file in `content/`)
@@ -398,8 +404,8 @@ agent reading the Markdown, where nothing renders the frontmatter.
 
 Never create `index.md` anywhere in `content/`: the name is reserved by the Open Knowledge Format,
 and it would also turn its folder into a single page. A folder's own page is `_index.md`, with
-`type: section`. The only `log.md` is `content/log.md`, generated from the change log by
-`make generate` — never edit it.
+`type: section`. The only `log.md` is `content/log.md`, generated from the change log and the
+assessments by `make generate` — never edit it.
 
 ## Read the rules for the folder you are writing in
 
@@ -433,10 +439,12 @@ of the following before presenting the result. Do not present it until every box
    sidebar. There is no navigation list to edit: the sidebar is built from the folders.
 3. ☐ **Diagrams** — a new `.puml` file is embedded with an image link to it. There is no list of
    diagrams to maintain anywhere; the build finds and renders them.
-4. ☐ **`content/_index.md`** — add a link to the new artifact in the Artifacts list.
+4. ☐ **`content/_index.md`** — add a link to the new artifact in the Artifacts list. Change requests
+   and assessments are reached through its **Sources** entry and need none.
 5. ☐ **`content/change_log/changeLog.md`** — add or update the version entry for every artifact
    created or changed, linking the change request in `content/sources/`. Then `make generate`, so
-   `content/log.md` carries the version.
+   `content/log.md` carries the version. An assessment is the one exception: it changes nothing, so
+   it gets no version, and `make generate` lists it in the log on its own.
 6. ☐ **`make build` passes** — it checks frontmatter and Open Knowledge Format conformance, every
    relative link and footnote, runs the consumer acceptance tests, and renders every diagram. A
    PlantUML syntax error fails it. Run it; do not assume.
@@ -494,31 +502,43 @@ Introduce yourself briefly at the start:
 
 # OKF check
 
-Assess how far the documentation in `content/` conforms to the Open Knowledge Format (OKF) v0.2.
-**Read-only** unless the user names a destination for the result — never change an artifact as part
-of an assessment. Fixing a finding in the documentation is a change request.
+Assess how far the documentation in `content/` conforms to the Open Knowledge Format (OKF) v0.2, and
+file the result as an assessment in `content/sources/`. **Read-only for every artifact** — the one
+file a run writes is its own assessment. Fixing a finding in the documentation is a change request,
+and that change request cites the assessment.
 
-Work through [okf-v0-2-checks.md](okf-v0-2-checks.md) — the register of numbered checks, each linked
-to the clause of the specification it comes from. Read it first. It also fixes the vocabulary: the
-five statuses an assessment may use, and what `REQUIRED` means as against everything else.
+Work through [okf-v0-2-checks.md](okf-v0-2-checks.md) — the register of numbered checks, each with a
+short name and a link to the clause of the specification it comes from. Read it first. It also fixes
+the vocabulary: the five statuses an assessment may use, and what `REQUIRED` means as against
+everything else.
 
 Do not restate the checks from memory and do not invent a numbering of your own. The register's IDs
 are the join between one assessment and the next, and a re-run that renumbers them destroys the only
 thing that makes two assessments comparable.
 
 > Assess the bundle the user names — `content/` unless they say otherwise — against every check in
-> `.claude/skills/okf-check/okf-v0-2-checks.md`. State the scope and the date. Read the normative
-> specification at the URL the register names. Produce one table: check ID, status, evidence,
-> remediation. Cover every ID in the register, in register order, and add no rows of your own — if
-> something needs checking that the register has no ID for, say so under the table and propose the
-> ID. Use only the register's five statuses. Do not record `meets` against a consumer requirement
-> without naming the consumer and the acceptance test that proves it; `partial` is the honest status
-> for a behaviour that is implemented but untested. Keep `not adopted` and `n/a` apart. Give a
-> precise remediation for everything that is not `meets`, and none for what is. Then state the §11
-> result — conformant or not, on the strength of the three REQUIRED checks alone — and run
-> `make lint` and `make build` before reporting it.
+> `.claude/skills/okf-check/okf-v0-2-checks.md`. Read the normative specification at the URL the
+> register names. Cover every ID in the register exactly once, and add no rows of your own — if
+> something needs checking that the register has no ID for, say so under *Register notes* and
+> propose the ID. Use only the register's five statuses. Do not record `meets` against a consumer
+> requirement without naming the consumer and the acceptance test that proves it; `partial` is the
+> honest status for a behaviour that is implemented but untested. Keep `not adopted` and `n/a` apart.
+> Give a precise remediation for everything that is not `meets`, and none for what is. State the §11
+> result — conformant or not, on the strength of the three mandatory checks alone. Run `make lint`
+> and `make build` before filing, and record their results under *Scope*.
 
-Write the result to the destination the user names. If none is named, report it in the chat.
+## Filing the result
+
+1. Read `.claude/rules/sources.md` and write the assessment exactly as it describes: named for the day
+   of the run, the verdict and the counts first, then the mandatory checks, then one table per family,
+   every row carrying the check's name next to its ID.
+2. Never edit an earlier assessment. Compare against the newest one instead, and name every check
+   whose status changed under *Result*.
+3. Run `make generate`, which lists the run in `content/log.md`, then `make build`.
+4. Report the verdict, the counts and the *Needs attention* list in the chat, with a link to the file.
+   The approval of the page is the user's, with `make verify` — never run it.
+
+If the user asks for the result in the chat only, do not file it.
 
 If a check turns out to be wrongly worded, or the specification gains a clause the register misses,
 change the register and say so in the assessment. Adding a check is normal; renumbering is not.
@@ -772,15 +792,25 @@ Every user story file follows this structure:
 
 # Source Conventions
 
-`content/sources/` holds the material the documentation's changes derive from. Today that is change
-requests: every change applied through the change-request protocol is written down here first, and
-every artifact it creates or restructures cites it in `sources:`.
+`content/sources/` holds the material the documentation's changes derive from, in two kinds:
+
+- **Change requests** — every change applied through the change-request protocol is written down
+  here first, and every artifact it creates or restructures cites it in `sources:`.
+- **Assessments** — every run of `/okf-check` is filed here. An assessment changes nothing; it is
+  the evidence a later change request cites for what it fixes.
+
+Both are written once and never rewritten, so the folder reads as a history: what was found, what
+was asked, what was decided.
 
 ## Files to produce
 - `cr_{major}_{minor}.md` — one change request per version (e.g. `cr_1_3.md` for v1.3)
-- Auto-numbered: `CR-{major}.{minor}`, the version the change is released as
+  - Auto-numbered: `CR-{major}.{minor}`, the version the change is released as
+- `okf_assessment_{yyyy}_{mm}_{dd}.md` — one Open Knowledge Format assessment per run, named for the
+  day it ran (e.g. `okf_assessment_2026_09_13.md`). A second run on the same day adds `_2`.
+- `weight` continues the folder's sequence across both kinds, so the sidebar lists them in the order
+  they were written.
 
-## Markdown structure
+## Change request — Markdown structure
 ```
 # CR-{X.Y} – {Title}
 ## Request           → Who asked, when, and what — in the requester's terms
@@ -792,7 +822,7 @@ every artifact it creates or restructures cites it in `sources:`.
 ## Status            → Proposed · Implemented in v{X.Y} on {date} · Approved (recorded with `make verify`)
 ```
 
-## Content rules
+## Change request — content rules
 - A change request records a decision; it is **not rewritten** once implemented. If the change turns
   out wrong, the next change request says so.
 - Use domain model entity names exactly, as everywhere else.
@@ -800,8 +830,73 @@ every artifact it creates or restructures cites it in `sources:`.
   what the Must-rule "Ask, don't assume" exists to prevent.
 - The change log's version entry links its change request, and the change request links the change
   log.
-- `generated:` is stamped when Jarvis writes the request. `verified:` is recorded by the approver
-  with `make verify`, never by Jarvis.
+- A change request that fixes assessment findings cites the assessment in `sources:`
+  (`id: okf-assessment-2026-09-13`) and footnotes each check ID it addresses with that id.
+
+## Assessment — frontmatter
+- `title: "OKF v0.2 Conformance Assessment – {YYYY-MM-DD}"`, `linkTitle: "OKF Assessment {YYYY-MM-DD}"`
+- `type: assessment`
+- `description` — the result in one sentence: conformant or not, and the count per status. It is the
+  line `content/log.md` shows for the run, so a reader of the log learns the result without opening
+  the page.
+- `generated` stamped when the run is filed. No `tags`: an assessment names no domain entity.
+
+## Assessment — Markdown structure
+
+A reader must learn what was checked without opening the register, and see the verdict before the
+detail. So every check row carries its **name** from the register next to its ID, and the rows are
+grouped: the three checks that decide conformance first, then one table per family.
+
+```
+# OKF v0.2 Conformance Assessment – {YYYY-MM-DD}
+{One sentence: what was assessed, on which day, with what result.}
+
+## Scope             → Two-column table with rows Bundle, Commit, Specification, Register, Validation
+## Result            → Conformant or not, on the three mandatory checks alone. Then a table:
+                       Family | meets | partial | not adopted | deviates | n/a, one row per family
+                       in the order of the sections below, and a Total row
+## Needs attention   → One bullet per `partial` or `deviates` check: ID, name, and the remediation in
+                       one line. "Nothing." if there is none
+## Mandatory checks  → OKF-CNF-01, OKF-CNF-02, OKF-CNF-03 — the §11 conformance criteria
+## Bundle structure  → OKF-BUN-*
+## Concept documents → OKF-CPT-*
+## Provenance        → OKF-SRC-*
+## Trust             → OKF-TRU-*
+## Lifecycle         → OKF-LIF-*
+## Cross-linking and paths → OKF-LNK-*
+## Reserved files    → OKF-RSV-*
+## Attested computations → OKF-CMP-*
+## Consumer floor    → OKF-CNF-04
+## Versioning        → OKF-VER-*
+## Register notes    → Only when the run changed the register, or found something it has no ID for
+```
+
+Every check section is one table, with the rows in register order:
+
+```
+| Check | Name | Status | Evidence | Remediation |
+|---|---|---|---|---|
+| [`OKF-BUN-01`](https://…/SPEC.md#3-bundle-structure) | Markdown directory tree | meets | … | |
+```
+
+- **Check** is the ID, linked to the clause of the specification the register links.
+- **Name** is copied verbatim from the register.
+- **Status** is one of the register's five words, and nothing else — decoration breaks the diff.
+- **Remediation** is empty for `meets`, and precise for everything else.
+- Every register ID appears exactly once in the page.
+
+## Assessment — content rules
+- **Never rewritten.** The next run is a new page; two pages are compared check by check, which is
+  what the register's permanent IDs are for. A finding that turns out wrong is corrected by the next
+  run, which says so under *Register notes*.
+- **Not a change.** Filing an assessment gets no version and no change log entry. `make generate`
+  lists it in `content/log.md` under the day it ran.
+- **Links** to the specification use its URL; links to the register use the repository path in
+  backticks, since the register lives outside the bundle.
+
+## Approval
+- `generated:` is stamped when Jarvis writes the page. `verified:` is recorded by the approver with
+  `make verify`, never by Jarvis.
 
 
 ---

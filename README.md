@@ -38,8 +38,9 @@ content/                  the documentation — the OKF bundle and the Hugo cont
   state_chart/            one state chart per entity with a status enum (.md + .puml)
   epics/                  the story map, and user_stories/ — one file per story
   change_log/             changeLog.md — every version, every artifact touched
-  sources/                change requests, one per version, cited by the artifacts they changed
-  log.md                  GENERATED — the OKF log, from the change log
+  sources/                change requests, one per version, cited by the artifacts they changed;
+                          and OKF assessments, one per /okf-check run, never rewritten
+  log.md                  GENERATED — the OKF log, from the change log and the assessments
 AGENTS.md                 the always-on contract: identity, must-rules, frontmatter, checklist
 CLAUDE.md                 one line, importing AGENTS.md for Claude Code
 .claude/rules/            the conventions for each artifact type, loaded only for its folder
@@ -141,7 +142,7 @@ Jarvis runs on the same files in Claude Code and GitHub Copilot:
   each one there, as `applyTo:`.
 - **`.claude/skills/`** holds the operations: `change-request`, the protocol for changing the
   documentation, and `okf-check`, which assesses the bundle against the check register in
-  `okf-v0-2-checks.md`. Both tools discover skills there; the generated `.github/prompts/*.prompt.md`
+  `okf-v0-2-checks.md` and files the result in `content/sources/`. Both tools discover skills there; the generated `.github/prompts/*.prompt.md`
   files exist only so `/change-request` and `/okf-check` can be typed in Copilot.
 - **`index.html`** shows the same instruction files to students, regenerated into the page on every
   `make generate`.
@@ -151,7 +152,11 @@ Edit the source files, never the generated ones — `make build` fails if they h
 ## Open Knowledge Format
 
 `content/` is an OKF v0.2 bundle, so any agent that reads OKF can consume the documentation straight
-from the repository. `/okf-check` assesses it against the 41 numbered checks of the register. The
+from the repository. `/okf-check` assesses it against the 41 numbered checks of the register and
+files each run as `content/sources/okf_assessment_<yyyy>_<mm>_<dd>.md`: the verdict and the counts
+first, then the three mandatory checks, then one table per check family, every row showing the
+check's name next to its ID. Runs are never rewritten, so two can be compared check by check; each
+appears in `content/log.md` under its day, and a change request fixing a finding cites the run. The
 conformance and quality rules are enforced by `make lint`:
 
 | Code | Fails on |
