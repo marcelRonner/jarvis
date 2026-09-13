@@ -9,6 +9,10 @@ weight: 80
 
 # Log
 
+## 2026-09-13
+
+- **Release:** [v1.4 – Explain the Repository to Each Audience](change_log/changeLog.md) — The documentation home page explains what this is and how the artifacts interlink, and links every other explanation of the repository. No functional change to the ATM system. See CR-1.4.
+
 ## 2026-09-12
 
 - **Release:** [v1.3 – Open Knowledge Format Metadata and Concepts](change_log/changeLog.md) — Every artifact now records where it derives from, who produced it and which domain entities it concerns, as Open Knowledge Format frontmatter, and each domain entity and actor has its own page. No functional change to the ATM system. See CR-1.3.

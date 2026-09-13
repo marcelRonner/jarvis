@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jarvis – instructions</title>
+  <title>Jarvis – how this repository works</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     :root {
@@ -134,16 +134,131 @@
       body { padding: 16px 10px; }
       article { padding: 18px 16px; }
     }
+
+    /* Explainer sections */
+    h1.page { font-size: 30px; color: var(--heading); line-height: 1.25; margin-bottom: 10px; }
+    .lead { color: var(--muted); font-size: 17px; margin-bottom: 28px; }
+    .lead a, section a, footer a { color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in oklab, var(--accent) 40%, transparent); }
+    section { margin: 40px 0; }
+    section > h2 { font-size: 21px; color: var(--heading); margin-bottom: 12px; }
+    section > p { margin: 8px 0; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 16px; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+    .card h3 { font-size: 15px; color: var(--heading); margin-bottom: 6px; }
+    .card p { font-size: 14px; color: var(--text); }
+    .card code, section code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 4px; }
+    ol.flow { list-style: none; counter-reset: step; margin-top: 16px; }
+    ol.flow li { counter-increment: step; position: relative; padding: 10px 0 10px 48px; border-left: 2px solid var(--border); margin-left: 16px; }
+    ol.flow li::before { content: counter(step); position: absolute; left: -16px; top: 8px; width: 30px; height: 30px; border-radius: 50%; background: var(--panel); border: 2px solid var(--accent); color: var(--heading); font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+    ol.flow li strong { color: var(--heading); }
+    .chain { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 14px; font-size: 14px; }
+    .chain span { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; color: var(--heading); }
+    .chain b { color: var(--muted); font-weight: 400; }
+    details { margin-top: 16px; }
+    details summary { cursor: pointer; color: var(--accent); font-weight: 600; margin-bottom: 14px; }
+    footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
   </style>
 </head>
 <body>
   <div class="wrapper">
-    <p class="intro">Hi. This is Jarvis, the BA documentation Agent. See below my instructions that result in the following <a href="https://www.wlrm.ch/jarvis/site" target="_blank">doc</a>. You can find my code in this <a href="https://github.com/marcelRonner/jarvis" target="_blank">GitHub Repo</a>.</p>
-    <div class="file-badge">AGENTS.md · .claude/skills · .claude/rules</div>
-    <article id="content">Loading…</article>
+    <h1 class="page">Hi, I'm Jarvis — a business analysis agent.</h1>
+    <p class="lead">I write and look after the requirements of an imaginary ATM, together with a person who decides what changes.
+      This page explains how the parts of my repository work together. The result is the
+      <a href="https://www.wlrm.ch/jarvis/site/" target="_blank">ATM documentation</a>; the code is on
+      <a href="https://github.com/marcelRonner/jarvis" target="_blank">GitHub</a>.</p>
+
+    <section>
+      <h2>The idea in one paragraph</h2>
+      <p>Requirements documents usually go out of date, because every change has to be copied by hand into many places.
+        Here, an AI agent does that bookkeeping. You tell it what should change; it works out which documents are affected,
+        updates them in the right order, and records what it did. You stay in charge: nothing counts as approved until a
+        person says so.</p>
+    </section>
+
+    <section>
+      <h2>The five parts</h2>
+      <div class="cards">
+        <div class="card"><h3>📄 The documentation</h3>
+          <p>Plain text files in <code>content/</code>: the domain model, business process, use cases, state chart, epics and
+            user stories. One file per artifact, one folder per kind of artifact.</p></div>
+        <div class="card"><h3>🧭 The instructions</h3>
+          <p>Text files that tell me how to work: <code>AGENTS.md</code> for the general rules, <code>.claude/rules/</code>
+            for how each kind of artifact must look, and <code>.claude/skills/</code> for step-by-step procedures.
+            GitHub Copilot and Claude Code both read them.</p></div>
+        <div class="card"><h3>📝 The change requests</h3>
+          <p>Every change is written down first, in <code>content/sources/</code>: what was asked, what it affects, and what was
+            decided. The documents that change point back to it.</p></div>
+        <div class="card"><h3>✅ The checks</h3>
+          <p>Small programs in <code>scripts/</code> that catch mistakes a person would miss: a broken link, a missing label,
+            a diagram that does not draw. If a check fails, nothing is published.</p></div>
+        <div class="card"><h3>🌐 The website</h3>
+          <p>A tool called Hugo turns the text files into the documentation website. Every time the main version on GitHub
+            changes, the site is rebuilt and uploaded automatically.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>How a change flows through it</h2>
+      <ol class="flow">
+        <li><strong>You ask for a change</strong> — for example “the card should come out before the cash”.</li>
+        <li><strong>I analyse it</strong>, ask about anything unclear, and show which documents it affects.</li>
+        <li><strong>I write a change request</strong> into <code>content/sources/</code>, once you agree on the scope.</li>
+        <li><strong>I update the documents from the inside out</strong>, starting with the domain model, because everything else depends on it.</li>
+        <li><strong>I draft user stories</strong> for anything the system should now do differently, and show them to you first.</li>
+        <li><strong>I record the version</strong> in the change log and run all the checks.</li>
+        <li><strong>You approve</strong> — and record it with one command, <code>make verify</code>. I am not allowed to do that step for you.</li>
+        <li><strong>The change goes to GitHub</strong>, and the website rebuilds itself.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Why the order matters</h2>
+      <p>The documents build on each other. Change something on the left, and everything to its right may need to change too:</p>
+      <div class="chain">
+        <span>Domain Model</span><b>→</b><span>Business Process</span><b>→</b><span>Use Cases</span><b>→</b><span>State Charts &amp; Epics</span><b>→</b><span>User Stories</span><b>→</b><span>Change Log</span>
+      </div>
+      <p>The documentation home page shows this chain in detail, with the IDs that connect the documents and a list of what
+        to check after each kind of change.</p>
+    </section>
+
+    <section>
+      <h2>The label on every page</h2>
+      <p>Each document starts with a short block of labels that people rarely see but tools read. It says what kind of
+        document it is, which documents it was derived from (<code>sources</code>), who wrote it and when
+        (<code>generated</code>), whether a person approved it (<code>verified</code>), and which parts of the domain it is
+        about (<code>tags</code>). The labels follow an open standard, the
+        <a href="https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md" target="_blank">Open Knowledge Format</a>,
+        so any other agent can read this documentation without special tools.</p>
+      <p>The diagrams are written as text too, and drawn automatically when the site is built — so a picture can never
+        disagree with the text it was drawn from.</p>
+    </section>
+
+    <section>
+      <h2>Where the idea comes from</h2>
+      <p>This follows the <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank">LLM Wiki</a>
+        pattern: instead of searching raw notes every time a question comes up, an agent keeps a set of linked, up-to-date
+        pages — and a person keeps the final say.</p>
+    </section>
+
+    <section>
+      <h2>Read my instructions yourself</h2>
+      <p>Below is exactly what I am told to do — the same files the agent reads, copied here automatically on every build.</p>
+      <details>
+        <summary>Show the instructions</summary>
+        <div class="file-badge">AGENTS.md · .claude/skills · .claude/rules</div>
+        <article id="content">Loading…</article>
+      </details>
+    </section>
+
+    <footer>
+      Setting the repository up yourself? Read the <a href="https://github.com/marcelRonner/jarvis#readme" target="_blank">README</a>.
+      Want to learn how to build an agent like this? That is part of the
+      <a href="https://www.zhaw.ch/de/sml/weiterbildung/detail/kurs/cas-business-analysis-and-methods" target="_blank">CAS Business Analysis and Methods</a>
+      at the ZHAW School of Management and Law.
+    </footer>
   </div>
 
-  <!-- The raw markdown is embedded here in a script tag so it stays static -->
+  <!-- The instructions are embedded as static Markdown, regenerated by `make generate`. -->
   <script id="raw-md" type="text/markdown">
 <p class="file-badge">AGENTS.md</p>
 
