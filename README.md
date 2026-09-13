@@ -1,15 +1,22 @@
 # OKF Product Documentation
 
-Meet Jarvis, the Business Analysis context and requirements engineering agent. 
+Software product documentation that stays consistent, traceable and machine-readable: the
+requirements of an example ATM system, kept as an
+[Open Knowledge Format](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)
+(OKF) bundle. Every artifact — domain model, business process, use cases, state charts, user
+stories — declares its type, what it derives from, who wrote it and whether a person approved it.
+Every change is a change request, every release a version in the change log, and every OKF
+conformance check a filed report.
 
-This is an educational example. 
+**Jarvis**, an AI agent running in GitHub Copilot and Claude Code, helps with the requirements
+analysis: it works out what a change affects, asks about what is unclear, updates the artifacts in
+the right order and drafts the user stories. A person decides and approves.
 
-Details about how to build it for your own purpose (in < than 1 hour) and insights about where and how to run it can be experienced in the
-[certificate of advanced studies in Business Analysis and Methods](https://www.zhaw.ch/de/sml/weiterbildung/detail/kurs/cas-business-analysis-and-methods) at the [ZHAW School of Management and Law](https://www.zhaw.ch/en/university). 
+This is an educational example. Details about how to build it for your own purpose (in less than
+1 hour) and insights about where and how to run it can be experienced in the
+[certificate of advanced studies in Business Analysis and Methods](https://www.zhaw.ch/de/sml/weiterbildung/detail/kurs/cas-business-analysis-and-methods) at the [ZHAW School of Management and Law](https://www.zhaw.ch/en/university).
 
 See you there! 🙋‍♂️
-
-![AI Agents in 2026 - Trends you can't ignore](image.png)
 
 ---
 
@@ -34,11 +41,11 @@ Two educational repositories, each a working example you can copy:
 
 ## What is in here
 
-The requirements documentation of an ATM example system, written and kept consistent by Jarvis, an
-agent that runs in GitHub Copilot and Claude Code from the same instruction files, and published as
-a Hugo site. The documentation is an [Open Knowledge Format](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)
-(OKF) v0.2 bundle, and follows the [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
-pattern: an agent compiles changes into linked, maintained pages, and a person approves them.
+The product documentation of an ATM example system as an OKF v0.2 bundle in `content/`, published as
+a Hugo site. It follows the [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
+pattern: an agent compiles changes into linked, maintained pages, and a person approves them. The
+agent is Jarvis, which does the requirements analysis from the same instruction files in GitHub
+Copilot and Claude Code.
 
 ```
 content/                  the documentation — the OKF bundle and the Hugo content directory
@@ -104,7 +111,8 @@ make serve                        # http://localhost:1313/okf-productdocumentati
 
 ## How a change is made
 
-1. Ask Jarvis for the change — in Copilot or Claude Code, typed as `/change-request` or not.
+1. Ask Jarvis, the requirements-analysis agent, for the change — in Copilot or Claude Code, typed as
+   `/change-request` or not.
 2. Jarvis follows [`.claude/skills/change-request/SKILL.md`](.claude/skills/change-request/SKILL.md):
    analyse, clarify, impact summary, then write the change request to
    `content/sources/cr_{major}_{minor}.md`.

@@ -1,8 +1,8 @@
 ---
-title: "ATM System Documentation"
+title: "OKF Product Documentation – ATM System"
 linkTitle: "Home"
 type: overview
-description: "Requirements documentation for an ATM example system, written and kept consistent by Jarvis, a business analysis agent — an educational case of the ZHAW."
+description: "The product documentation of an ATM example system as an Open Knowledge Format bundle — derived, traceable and approved artifacts, with Jarvis as the agent that helps with the requirements analysis."
 weight: 1
 sources:
   - id: cr-1-4
@@ -11,9 +11,11 @@ sources:
     resource: /sources/cr_1_5.md
   - id: cr-1-6
     resource: /sources/cr_1_6.md
+  - id: cr-1-7
+    resource: /sources/cr_1_7.md
 generated:
   by: jarvis/1.0
-  at: 2026-09-13T17:31:58Z
+  at: 2026-09-13T18:09:25Z
 verified:
   - by: human:owner
     at: 2026-09-13T09:23:45Z
@@ -21,31 +23,38 @@ verified:
     at: 2026-09-13T10:11:37Z
   - by: human:owner
     at: 2026-09-13T17:45:10Z
+  - by: human:owner
+    at: 2026-09-13T18:13:36Z
 ---
 
-# ATM System Documentation
-
-> [!NOTE] v1.5 – Changed 2026-09-13
-> *Sources* and *Log* include the Open Knowledge Format assessments; the interlinkage shows where they fit.
+# OKF Product Documentation – ATM System
 
 > [!NOTE] v1.6 – Changed 2026-09-13
 > The repository is now *okf-productdocumentation*, step 2 of a two-step series; *What this is* and *Learn more* link step 1.
 
+> [!NOTE] v1.7 – Changed 2026-09-13
+> The page leads with the Open Knowledge Format; Jarvis is named as the agent that helps with the requirements analysis.
+
 ## What this is
 
-The requirements documentation of an imaginary **ATM system**, written and kept consistent by
-**Jarvis**, an AI business analysis agent, together with a person who decides what changes. It is an
-educational case for the [CAS Business Analysis and Methods](https://www.zhaw.ch/de/sml/weiterbildung/detail/kurs/cas-business-analysis-and-methods)
-at the ZHAW, served from [github.com/marcelRonner/okf-productdocumentation](https://github.com/marcelRonner/okf-productdocumentation).
+The product documentation of an imaginary **ATM system**, kept as an
+[Open Knowledge Format](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)
+(OKF) bundle. Every page is a concept with a declared type, the artifacts it derives from
+(`sources`), who wrote it and when (`generated`), and whether a person approved it (`verified`) — so
+a reader can follow the documentation from domain model to user story, and any agent that reads OKF
+can consume it without special tools.
 
-It is **step 2** of a two-step series. Step 1, [okf-llm-wiki](https://github.com/marcelRonner/okf-llm-wiki), shows the basics on a
-simple knowledge wiki; this repository applies the same ideas to the documentation of a software
-product.
+It is an educational case for the [CAS Business Analysis and Methods](https://www.zhaw.ch/de/sml/weiterbildung/detail/kurs/cas-business-analysis-and-methods)
+at the ZHAW, served from [github.com/marcelRonner/okf-productdocumentation](https://github.com/marcelRonner/okf-productdocumentation),
+and **step 2** of a two-step series. Step 1, [okf-llm-wiki](https://github.com/marcelRonner/okf-llm-wiki),
+shows the basics on a simple knowledge wiki; this repository applies the same ideas to the
+documentation of a software product.
 
-Every change starts as a **change request** in [Sources](sources/_index.md). Jarvis updates the
-affected artifacts from the domain model outward, records the change in the
-[Change Log](change_log/changeLog.md), and a person approves it. Each check of the documentation
-against the Open Knowledge Format is filed in Sources too, and the change request that fixes a finding
+Every change starts as a **change request** in [Sources](sources/_index.md). **Jarvis**, an AI
+agent, helps with the requirements analysis: it works out which artifacts a change affects, asks
+about what is unclear, updates them from the domain model outward and records the version in the
+[Change Log](change_log/changeLog.md). A person decides what changes and approves the result. Each
+check of the bundle against OKF is filed in Sources too, and the change request that fixes a finding
 cites it.
 
 ## Artifacts
@@ -124,7 +133,7 @@ renders. The rest is review.
 
 - [How this repository works](https://www.wlrm.ch/okf-productdocumentation/) — the pieces and how a change flows through them, in plain language
 - [README](https://github.com/marcelRonner/okf-productdocumentation#readme) — setting the repository up, building and deploying it
-- [Jarvis's instructions](https://github.com/marcelRonner/okf-productdocumentation/blob/main/AGENTS.md) — the contract the agent works under
-- [okf-llm-wiki](https://github.com/marcelRonner/okf-llm-wiki) — step 1 of the series: the same ideas on a simple knowledge wiki
 - [Open Knowledge Format](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) — the specification the frontmatter on every page follows
+- [okf-llm-wiki](https://github.com/marcelRonner/okf-llm-wiki) — step 1 of the series: the same ideas on a simple knowledge wiki
+- [Jarvis's instructions](https://github.com/marcelRonner/okf-productdocumentation/blob/main/AGENTS.md) — the contract the requirements-analysis agent works under
 - [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — the pattern behind it: an agent compiling sources into linked, maintained pages
