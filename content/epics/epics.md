@@ -25,6 +25,9 @@ sources:
 generated:
   by: jarvis/1.0
   at: 2026-05-22T18:15:23Z
+verified:
+  - by: human:owner
+    at: 2026-09-13T09:23:45Z
 ---
 
 # Epics & Story Map – ATM System
