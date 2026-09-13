@@ -11,14 +11,18 @@ sources:
     resource: /sources/cr_1_4.md
   - id: cr-1-5
     resource: /sources/cr_1_5.md
+  - id: cr-1-6
+    resource: /sources/cr_1_6.md
 generated:
   by: jarvis/1.0
-  at: 2026-09-13T09:54:02Z
+  at: 2026-09-13T17:31:58Z
 verified:
   - by: human:owner
     at: 2026-09-13T09:23:45Z
   - by: human:owner
     at: 2026-09-13T10:11:37Z
+  - by: human:owner
+    at: 2026-09-13T17:45:10Z
 ---
 
 # Change Log – ATM System
@@ -35,6 +39,19 @@ Each version section lists **every artifact that was created or changed**, with 
 | 🟡 `changed` | Existing artifact or element modified |
 | 🔴 `deprecated` | Artifact or element scheduled for removal |
 | ⚫ `removed` | Artifact or element deleted |
+
+---
+
+## v1.6 – Rename the Repository to okf-productdocumentation (2026-09-13)
+
+The repository is now okf-productdocumentation, step 2 of a two-step educational series after okf-llm-wiki, and the site moves to its matching address. No functional change to the ATM system. See [CR-1.6](../sources/cr_1_6.md).
+
+| Artifact | Status | Description |
+|---|---|---|
+| [Home](../_index.md) | 🟡 changed | New repository name, address and links; the series in *What this is* and *Learn more*; v1.4 marker removed |
+| [Change Log](changeLog.md) | 🟡 changed | This entry |
+| [Log](../log.md) | 🟡 changed | Regenerated with v1.6 |
+| [CR-1.6](../sources/cr_1_6.md) | 🟢 new | The change request for this version |
 
 ---
 
