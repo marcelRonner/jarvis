@@ -5,19 +5,19 @@ type: change-log
 description: "Version history of the ATM system documentation, listing every artifact created or changed in each version."
 weight: 1
 sources:
+  - id: cr-1-0
+    resource: /sources/cr_1_0.md
+  - id: cr-1-1
+    resource: /sources/cr_1_1.md
+  - id: cr-1-2
+    resource: /sources/cr_1_2.md
   - id: cr-1-3
     resource: /sources/cr_1_3.md
   - id: cr-1-4
     resource: /sources/cr_1_4.md
-  - id: cr-1-5
-    resource: /sources/cr_1_5.md
-  - id: cr-1-6
-    resource: /sources/cr_1_6.md
-  - id: cr-1-7
-    resource: /sources/cr_1_7.md
 generated:
   by: jarvis/1.0
-  at: 2026-09-13T18:09:25Z
+  at: 2026-09-13T18:34:19Z
 verified:
   - by: human:owner
     at: 2026-09-13T09:23:45Z
@@ -27,6 +27,8 @@ verified:
     at: 2026-09-13T17:45:10Z
   - by: human:owner
     at: 2026-09-13T18:13:36Z
+  - by: human:owner
+    at: 2026-09-13T18:38:03Z
 ---
 
 # Change Log – ATM System
@@ -46,79 +48,24 @@ Each version section lists **every artifact that was created or changed**, with 
 
 ---
 
-## v1.7 – Lead with the Open Knowledge Format (2026-09-13)
+## v1.4 – File Open Knowledge Format Assessments (2026-09-13)
 
-The entry pages present the repository as product documentation in the Open Knowledge Format, with Jarvis as the agent that helps with the requirements analysis. No functional change to the ATM system. See [CR-1.7](../sources/cr_1_7.md).
-
-| Artifact | Status | Description |
-|---|---|---|
-| [Home](../_index.md) | 🟡 changed | Title is now *OKF Product Documentation – ATM System*; description and *What this is* lead with the OKF bundle and name Jarvis's role; v1.5 marker removed (cleanup rule) |
-| [Change Log](changeLog.md) | 🟡 changed | This entry |
-| [Log](../log.md) | 🟡 changed | Regenerated with v1.7 |
-| [CR-1.7](../sources/cr_1_7.md) | 🟢 new | The change request for this version |
-
----
-
-## v1.6 – Rename the Repository to okf-productdocumentation (2026-09-13)
-
-The repository is now okf-productdocumentation, step 2 of a two-step educational series after okf-llm-wiki, and the site moves to its matching address. No functional change to the ATM system. See [CR-1.6](../sources/cr_1_6.md).
-
-| Artifact | Status | Description |
-|---|---|---|
-| [Home](../_index.md) | 🟡 changed | New repository name, address and links; the series in *What this is* and *Learn more*; v1.4 marker removed |
-| [Change Log](changeLog.md) | 🟡 changed | This entry |
-| [Log](../log.md) | 🟡 changed | Regenerated with v1.6 |
-| [CR-1.6](../sources/cr_1_6.md) | 🟢 new | The change request for this version |
-
----
-
-## v1.5 – File Open Knowledge Format Assessments (2026-09-13)
-
-Every Open Knowledge Format assessment is now filed in Sources as a permanent page, with each check's name next to its ID and the mandatory checks first, and every run is listed in the log. No functional change to the ATM system. See [CR-1.5](../sources/cr_1_5.md).
+Every Open Knowledge Format assessment is now filed in Sources as a permanent page, with each check's name next to its ID and the mandatory checks first, and every run is listed in the log. No functional change to the ATM system. See [CR-1.4](../sources/cr_1_4.md).
 
 | Artifact | Status | Description |
 |---|---|---|
 | [Home](../_index.md) | 🟡 changed | Sources and Log entries, the interlinkage chart and the join keys include assessments |
 | [Sources](../sources/_index.md) | 🟡 changed | Description includes assessments |
-| [Domain Model – ATM System](../domain_model/domainModel.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [Account](../domain_model/entities/account.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [ATM](../domain_model/entities/atm.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [AuditLog](../domain_model/entities/auditLog.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [Bank](../domain_model/entities/bank.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [Card](../domain_model/entities/card.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [CashCassette](../domain_model/entities/cashCassette.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [CashDispenser](../domain_model/entities/cashDispenser.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [Customer](../domain_model/entities/customer.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [Receipt](../domain_model/entities/receipt.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [Session](../domain_model/entities/session.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [Transaction](../domain_model/entities/transaction.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [Actor Descriptions – ATM System](../use_case/actorDescriptions.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [ATM System](../use_case/actors/atmSystem.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [Bank Backend](../use_case/actors/bankBackend.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
-| [Customer](../use_case/actors/customer.md) | 🟡 changed | v1.3 marker removed (cleanup rule) |
 | [OKF v0.2 Conformance Assessment – 2026-09-13](../sources/okf_assessment_2026_09_13.md) | 🟢 new | The first filed assessment |
 | [Change Log](changeLog.md) | 🟡 changed | This entry |
-| [Log](../log.md) | 🟡 changed | Regenerated with v1.5 and the assessment |
-| [CR-1.5](../sources/cr_1_5.md) | 🟢 new | The change request for this version |
-
----
-
-## v1.4 – Explain the Repository to Each Audience (2026-09-13)
-
-The documentation home page explains what this is and how the artifacts interlink, and links every other explanation of the repository. No functional change to the ATM system. See [CR-1.4](../sources/cr_1_4.md).
-
-| Artifact | Status | Description |
-|---|---|---|
-| [Home](../_index.md) | 🟡 changed | New sections *What this is*, *How the artifacts interlink* and *Learn more*; user story count corrected to 16 |
-| [Change Log](changeLog.md) | 🟡 changed | This entry |
-| [Log](../log.md) | 🟡 changed | Regenerated with v1.4 |
+| [Log](../log.md) | 🟡 changed | Regenerated with v1.4 and the assessment |
 | [CR-1.4](../sources/cr_1_4.md) | 🟢 new | The change request for this version |
 
 ---
 
-## v1.3 – Open Knowledge Format Metadata and Concepts (2026-09-12)
+## v1.3 – Move to OKF Product Documentation (2026-09-13)
 
-Every artifact now records where it derives from, who produced it and which domain entities it concerns, as Open Knowledge Format frontmatter, and each domain entity and actor has its own page. No functional change to the ATM system. See [CR-1.3](../sources/cr_1_3.md).
+The ATM requirements become product documentation in the Open Knowledge Format: every artifact records where it derives from, who produced it and which domain entities it concerns, each domain entity and actor has its own page, and the entry pages explain the documentation, with Jarvis as the agent that helps with the requirements analysis. No functional change to the ATM system. See [CR-1.3](../sources/cr_1_3.md).
 
 | Artifact | Status | Description |
 |---|---|---|
@@ -165,14 +112,14 @@ Every artifact now records where it derives from, who produced it and which doma
 | [US-5.3 – Show Account Balance on Receipt](../epics/user_stories/us_5_3.md) | 🟡 changed | Activity diagram traceability reference cited with a footnote; frontmatter adds `sources`, `generated` and `tags`, including release and KANO tags |
 | [Change Log – ATM System](../change_log/changeLog.md) | 🟡 changed | This entry; frontmatter adds `sources` and `generated` |
 | [Log](../log.md) | 🟢 new | Every version, newest first, in Open Knowledge Format — generated from this change log |
-| [Home](../_index.md) | 🟡 changed | Artifacts list links the entity pages, the actor pages, the sources and the log |
+| [Home](../_index.md) | 🟡 changed | Titled *OKF Product Documentation – ATM System*; new sections *What this is*, *How the artifacts interlink* and *Learn more*; links the entity pages, the actor pages, the sources and the log; user story count corrected to 16 |
 | [CR-1.3](../sources/cr_1_3.md) | 🟢 new | The change request for this version |
 
 ---
 
 ## v1.2 – Account Balance on Receipt (2026-03-02)
 
-Every printed Receipt now includes the current Account `balance` so the Customer always knows their remaining funds after a Transaction.
+Every printed Receipt now includes the current Account `balance` so the Customer always knows their remaining funds after a Transaction. See [CR-1.2](../sources/cr_1_2.md).
 
 | Artifact | Status | Description |
 |---|---|---|
@@ -181,12 +128,13 @@ Every printed Receipt now includes the current Account `balance` so the Customer
 | [Epics & Story Map](../epics/epics.md) | 🟡 changed | US-5.3 added to R2 – Core Transactions |
 | [US-5.1](../epics/user_stories/us_5_1.md) | 🟡 changed | Conversation and confirmation updated to reference Account `balance` on Receipt |
 | [US-5.3](../epics/user_stories/us_5_3.md) | 🟢 new | "Show Account Balance on Receipt" — MUST/Basic, R2 Core Transactions |
+| [CR-1.2](../sources/cr_1_2.md) | 🟢 new | The change request for this version |
 
 ---
 
 ## v1.1 – Eject Card Before Cash Dispensing (2026-02-22)
 
-Card is now ejected before cash is dispensed in the withdrawal path, preventing Customers from forgetting their Card. The Session remains `ACTIVE` after Card ejection. Non-withdrawal paths are unchanged.
+Card is now ejected before cash is dispensed in the withdrawal path, preventing Customers from forgetting their Card. The Session remains `ACTIVE` after Card ejection. Non-withdrawal paths are unchanged. See [CR-1.1](../sources/cr_1_1.md).
 
 | Artifact | Status | Description |
 |---|---|---|
@@ -197,12 +145,13 @@ Card is now ejected before cash is dispensed in the withdrawal path, preventing 
 | [Epics & Story Map](../epics/epics.md) | 🟡 changed | Epic 2 BP steps updated to 4a.1–4a.7; US-2.6 added to R1 Walking Skeleton |
 | [US-2.1](../epics/user_stories/us_2_1.md) | 🟡 changed | Happy-path conversation and confirmation updated to include Card ejection step |
 | [US-2.6](../epics/user_stories/us_2_6.md) | 🟢 new | "Eject Card Before Cash Dispensing" — MUST/Basic, R1 Walking Skeleton |
+| [CR-1.1](../sources/cr_1_1.md) | 🟢 new | The change request for this version |
 
 ---
 
 ## v1.0 – Initial Release (2026-02-22)
 
-Baseline version establishing all core artifacts for the ATM system.
+Baseline version establishing all core artifacts for the ATM system. See [CR-1.0](../sources/cr_1_0.md).
 
 | Artifact | Status | Description |
 |---|---|---|
@@ -220,3 +169,4 @@ Baseline version establishing all core artifacts for the ATM system.
 | [State Chart: Transaction](../state_chart/transactionStateChart.md) | 🟢 new | PENDING → COMPLETED / FAILED lifecycle, traced to use case activities |
 | [Epics & Story Map](../epics/epics.md) | 🟢 new | 5 epics, 14 user stories across 3 release slices |
 | [User Stories](../epics/user_stories/us_1_1.md) (×14) | 🟢 new | 3C format (Card–Conversation–Confirmation) with KANO classification |
+| [CR-1.0](../sources/cr_1_0.md) | 🟢 new | The change request for this version |

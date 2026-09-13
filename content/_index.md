@@ -5,17 +5,13 @@ type: overview
 description: "The product documentation of an ATM example system as an Open Knowledge Format bundle — derived, traceable and approved artifacts, with Jarvis as the agent that helps with the requirements analysis."
 weight: 1
 sources:
+  - id: cr-1-3
+    resource: /sources/cr_1_3.md
   - id: cr-1-4
     resource: /sources/cr_1_4.md
-  - id: cr-1-5
-    resource: /sources/cr_1_5.md
-  - id: cr-1-6
-    resource: /sources/cr_1_6.md
-  - id: cr-1-7
-    resource: /sources/cr_1_7.md
 generated:
   by: jarvis/1.0
-  at: 2026-09-13T18:09:25Z
+  at: 2026-09-13T18:34:19Z
 verified:
   - by: human:owner
     at: 2026-09-13T09:23:45Z
@@ -25,15 +21,17 @@ verified:
     at: 2026-09-13T17:45:10Z
   - by: human:owner
     at: 2026-09-13T18:13:36Z
+  - by: human:owner
+    at: 2026-09-13T18:38:03Z
 ---
 
 # OKF Product Documentation – ATM System
 
-> [!NOTE] v1.6 – Changed 2026-09-13
-> The repository is now *okf-productdocumentation*, step 2 of a two-step series; *What this is* and *Learn more* link step 1.
+> [!NOTE] v1.3 – Changed 2026-09-13
+> The page is now the home of the OKF product documentation: *What this is*, *How the artifacts interlink* and *Learn more* are new, and the list links the entities, actors, sources and log.
 
-> [!NOTE] v1.7 – Changed 2026-09-13
-> The page leads with the Open Knowledge Format; Jarvis is named as the agent that helps with the requirements analysis.
+> [!NOTE] v1.4 – Changed 2026-09-13
+> *Sources* and *Log* include the Open Knowledge Format assessments; the interlinkage shows where they fit.
 
 ## What this is
 

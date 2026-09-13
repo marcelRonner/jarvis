@@ -12,20 +12,14 @@ weight: 80
 ## 2026-09-13
 
 - **Assessment:** [OKF v0.2 Conformance Assessment – 2026-09-13](sources/okf_assessment_2026_09_13.md) — Conformant with OKF v0.2 on all three mandatory checks; of the 41 checks, 26 meets, 1 partial, 5 not adopted, 1 deviates, 8 n/a.
-- **Release:** [v1.7 – Lead with the Open Knowledge Format](change_log/changeLog.md) — The entry pages present the repository as product documentation in the Open Knowledge Format, with Jarvis as the agent that helps with the requirements analysis. No functional change to the ATM system. See CR-1.7.
-- **Release:** [v1.6 – Rename the Repository to okf-productdocumentation](change_log/changeLog.md) — The repository is now okf-productdocumentation, step 2 of a two-step educational series after okf-llm-wiki, and the site moves to its matching address. No functional change to the ATM system. See CR-1.6.
-- **Release:** [v1.5 – File Open Knowledge Format Assessments](change_log/changeLog.md) — Every Open Knowledge Format assessment is now filed in Sources as a permanent page, with each check's name next to its ID and the mandatory checks first, and every run is listed in the log. No functional change to the ATM system. See CR-1.5.
-- **Release:** [v1.4 – Explain the Repository to Each Audience](change_log/changeLog.md) — The documentation home page explains what this is and how the artifacts interlink, and links every other explanation of the repository. No functional change to the ATM system. See CR-1.4.
-
-## 2026-09-12
-
-- **Release:** [v1.3 – Open Knowledge Format Metadata and Concepts](change_log/changeLog.md) — Every artifact now records where it derives from, who produced it and which domain entities it concerns, as Open Knowledge Format frontmatter, and each domain entity and actor has its own page. No functional change to the ATM system. See CR-1.3.
+- **Release:** [v1.4 – File Open Knowledge Format Assessments](change_log/changeLog.md) — Every Open Knowledge Format assessment is now filed in Sources as a permanent page, with each check's name next to its ID and the mandatory checks first, and every run is listed in the log. No functional change to the ATM system. See CR-1.4.
+- **Release:** [v1.3 – Move to OKF Product Documentation](change_log/changeLog.md) — The ATM requirements become product documentation in the Open Knowledge Format: every artifact records where it derives from, who produced it and which domain entities it concerns, each domain entity and actor has its own page, and the entry pages explain the documentation, with Jarvis as the agent that helps with the requirements analysis. No functional change to the ATM system. See CR-1.3.
 
 ## 2026-03-02
 
-- **Release:** [v1.2 – Account Balance on Receipt](change_log/changeLog.md) — Every printed Receipt now includes the current Account `balance` so the Customer always knows their remaining funds after a Transaction.
+- **Release:** [v1.2 – Account Balance on Receipt](change_log/changeLog.md) — Every printed Receipt now includes the current Account `balance` so the Customer always knows their remaining funds after a Transaction. See CR-1.2.
 
 ## 2026-02-22
 
-- **Release:** [v1.1 – Eject Card Before Cash Dispensing](change_log/changeLog.md) — Card is now ejected before cash is dispensed in the withdrawal path, preventing Customers from forgetting their Card. The Session remains `ACTIVE` after Card ejection. Non-withdrawal paths are unchanged.
-- **Release:** [v1.0 – Initial Release](change_log/changeLog.md) — Baseline version establishing all core artifacts for the ATM system.
+- **Release:** [v1.1 – Eject Card Before Cash Dispensing](change_log/changeLog.md) — Card is now ejected before cash is dispensed in the withdrawal path, preventing Customers from forgetting their Card. The Session remains `ACTIVE` after Card ejection. Non-withdrawal paths are unchanged. See CR-1.1.
+- **Release:** [v1.0 – Initial Release](change_log/changeLog.md) — Baseline version establishing all core artifacts for the ATM system. See CR-1.0.
