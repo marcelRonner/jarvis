@@ -15,10 +15,12 @@ and stamped into the files that need to restate them:
     AGENTS.md                                the artifact type table, from schema.yml
     index.html                               the instructions shown on the landing page
 
-and the version history is written once, in content/change_log/changeLog.md, and restated as
+and the history is written once — versions in content/change_log/changeLog.md, assessments as
+content/sources/okf_assessment_*.md — and restated as
 
     content/log.md                           the Open Knowledge Format log (§9): one list entry per
-                                             version, grouped under its date, newest first
+                                             version and per assessment, grouped under its date,
+                                             newest first
 
 Why the Copilot copies exist at all: VS Code reads `AGENTS.md` at the workspace root and discovers
 skills in `.claude/skills/` directly, so the contract and the protocol need no copy. But the
@@ -49,7 +51,9 @@ COPILOT = ROOT / ".github"
 LANDING = ROOT / "index.html"
 SCHEMA = ROOT / "schema.yml"
 CHANGE_LOG = ROOT / "content" / "change_log" / "changeLog.md"
+SOURCES = ROOT / "content" / "sources"
 LOG = ROOT / "content" / "log.md"
+ASSESSMENT_RE = re.compile(r"okf_assessment_(\d{4})_(\d{2})_(\d{2})(?:_(\d+))?\.md")
 VERSION_RE = re.compile(r"^## (v\d+\.\d+) – (.+?) \((\d{4}-\d{2}-\d{2})\)\s*\n+(.+?)\n", re.M)
 
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n?", re.DOTALL)
@@ -122,18 +126,44 @@ def landing_page(current: str, agents: str) -> str:
     return new
 
 
-def okf_log() -> str:
-    """content/log.md — the change log's versions as the date-grouped list OKF v0.2 §9 specifies."""
+def assessment_entries(sources: Path) -> dict[str, list[str]]:
+    """One log entry per filed assessment, keyed by the day it ran, the day's later runs first."""
+    runs = []
+    for path in sources.glob("okf_assessment_*.md"):
+        match = ASSESSMENT_RE.fullmatch(path.name)
+        if not match:
+            raise SystemExit(f"generate: {path.name} is not named okf_assessment_<yyyy>_<mm>_<dd>[_<n>].md")
+        meta, _ = split(path.read_text(encoding="utf-8"))
+        if not meta.get("title") or not meta.get("description"):
+            raise SystemExit(f"generate: {path.name} needs a title and a description for its log entry")
+        yyyy, mm, dd, run = match.groups()
+        runs.append((f"{yyyy}-{mm}-{dd}", int(run or 1),
+                     f"- **Assessment:** [{meta['title']}](sources/{path.name}) — {str(meta['description']).strip()}"))
     groups: dict[str, list[str]] = {}
-    for version, title, day, summary in VERSION_RE.findall(CHANGE_LOG.read_text(encoding="utf-8")):
+    for day, _, entry in sorted(runs, key=lambda r: (r[0], r[1]), reverse=True):
+        groups.setdefault(day, []).append(entry)
+    return groups
+
+
+def okf_log(change_log: Path = CHANGE_LOG, sources: Path = SOURCES) -> str:
+    """content/log.md — the versions and the assessments as the date-grouped list OKF v0.2 §9 specifies.
+
+    Within a day, assessments come first: an assessment checks the documentation as released, so it is
+    the newer entry.
+    """
+    versions = VERSION_RE.findall(change_log.read_text(encoding="utf-8"))
+    if not versions:
+        raise SystemExit("generate: no `## vX.Y – Title (YYYY-MM-DD)` sections found in the change log")
+    groups = assessment_entries(sources)
+    for version, title, day, summary in versions:
         groups.setdefault(day, []).append(
             # The summary's own links are relative to the change log's folder, so only their text travels.
             f"- **Release:** [{version} – {title}](change_log/changeLog.md) — {re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', summary.strip())}")
-    if not groups:
-        raise SystemExit("generate: no `## vX.Y – Title (YYYY-MM-DD)` sections found in the change log")
     out = ["---", 'title: "Log"', "type: log",
-           'description: "Every version of the documentation, newest first, generated from the change log."',
-           "weight: 80", "---", "", NOTE.format(source="content/change_log/changeLog.md"), "", "# Log", ""]
+           'description: "Every version of the documentation and every conformance assessment, newest first."',
+           "weight: 80", "---", "",
+           NOTE.format(source="content/change_log/changeLog.md or file an assessment in content/sources/"),
+           "", "# Log", ""]
     for day in sorted(groups, reverse=True):
         out += [f"## {day}", "", *groups[day], ""]
     return "\n".join(out)

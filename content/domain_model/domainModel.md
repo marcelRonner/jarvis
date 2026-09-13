@@ -10,10 +10,12 @@ sources:
     resource: /sources/cr_1_3.md
 generated:
   by: jarvis/1.0
-  at: 2026-09-12T21:29:07Z
+  at: 2026-09-13T09:54:02Z
 verified:
   - by: human:owner
     at: 2026-09-13T09:23:45Z
+  - by: human:owner
+    at: 2026-09-13T10:11:37Z
 ---
 
 # Domain Model – ATM System
@@ -31,9 +33,6 @@ This domain model describes the core business entities and their relationships f
 ---
 
 ## Classes
-
-> [!WARNING] v1.3 – Changed 2026-09-12
-> Each class now has its own entity page, so other artifacts — and any agent reading this documentation — can refer to it directly.
 
 - [ATM](entities/atm.md)
 - [Bank](entities/bank.md)

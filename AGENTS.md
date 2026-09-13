@@ -22,8 +22,9 @@ typed `/change-request`. Read it and follow it; do not improvise a shorter path.
 ## Checking Open Knowledge Format conformance
 
 A request to assess or re-assess the documentation against the Open Knowledge Format follows
-`.claude/skills/okf-check/SKILL.md` (`/okf-check`). It is read-only: fixing what it finds is a change
-request.
+`.claude/skills/okf-check/SKILL.md` (`/okf-check`). It changes no artifact: it files its result as an
+assessment in `content/sources/`, and fixing what it finds is a change request that cites that
+assessment.
 
 ## Cross-cutting documentation rules
 
@@ -63,7 +64,8 @@ that file and run `make generate`.
 | `user-story` | `content/epics/user_stories/us_<epic>_<seq>.md` | `.claude/rules/epics.md` | One user story in Card – Conversation – Confirmation form, with a KANO classification. |
 | `change-log` | `content/change_log/changeLog.md` | `.claude/rules/change-log.md` | Every version, and every artifact created or changed in it. Permanent. |
 | `change-request` | `content/sources/cr_<major>_<minor>.md` | `.claude/rules/sources.md` | One change request — what was asked, what it affects, and what was decided. Artifacts it changed cite it. |
-| `log` | `content/log.md` | — | The Open Knowledge Format log — one entry per version, newest first. Generated from the change log. |
+| `assessment` | `content/sources/okf_assessment_<yyyy>_<mm>_<dd>.md` | `.claude/rules/sources.md` | One run of /okf-check — every check in the OKF v0.2 register, its status and evidence, and the conformance result. Never rewritten. |
+| `log` | `content/log.md` | — | The Open Knowledge Format log — one entry per version and per assessment, newest first. Generated from the change log and the assessments. |
 | `section` | `content/<folder>/_index.md` | — | A sidebar folder — its title, its one-line description, and its position. |
 <!-- schema-types:end -->
 
@@ -136,8 +138,8 @@ agent reading the Markdown, where nothing renders the frontmatter.
 
 Never create `index.md` anywhere in `content/`: the name is reserved by the Open Knowledge Format,
 and it would also turn its folder into a single page. A folder's own page is `_index.md`, with
-`type: section`. The only `log.md` is `content/log.md`, generated from the change log by
-`make generate` — never edit it.
+`type: section`. The only `log.md` is `content/log.md`, generated from the change log and the
+assessments by `make generate` — never edit it.
 
 ## Read the rules for the folder you are writing in
 
@@ -171,10 +173,12 @@ of the following before presenting the result. Do not present it until every box
    sidebar. There is no navigation list to edit: the sidebar is built from the folders.
 3. ☐ **Diagrams** — a new `.puml` file is embedded with an image link to it. There is no list of
    diagrams to maintain anywhere; the build finds and renders them.
-4. ☐ **`content/_index.md`** — add a link to the new artifact in the Artifacts list.
+4. ☐ **`content/_index.md`** — add a link to the new artifact in the Artifacts list. Change requests
+   and assessments are reached through its **Sources** entry and need none.
 5. ☐ **`content/change_log/changeLog.md`** — add or update the version entry for every artifact
    created or changed, linking the change request in `content/sources/`. Then `make generate`, so
-   `content/log.md` carries the version.
+   `content/log.md` carries the version. An assessment is the one exception: it changes nothing, so
+   it gets no version, and `make generate` lists it in the log on its own.
 6. ☐ **`make build` passes** — it checks frontmatter and Open Knowledge Format conformance, every
    relative link and footnote, runs the consumer acceptance tests, and renders every diagram. A
    PlantUML syntax error fails it. Run it; do not assume.

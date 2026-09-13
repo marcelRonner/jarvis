@@ -11,16 +11,15 @@ sources:
     resource: /sources/cr_1_3.md
 generated:
   by: jarvis/1.0
-  at: 2026-09-12T21:29:07Z
+  at: 2026-09-13T09:54:02Z
 verified:
   - by: human:owner
     at: 2026-09-13T09:23:45Z
+  - by: human:owner
+    at: 2026-09-13T10:11:37Z
 ---
 
 # Card
-
-> [!NOTE] v1.3 – Added 2026-09-12
-> Card has its own page, split out of the [Domain Model](../domainModel.md).
 
 Represents a physical debit or credit card linked to an account. Part of the [Domain Model](../domainModel.md).
 

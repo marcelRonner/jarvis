@@ -11,16 +11,15 @@ sources:
     resource: /sources/cr_1_3.md
 generated:
   by: jarvis/1.0
-  at: 2026-09-12T21:29:07Z
+  at: 2026-09-13T09:54:02Z
 verified:
   - by: human:owner
     at: 2026-09-13T09:23:45Z
+  - by: human:owner
+    at: 2026-09-13T10:11:37Z
 ---
 
 # ATM System
-
-> [!NOTE] v1.3 – Added 2026-09-12
-> ATM System has its own page, split out of the [Actor Descriptions](../actorDescriptions.md).
 
 **Type:** System
 

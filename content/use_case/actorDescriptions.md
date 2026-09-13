@@ -14,10 +14,12 @@ sources:
     resource: /sources/cr_1_3.md
 generated:
   by: jarvis/1.0
-  at: 2026-09-12T21:29:07Z
+  at: 2026-09-13T09:54:02Z
 verified:
   - by: human:owner
     at: 2026-09-13T09:23:45Z
+  - by: human:owner
+    at: 2026-09-13T10:11:37Z
 ---
 
 # Actor Descriptions – ATM System
@@ -29,9 +31,6 @@ This page provides a detailed description and system access profile for every ac
 ---
 
 ## Actors
-
-> [!WARNING] v1.3 – Changed 2026-09-12
-> Each actor now has its own page, so other artifacts — and any agent reading this documentation — can refer to it directly.
 
 - [Customer](actors/customer.md)
 - [ATM System](actors/atmSystem.md)

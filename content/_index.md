@@ -7,18 +7,25 @@ weight: 1
 sources:
   - id: cr-1-4
     resource: /sources/cr_1_4.md
+  - id: cr-1-5
+    resource: /sources/cr_1_5.md
 generated:
   by: jarvis/1.0
-  at: 2026-09-13T07:22:06Z
+  at: 2026-09-13T09:54:02Z
 verified:
   - by: human:owner
     at: 2026-09-13T09:23:45Z
+  - by: human:owner
+    at: 2026-09-13T10:11:37Z
 ---
 
 # ATM System Documentation
 
 > [!NOTE] v1.4 – Changed 2026-09-13
 > New sections: *What this is*, *How the artifacts interlink*, and *Learn more*.
+
+> [!NOTE] v1.5 – Changed 2026-09-13
+> *Sources* and *Log* include the Open Knowledge Format assessments; the interlinkage shows where they fit.
 
 ## What this is
 
@@ -29,7 +36,9 @@ at the ZHAW, served from [github.com/marcelRonner/jarvis](https://github.com/mar
 
 Every change starts as a **change request** in [Sources](sources/_index.md). Jarvis updates the
 affected artifacts from the domain model outward, records the change in the
-[Change Log](change_log/changeLog.md), and a person approves it.
+[Change Log](change_log/changeLog.md), and a person approves it. Each check of the documentation
+against the Open Knowledge Format is filed in Sources too, and the change request that fixes a finding
+cites it.
 
 ## Artifacts
 
@@ -49,8 +58,8 @@ affected artifacts from the domain model outward, records the change in the
 - [**Epics & Story Map**](epics/epics.md) — Work breakdown into epics with release-grouped user stories
   - [User Stories](epics/user_stories/_index.md) — 16 stories in 3C format across 3 releases
 - [**Change Log**](change_log/changeLog.md) — Version history with full artifact traceability
-- [**Sources**](sources/_index.md) — The change requests the documentation derives from
-- [**Log**](log.md) — Every version, newest first, in Open Knowledge Format
+- [**Sources**](sources/_index.md) — The change requests the documentation derives from, and the conformance assessments behind them
+- [**Log**](log.md) — Every version and every assessment, newest first, in Open Knowledge Format
 
 ## How the artifacts interlink
 
@@ -60,6 +69,7 @@ its arrows in its `sources:` frontmatter, so a tool can follow the chain as well
 
 ```mermaid
 flowchart LR
+    oa["OKF Assessment"] -.-> cr
     cr["Change Request"] -.-> dm
     dm["Domain Model<br/>and Entities"] --> bp["Business Process"]
     bp --> ucd["Use-Case Diagram<br/>and Actors"]
@@ -85,6 +95,7 @@ silently breaks every reference to it.
 | Story ID | `US-{epic}.{seq}` | [User Stories](epics/user_stories/_index.md) | [Story map](epics/epics.md) cells, change log rows |
 | Entity and attribute | `Transaction`, `status` | [Entities](domain_model/entities/_index.md) | Every artifact, and its `tags` |
 | Source id | `business-process`, `cr-1-4` | Each artifact's `sources:` | That artifact's footnotes |
+| Check ID | `OKF-SRC-02` | The check register, `.claude/skills/okf-check/okf-v0-2-checks.md` | [Assessments](sources/_index.md), and the change requests that fix their findings |
 
 ### When this changes, review these
 

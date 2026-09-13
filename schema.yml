@@ -74,9 +74,14 @@ types:
     rules: sources.md
     requires: [generated]
     holds: One change request — what was asked, what it affects, and what was decided. Artifacts it changed cite it.
+  assessment:
+    where: sources/okf_assessment_<yyyy>_<mm>_<dd>.md
+    rules: sources.md
+    requires: [generated]
+    holds: One run of /okf-check — every check in the OKF v0.2 register, its status and evidence, and the conformance result. Never rewritten.
   log:
     where: log.md
-    holds: The Open Knowledge Format log — one entry per version, newest first. Generated from the change log.
+    holds: The Open Knowledge Format log — one entry per version and per assessment, newest first. Generated from the change log and the assessments.
   section:
     where: <folder>/_index.md
     holds: A sidebar folder — its title, its one-line description, and its position.
