@@ -3,18 +3,20 @@ title: "OKF v0.2 Conformance Assessment – 2026-09-13"
 linkTitle: "OKF Assessment 2026-09-13"
 type: assessment
 description: "Conformant with OKF v0.2 on all three mandatory checks; of the 41 checks, 26 meets, 1 partial, 5 not adopted, 1 deviates, 8 n/a."
-weight: 4
+weight: 6
 generated:
   by: jarvis/1.0
-  at: 2026-09-13T10:00:11Z
+  at: 2026-09-13T18:34:19Z
 verified:
   - by: human:owner
     at: 2026-09-13T10:11:37Z
+  - by: human:owner
+    at: 2026-09-13T18:38:03Z
 ---
 
 # OKF v0.2 Conformance Assessment – 2026-09-13
 
-The documentation in `content/`, as released in v1.5, assessed on 2026-09-13 against all 41 checks of
+The documentation in `content/`, as released in v1.4, assessed on 2026-09-13 against all 41 checks of
 the Open Knowledge Format (OKF) v0.2 check register: **conformant**.
 
 ## Scope
@@ -22,7 +24,7 @@ the Open Knowledge Format (OKF) v0.2 check register: **conformant**.
 | | |
 |---|---|
 | **Bundle** | `content/` — 58 Markdown files and 8 `.puml` diagram sources. The repository around it (scripts, instructions, the built site) is outside the bundle. |
-| **Commit** | Branch `okf-assessments` at v1.5, based on `main` `d7eb052` |
+| **Commit** | Branch `okf-assessments` at v1.4, based on `main` `d7eb052` |
 | **Specification** | [OKF SPEC.md v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md), read at that URL on 2026-09-13 |
 | **Register** | `.claude/skills/okf-check/okf-v0-2-checks.md`, version 2026-09-13 — all 41 IDs |
 | **Validation** | `make lint` → 0 errors, 0 warnings, 58 files · `make build` → 18 tests OK, none skipped; Hugo 71 pages with `--panicOnWarning`, no warnings |
@@ -124,7 +126,7 @@ The three §11 conformance criteria. Together they decide whether the bundle con
 | Check | Name | Status | Evidence | Remediation |
 |---|---|---|---|---|
 | [`OKF-TRU-01`](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md#52-trust-generated-and-verified) | `generated` well-formed | meets | `generated` on all 47 pages whose type requires it: `by: jarvis/1.0`, `at` an explicit-UTC datetime stamped when the body last changed. E7 validates both. Sections and the log carry none. |  |
-| [`OKF-TRU-02`](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md#52-trust-generated-and-verified) | `verified` events | meets | 55 `verified` events, each `by: human:owner` at a UTC datetime, recorded with `make verify` when the owner approved every page on 2026-09-13; E7 validates them. On the 18 pages v1.5 changed, that approval predates `generated.at`, which is the honest state until v1.5 is approved. |  |
+| [`OKF-TRU-02`](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md#52-trust-generated-and-verified) | `verified` events | meets | 55 `verified` events, each `by: human:owner` at a UTC datetime, recorded with `make verify` when the owner approved every page on 2026-09-13; E7 validates them. On the 18 pages v1.4 changed, that approval predates `generated.at`, which is the honest state until v1.4 is approved. |  |
 | [`OKF-TRU-03`](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md#52-trust-generated-and-verified) | Bare `verified` read as a list | meets | Python reader: `Page.verified_events()` reads a bare mapping as one event, proven by `test_bare_verified_mapping_is_one_event`. The linter and `make verify` use the same function; `test_a_bare_mapping_becomes_a_list_and_survives` covers the writer. |  |
 | [`OKF-TRU-04`](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md#53-trust-tiers) | Trust tiers derived | not adopted | Neither consumer derives or shows a trust tier. The site does not tell a reader whether a page is approved. | If readers need it, show the tier — and the latest approval — in the page footer, derived from `verified` in a layout partial. |
 | [`OKF-TRU-05`](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md#7-actor-convention) | Actor convention | meets | Two actor values in the bundle: `jarvis/1.0` (`<producer>/<version>`) and `human:owner`. E7 enforces the convention on `generated.by` and `verified[].by`; `test_first_approval_is_a_valid_okf_event` checks `make verify` writes the `human:` form. |  |
@@ -151,7 +153,7 @@ The three §11 conformance criteria. Together they decide whether the bundle con
 | Check | Name | Status | Evidence | Remediation |
 |---|---|---|---|---|
 | [`OKF-RSV-01`](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md#8-index-files) | `index.md` structure | n/a | No `index.md` exists; the owner excluded a generated root index in CR-1.3. `content/_index.md` is a concept of type `overview` and is checked as one. |  |
-| [`OKF-RSV-02`](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md#9-log-files) | `log.md` structure | meets | `content/log.md` groups list entries under `## YYYY-MM-DD` headings, newest first — releases from the change log and, from v1.5, assessments. E3 checks heading form, order and list items; `scripts/test_generate.py` tests the generator. |  |
+| [`OKF-RSV-02`](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md#9-log-files) | `log.md` structure | meets | `content/log.md` groups list entries under `## YYYY-MM-DD` headings, newest first — releases from the change log and, from v1.4, assessments. E3 checks heading form, order and list items; `scripts/test_generate.py` tests the generator. |  |
 
 ## Attested computations
 
