@@ -4,7 +4,7 @@
 # order comes from `weight:` in each page's frontmatter, so adding an artifact never requires
 # editing this file.
 
-title: ATM System Documentation
+title: OKF Product Documentation – ATM System
 locale: en-gb
 
 # The docs are served from https://www.wlrm.ch/okf-productdocumentation/site/ — the address the landing page in

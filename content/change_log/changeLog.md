@@ -13,9 +13,11 @@ sources:
     resource: /sources/cr_1_5.md
   - id: cr-1-6
     resource: /sources/cr_1_6.md
+  - id: cr-1-7
+    resource: /sources/cr_1_7.md
 generated:
   by: jarvis/1.0
-  at: 2026-09-13T17:31:58Z
+  at: 2026-09-13T18:09:25Z
 verified:
   - by: human:owner
     at: 2026-09-13T09:23:45Z
@@ -23,6 +25,8 @@ verified:
     at: 2026-09-13T10:11:37Z
   - by: human:owner
     at: 2026-09-13T17:45:10Z
+  - by: human:owner
+    at: 2026-09-13T18:13:36Z
 ---
 
 # Change Log – ATM System
@@ -39,6 +43,19 @@ Each version section lists **every artifact that was created or changed**, with 
 | 🟡 `changed` | Existing artifact or element modified |
 | 🔴 `deprecated` | Artifact or element scheduled for removal |
 | ⚫ `removed` | Artifact or element deleted |
+
+---
+
+## v1.7 – Lead with the Open Knowledge Format (2026-09-13)
+
+The entry pages present the repository as product documentation in the Open Knowledge Format, with Jarvis as the agent that helps with the requirements analysis. No functional change to the ATM system. See [CR-1.7](../sources/cr_1_7.md).
+
+| Artifact | Status | Description |
+|---|---|---|
+| [Home](../_index.md) | 🟡 changed | Title is now *OKF Product Documentation – ATM System*; description and *What this is* lead with the OKF bundle and name Jarvis's role; v1.5 marker removed (cleanup rule) |
+| [Change Log](changeLog.md) | 🟡 changed | This entry |
+| [Log](../log.md) | 🟡 changed | Regenerated with v1.7 |
+| [CR-1.7](../sources/cr_1_7.md) | 🟢 new | The change request for this version |
 
 ---
 

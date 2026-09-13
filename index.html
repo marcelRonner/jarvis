@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jarvis – how this repository works</title>
+  <title>OKF Product Documentation – how this repository works</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     :root {
@@ -161,9 +161,10 @@
 </head>
 <body>
   <div class="wrapper">
-    <h1 class="page">Hi, I'm Jarvis — a business analysis agent.</h1>
-    <p class="lead">I write and look after the requirements of an imaginary ATM, together with a person who decides what changes.
-      This page explains how the parts of my repository work together. The result is the
+    <h1 class="page">Product documentation in the Open Knowledge Format</h1>
+    <p class="lead">The requirements of an imaginary ATM, kept as an open, machine-readable knowledge bundle: every document
+      says what it is, what it was derived from, who wrote it and whether a person approved it. This page explains how
+      the parts of the repository work together. The result is the
       <a href="https://www.wlrm.ch/okf-productdocumentation/site/" target="_blank">ATM documentation</a>; the code is on
       <a href="https://github.com/marcelRonner/okf-productdocumentation" target="_blank">GitHub</a>.</p>
     <p class="lead">This repository is <strong>step 2</strong> of a two-step series. Step 1,
@@ -172,25 +173,44 @@
 
     <section>
       <h2>The idea in one paragraph</h2>
-      <p>Requirements documents usually go out of date, because every change has to be copied by hand into many places.
-        Here, an AI agent does that bookkeeping. You tell it what should change; it works out which documents are affected,
-        updates them in the right order, and records what it did. You stay in charge: nothing counts as approved until a
-        person says so.</p>
+      <p>Requirements documents usually go out of date, because every change has to be copied by hand into many places —
+        and after a while nobody can say which document a statement came from, or whether anyone checked it. Here, every
+        document carries that information in a small, standard label, and an AI agent called <strong>Jarvis</strong> helps
+        with the requirements analysis: you tell it what should change; it works out which documents are affected, updates
+        them in the right order, and records what it did. You stay in charge: nothing counts as approved until a person
+        says so.</p>
+    </section>
+
+    <section>
+      <h2>The label on every page</h2>
+      <p>Each document starts with a short block of labels that people rarely see but tools read. It says what kind of
+        document it is, which documents it was derived from (<code>sources</code>), who wrote it and when
+        (<code>generated</code>), whether a person approved it (<code>verified</code>), and which parts of the domain it is
+        about (<code>tags</code>). The labels follow an open standard, the
+        <a href="https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md" target="_blank">Open Knowledge Format</a>
+        (OKF), so any other agent can read this documentation without special tools.</p>
+      <p>How well does the documentation follow that standard? Type <code>/okf-check</code>, and Jarvis goes through the
+        standard’s 41 rules one by one and files a report next to the change requests in <code>content/sources/</code>. Old
+        reports are never overwritten, so two of them show what got better in between — and a change request that fixes
+        a finding points back at the report that found it.</p>
+      <p>The diagrams are written as text too, and drawn automatically when the site is built — so a picture can never
+        disagree with the text it was drawn from.</p>
     </section>
 
     <section>
       <h2>The five parts</h2>
       <div class="cards">
         <div class="card"><h3>📄 The documentation</h3>
-          <p>Plain text files in <code>content/</code>: the domain model, business process, use cases, state chart, epics and
-            user stories. One file per artifact, one folder per kind of artifact.</p></div>
-        <div class="card"><h3>🧭 The instructions</h3>
-          <p>Text files that tell me how to work: <code>AGENTS.md</code> for the general rules, <code>.claude/rules/</code>
-            for how each kind of artifact must look, and <code>.claude/skills/</code> for step-by-step procedures.
-            GitHub Copilot and Claude Code both read them.</p></div>
+          <p>Plain text files in <code>content/</code>, together one OKF bundle: the domain model, business process, use
+            cases, state chart, epics and user stories. One file per artifact, one folder per kind of artifact.</p></div>
         <div class="card"><h3>📝 The change requests</h3>
           <p>Every change is written down first, in <code>content/sources/</code>: what was asked, what it affects, and what was
             decided. The documents that change point back to it.</p></div>
+        <div class="card"><h3>🧭 Jarvis and its instructions</h3>
+          <p>Jarvis is the agent that helps with the requirements analysis. Text files tell it how to work:
+            <code>AGENTS.md</code> for the general rules, <code>.claude/rules/</code> for how each kind of artifact must
+            look, and <code>.claude/skills/</code> for step-by-step procedures. GitHub Copilot and Claude Code both read
+            them.</p></div>
         <div class="card"><h3>✅ The checks</h3>
           <p>Small programs in <code>scripts/</code> that catch mistakes a person would miss: a broken link, a missing label,
             a diagram that does not draw. If a check fails, nothing is published.</p></div>
@@ -204,12 +224,12 @@
       <h2>How a change flows through it</h2>
       <ol class="flow">
         <li><strong>You ask for a change</strong> — for example “the card should come out before the cash”.</li>
-        <li><strong>I analyse it</strong>, ask about anything unclear, and show which documents it affects.</li>
-        <li><strong>I write a change request</strong> into <code>content/sources/</code>, once you agree on the scope.</li>
-        <li><strong>I update the documents from the inside out</strong>, starting with the domain model, because everything else depends on it.</li>
-        <li><strong>I draft user stories</strong> for anything the system should now do differently, and show them to you first.</li>
-        <li><strong>I record the version</strong> in the change log and run all the checks.</li>
-        <li><strong>You approve</strong> — and record it with one command, <code>make verify</code>. I am not allowed to do that step for you.</li>
+        <li><strong>Jarvis analyses it</strong>, asks about anything unclear, and shows which documents it affects.</li>
+        <li><strong>Jarvis writes a change request</strong> into <code>content/sources/</code>, once you agree on the scope.</li>
+        <li><strong>Jarvis updates the documents from the inside out</strong>, starting with the domain model, because everything else depends on it.</li>
+        <li><strong>Jarvis drafts user stories</strong> for anything the system should now do differently, and shows them to you first.</li>
+        <li><strong>Jarvis records the version</strong> in the change log, stamps the OKF labels, and runs all the checks.</li>
+        <li><strong>You approve</strong> — and record it with one command, <code>make verify</code>, which adds a <code>verified</code> label. The agent is not allowed to do that step for you.</li>
         <li><strong>The change goes to GitHub</strong>, and the website rebuilds itself.</li>
       </ol>
     </section>
@@ -225,31 +245,16 @@
     </section>
 
     <section>
-      <h2>The label on every page</h2>
-      <p>Each document starts with a short block of labels that people rarely see but tools read. It says what kind of
-        document it is, which documents it was derived from (<code>sources</code>), who wrote it and when
-        (<code>generated</code>), whether a person approved it (<code>verified</code>), and which parts of the domain it is
-        about (<code>tags</code>). The labels follow an open standard, the
-        <a href="https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md" target="_blank">Open Knowledge Format</a>,
-        so any other agent can read this documentation without special tools.</p>
-      <p>How well does the documentation follow that standard? When you type <code>/okf-check</code>, I go through the
-        standard’s 41 rules one by one and file a report next to the change requests in <code>content/sources/</code>. Old
-        reports are never overwritten, so two of them show what got better in between — and a change request that fixes
-        a finding points back at the report that found it.</p>
-      <p>The diagrams are written as text too, and drawn automatically when the site is built — so a picture can never
-        disagree with the text it was drawn from.</p>
-    </section>
-
-    <section>
       <h2>Where the idea comes from</h2>
-      <p>This follows the <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank">LLM Wiki</a>
+      <p>The labels come from the <a href="https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md" target="_blank">Open Knowledge Format</a>.
+        The way of working follows the <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank">LLM Wiki</a>
         pattern: instead of searching raw notes every time a question comes up, an agent keeps a set of linked, up-to-date
         pages — and a person keeps the final say.</p>
     </section>
 
     <section>
-      <h2>Read my instructions yourself</h2>
-      <p>Below is exactly what I am told to do — the same files the agent reads, copied here automatically on every build.</p>
+      <h2>Read Jarvis's instructions yourself</h2>
+      <p>Below is exactly what Jarvis is told to do — the same files the agent reads, copied here automatically on every build.</p>
       <details>
         <summary>Show the instructions</summary>
         <div class="file-badge">AGENTS.md · .claude/skills · .claude/rules</div>
@@ -259,7 +264,7 @@
 
     <footer>
       Setting the repository up yourself? Read the <a href="https://github.com/marcelRonner/okf-productdocumentation#readme" target="_blank">README</a>.
-      Want to learn how to build an agent like this? That is part of the
+      Want to learn how to build documentation and an agent like this? That is part of the
       <a href="https://www.zhaw.ch/de/sml/weiterbildung/detail/kurs/cas-business-analysis-and-methods" target="_blank">CAS Business Analysis and Methods</a>
       at the ZHAW School of Management and Law.
     </footer>
