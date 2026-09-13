@@ -7,6 +7,9 @@ weight: 4
 generated:
   by: jarvis/1.0
   at: 2026-09-13T10:00:11Z
+verified:
+  - by: human:owner
+    at: 2026-09-13T10:11:37Z
 ---
 
 # OKF v0.2 Conformance Assessment – 2026-09-13
