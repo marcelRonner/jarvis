@@ -1,4 +1,14 @@
 .venv/
-site/
 __pycache__/
 *.pyc
+.DS_Store
+
+# Build output. site/ is the Hugo build; deploy/ is what the server receives (`make stage`).
+site/
+deploy/
+
+node_modules/
+
+# Hugo caches.
+.hugo_build.lock
+resources/_gen/

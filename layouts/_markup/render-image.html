@@ -1,0 +1,56 @@
+{{- /*
+  Render PlantUML diagrams at build time, straight from their `.puml` source.
+
+  An artifact embeds its diagram by pointing an image at the source file next to it:
+
+      ![Activity Diagram – Withdraw Cash](withdrawCash.puml)
+
+  This hook reads that file, posts it to Kroki (https://kroki.io, or `params.kroki_url`), and
+  publishes the SVG that comes back. There is no Java, no PlantUML jar, no Graphviz and no
+  generated SVG in the repository: the `.puml` file is the diagram, and nothing can drift from it.
+  Hugo caches each response keyed on the source, so an unchanged diagram is fetched once.
+
+  If Kroki cannot be reached or rejects the diagram, the page links the source instead and the
+  build warns — `make build` fails on that warning, so a broken diagram never deploys silently.
+
+  Any other image is emitted as written, with a relative path resolved the same way
+  `render-link.html` resolves links, so it survives Hugo's pretty URLs.
+*/ -}}
+
+{{- $dest := .Destination -}}
+{{- $alt := .PlainText -}}
+{{- $isRemote := or (urls.Parse $dest).Scheme (strings.HasPrefix $dest "//") -}}
+{{- $abs := "" -}}
+{{- with .Page.File -}}{{- $abs = path.Join (path.Dir .Path) $dest -}}{{- end -}}
+{{- $file := path.Join "content" $abs -}}
+
+{{- if and (not $isRemote) (strings.HasSuffix $dest ".puml") -}}
+  {{- $done := false -}}
+  {{- if fileExists $file -}}
+    {{- $source := os.ReadFile $file -}}
+    {{- $url := printf "%s/plantuml/svg" (strings.TrimSuffix "/" (site.Params.kroki_url | default "https://kroki.io")) -}}
+    {{- $opts := dict "method" "post" "body" $source "headers" (dict "Content-Type" "text/plain") -}}
+    {{- with try (resources.GetRemote $url $opts) -}}
+      {{- with .Err -}}
+        {{- warnf "render-image: %s in %q could not be rendered by %s: %s" $dest $.Page.File.Path $url . -}}
+      {{- else with .Value -}}
+        {{- $svg := resources.Copy (printf "diagrams/%s.svg" (strings.TrimSuffix ".puml" $abs)) . -}}
+        <img src="{{ $svg.RelPermalink }}" alt="{{ $alt }}"{{ with $.Title }} title="{{ . }}"{{ end }} class="diagram">
+        {{- $done = true -}}
+      {{- else -}}
+        {{- warnf "render-image: %s in %q — %s returned nothing" $dest $.Page.File.Path $url -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- warnf "render-image: %q in %q does not exist" $dest $.Page.File.Path -}}
+  {{- end -}}
+  {{- if not $done -}}
+    <a href="{{ $dest }}">{{ $alt }} (PlantUML source)</a>
+  {{- end -}}
+{{- else -}}
+  {{- $src := $dest -}}
+  {{- if and (not $isRemote) (not (strings.HasPrefix $dest "/")) (fileExists $file) -}}
+    {{- $src = (resources.FromString $abs (os.ReadFile $file)).RelPermalink -}}
+  {{- end -}}
+  <img src="{{ $src }}" alt="{{ $alt }}"{{ with .Title }} title="{{ . }}"{{ end }}>
+{{- end -}}

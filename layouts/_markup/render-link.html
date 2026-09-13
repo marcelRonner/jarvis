@@ -1,0 +1,77 @@
+{{- /*
+  Resolve relative links to the published URL of what they point at.
+
+  Artifacts link to each other with ordinary relative Markdown links
+  (`../../use_case/withdraw_cash/withdrawCash.md`), so the files read correctly on GitHub and to any
+  agent or Open Knowledge Format consumer that reads the Markdown directly. Hugo does not rewrite
+  those links — without this hook it emits the `.md` path verbatim, which 404s on the built site
+  because the page is published at `…/withdrawcash/`.
+
+  Two kinds of destination are handled:
+
+  - a `.md` file, which becomes the URL of that page, `#fragment` kept;
+  - a folder, which becomes the URL of its section page (the story map links `user_stories/`);
+  - any other file inside `content/` — the change log links `.puml` diagram sources — which is
+    published as it is and linked. Hugo publishes only pages and bundle resources on its own.
+
+  A destination that resolves to neither is passed through untouched. One that climbs out of
+  `content/` is deliberate — a link to a repository file such as README.md, which is never
+  published — and stays silent. Inside `content/` an unresolved link is a typo, and warns;
+  `make build` fails on that warning.
+*/ -}}
+
+{{- $dest := .Destination -}}
+{{- $isRemote := or (urls.Parse $dest).Scheme (strings.HasPrefix $dest "//") -}}
+
+{{- /* Split off a #fragment so `page.md#section` resolves and keeps its anchor. */ -}}
+{{- $path := $dest -}}
+{{- $frag := "" -}}
+{{- if and (not $isRemote) (strings.Contains $dest "#") -}}
+  {{- $parts := split $dest "#" -}}
+  {{- $path = index $parts 0 -}}
+  {{- $frag = printf "#%s" (delimit (after 1 $parts) "#") -}}
+{{- end -}}
+
+{{- $href := $dest -}}
+
+{{- if and (not $isRemote) $path (not (strings.HasPrefix $path "/")) -}}
+  {{- with .Page.File -}}
+    {{- /* Normalise against the linking page's directory: path.Join collapses `..`. */ -}}
+    {{- $abs := path.Join (path.Dir .Path) $path -}}
+
+    {{- if strings.HasSuffix $path ".md" -}}
+      {{- /* A link to a section names its _index.md; Hugo knows that page by its directory. */ -}}
+      {{- $lookup := $abs -}}
+      {{- if eq (path.Base $abs) "_index.md" -}}
+        {{- $lookup = path.Dir $abs -}}
+        {{- if eq $lookup "." -}}{{- $lookup = "/" -}}{{- end -}}
+      {{- end -}}
+      {{- with site.GetPage $lookup -}}
+        {{- $href = printf "%s%s" .RelPermalink $frag -}}
+      {{- else -}}
+        {{- if not (strings.HasPrefix $abs "..") -}}
+          {{- warnf "render-link: %q in %q does not resolve to a page — left as written" $dest $.Page.File.Path -}}
+        {{- end -}}
+      {{- end -}}
+    {{- else if not (strings.HasPrefix $abs "..") -}}
+      {{- $file := path.Join "content" $abs -}}
+      {{- if and (fileExists $file) (os.Stat $file).IsDir -}}
+        {{- /* A folder is its section page, e.g. `user_stories/`. */ -}}
+        {{- with site.GetPage $abs -}}
+          {{- $href = printf "%s%s" .RelPermalink $frag -}}
+        {{- else -}}
+          {{- warnf "render-link: %q in %q is a folder with no _index.md — left as written" $dest $.Page.File.Path -}}
+        {{- end -}}
+      {{- else if fileExists $file -}}
+        {{- $href = printf "%s%s" (resources.FromString $abs (os.ReadFile $file)).RelPermalink $frag -}}
+      {{- else -}}
+        {{- warnf "render-link: %q in %q does not resolve to a file — left as written" $dest $.Page.File.Path -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+<a href="{{ $href }}"
+  {{- with .Title }} title="{{ . }}"{{ end -}}
+  {{- if $isRemote }} rel="noopener"{{ end -}}
+>{{ .Text }}</a>
